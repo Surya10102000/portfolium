@@ -1,137 +1,107 @@
+import { AboutSection, Contact, Education, Experience, HeroSectionI, Project, UserData } from "@/types/userData";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Section {
-  id: string;
-  type: "about" | "projects" | "skills" | "contact";
-  content: any;
-  isEditing?: boolean;
-}
-
 interface PortfolioState {
-  sections: Section[];
-  isPreviewMode: boolean;
-  primaryColor: string;
-  activeSectionId: string | null;
-  isLoading: boolean;
-  error: string | null;
+  data: UserData;
+  visibleSections: string[];
+  modifiedSections : Set<string>;
 }
 
 const initialState: PortfolioState = {
-  sections: [
-    {
-      id: "about-section",
-      type: "about",
-      content: {
-        title: "About Me",
-        description: "",
-        image: "",
-      },
+  data: {
+    hero: {
+      name: "Surya",
+      role: "SDE",
+      description: "I am a SDE with a passion for building scalable applications.",
+      image: "",
     },
-    {
-      id: "projects-section",
-      type: "projects",
-      content: {
-        items: [],
-      },
+    about: {
+      aboutMe: "",
+      whatIDo: "",
+      techStack: [],
     },
-    {
-      id: "skills-section",
-      type: "skills",
-      content: {
-        items: [],
-      },
-    },
-    {
-      id: "contact-section",
-      type: "contact",
-      content: {
-        email: "",
-        socials: [],
-      },
-    },
-  ],
-  isPreviewMode: false,
-  primaryColor: "#4f46e5",
-  activeSectionId: null,
-  isLoading: false,
-  error: null,
+    projects: [],
+    experience: [],
+    education: [],
+    contact: [],
+  },
+  visibleSections: ["hero"], // Start with hero section visible by default
+   // Track which sections are modified
+   modifiedSections: new Set<string>()
 };
 
 export const portfolioSlice = createSlice({
   name: "portfolio",
   initialState,
   reducers: {
-    moveSection: (
-      state,
-      action: PayloadAction<{ dragIndex: number; hoverIndex: number }>
-    ) => {
-      const { dragIndex, hoverIndex } = action.payload;
-      const draggedSection = state.sections[dragIndex];
-
-      // Create new array without dragged item
-      const updatedSections = [...state.sections];
-      updatedSections.splice(dragIndex, 1);
-
-      // Insert dragged item at new position
-      updatedSections.splice(hoverIndex, 0, draggedSection);
-
-      state.sections = updatedSections;
-    },
-    updateSectionContent: (
-      state,
-      action: PayloadAction<{ id: string; content: any }>
-    ) => {
-      const section = state.sections.find((s) => s.id === action.payload.id);
-      if (section) {
-        section.content = { ...section.content, ...action.payload.content };
+    //add a new section to the visibleSections array
+    addSection: (state, action: PayloadAction<string>) => {
+      if (!state.visibleSections.includes(action.payload)) {
+        state.visibleSections.push(action.payload);
       }
     },
-    togglePreviewMode: (state) => {
-      state.isPreviewMode = !state.isPreviewMode;
-    },
-    setSections: (state, action: PayloadAction<Section[]>) => {
-      state.sections = action.payload;
-    },
-    toggleSectionEdit: (state, action: PayloadAction<string>) => {
-      const section = state.sections.find((s) => s.id === action.payload);
-      if (section) {
-        section.isEditing = !section.isEditing;
+
+    //remove a section from the visibleSections array
+    removeSection: (state, action: PayloadAction<string>) => {
+      const index = state.visibleSections.indexOf(action.payload);
+      if (index !== -1) {
+        state.visibleSections.splice(index, 1);
       }
     },
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
+    // Update section data
+    updateHero: (state, action: PayloadAction<HeroSectionI>) => {
+      state.data.hero.name = action.payload.name;
     },
-    setError: (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
+    updateAbout: (state, action: PayloadAction<AboutSection>) => {
+      state.data.about = action.payload;
+
     },
-    setPrimaryColor: (state, action: PayloadAction<string>) => {
-      state.primaryColor = action.payload;
+    
+    addProject: (state, action: PayloadAction<Project>) => {
+      state.data.projects.push(action.payload);
     },
-    setActiveSection: (state, action: PayloadAction<string | null>) => {
-      state.activeSectionId = action.payload;
+    updateProject: (state, action: PayloadAction<Project>) => {
+      const index = state.data.projects.findIndex(
+        p => p.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.data.projects[index] = action.payload;
+      }
     },
-    savePortfolio: (state) => {
-      // This would typically involve an async thunk in real implementation
-      state.isLoading = true;
+    
+    // Similar reducers for other sections...
+    addExperience: (state, action: PayloadAction<Experience>) => {
+      state.data.experience.push(action.payload);
     },
-    publishPortfolio: (state) => {
-      state.isLoading = true;
+    
+    addEducation: (state, action: PayloadAction<Education>) => {
+      state.data.education.push(action.payload);
     },
+    
+    addContact: (state, action: PayloadAction<Contact>) => {
+      state.data.contact.push(action.payload);
+    },
+    
+    // Reorder sections
+    reorderSections: (state, action: PayloadAction<string[]>) => {
+      state.visibleSections = action.payload;
+    }
   },
 });
 
+
+
 export const {
-  moveSection,
-  updateSectionContent,
-  togglePreviewMode,
-  setSections,
-  toggleSectionEdit,
-  setLoading,
-  setError,
-  setPrimaryColor,
-  setActiveSection,
-  savePortfolio,
-  publishPortfolio,
+  addSection,
+  removeSection,
+  updateHero,
+  updateAbout,
+  addProject,
+  updateProject,
+  addExperience,
+  addEducation,
+  addContact,
+  reorderSections
 } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;

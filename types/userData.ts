@@ -1,32 +1,32 @@
 // types/userData.ts
-export interface HeroSection {
+export interface HeroSectionI {
     name: string;
-    role: string;
-    description: string;
-    image: string;
+    role?: string;
+    description?: string;
+    image?: string;
   }
   
   export interface AboutSection {
     aboutMe: string;
     whatIDo: string;
-    techStack: techStacktype[];
+    techStack?: techStacktype[];
   }
 
   export interface techStacktype{
     name : string;
-    type : "Frontend" | "Backend" | "devOps" | "AI" | "Ohters"
+    type : "Frontend" | "Backend" | "DevOps" | "AI" | "Others"
   }
 
   
   export interface Project {
     id: number;
     projectName: string;
-    date: string;
     description: string;
+    date?: string;
     techStack: string[];
-    image: string;
-    projectLink: string;
-    githubLink: string;
+    image?: string;
+    projectLink?: string;
+    githubLink?: string;
   }
   
   export interface Experience {
@@ -34,15 +34,15 @@ export interface HeroSection {
     role: string;
     duration: string;
     company: string;
-    description: string;
+    description?: string;
   }
   
   export interface Education {
     id: number;
     universityName: string;
-    duration: string;
     courseName: string;
-    description: string;
+    description?: string;
+    duration?: string;
   }
   
   export interface Contact {
@@ -51,7 +51,7 @@ export interface HeroSection {
   }
   
   export interface UserData {
-    hero: HeroSection;
+    hero: HeroSectionI;
     about: AboutSection;
     projects: Project[];
     experience: Experience[];

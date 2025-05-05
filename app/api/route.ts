@@ -1,4 +1,4 @@
-import dbConnect from "@/libs/connectDB";
+import dbConnect from "@/lib/connectDB";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {

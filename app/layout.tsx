@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SessionWrapper from "./_components/SessionWrapper";
-import dbConnect from "@/libs/connectDB";
+import dbConnect from "@/lib/connectDB";
+import ReduxProvider from "./_components/ReduxProvider";
+import Navbar from "./_components/navbar/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,13 +29,16 @@ export default function RootLayout({
   dbConnect();
   return (
     <html lang="en">
-      <SessionWrapper>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {children}
-        </body>
-      </SessionWrapper>
+      <ReduxProvider>
+        <SessionWrapper>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            >
+            <Navbar/>
+            {children}
+          </body>
+        </SessionWrapper>
+      </ReduxProvider>
     </html>
   );
 }

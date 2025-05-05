@@ -1,9 +1,12 @@
+
+import ProfileContainer from "../_components/profile/ProfileContainer";
 import ProtectedRoute from "../_components/ProtectedRoute";
 
 const page = () => {
+  
   return (
     <ProtectedRoute>
-      <div>This is the editor page </div>
+      <ProfileContainer/>
     </ProtectedRoute>
   );
 };
