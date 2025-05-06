@@ -15,7 +15,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="h-16 flex justify-between items-center px-4">
-      <div className="font-extrabold text-2xl">Portfoli<span className="text-green-700">u</span>m</div>
+      <div className="font-extrabold text-3xl">Portfoli<span className="text-green-700">u</span>m</div>
       <div className="space-x-2.5">
         <Dialog>
           <DialogTrigger asChild>

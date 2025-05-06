@@ -68,7 +68,7 @@ export const HeroForm = ({
           id="description"
           {...register("description")}
           placeholder="A passionate developer with..."
-          className="mt-1 min-h-[100px]"
+          className="mt-1 h-[100px] "       
         />
       </div>
 

@@ -4,7 +4,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface PortfolioState {
   data: UserData;
   visibleSections: string[];
-  modifiedSections : Set<string>;
 }
 
 const initialState: PortfolioState = {
@@ -25,9 +24,7 @@ const initialState: PortfolioState = {
     education: [],
     contact: [],
   },
-  visibleSections: ["hero"], // Start with hero section visible by default
-   // Track which sections are modified
-   modifiedSections: new Set<string>()
+  visibleSections: ["hero"], 
 };
 
 export const portfolioSlice = createSlice({
@@ -50,7 +47,7 @@ export const portfolioSlice = createSlice({
     },
     // Update section data
     updateHero: (state, action: PayloadAction<HeroSectionI>) => {
-      state.data.hero.name = action.payload.name;
+      state.data.hero = action.payload;
     },
     updateAbout: (state, action: PayloadAction<AboutSection>) => {
       state.data.about = action.payload;

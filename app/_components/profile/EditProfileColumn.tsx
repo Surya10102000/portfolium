@@ -9,20 +9,31 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { HeroForm } from "./Forms/HeroForm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { HeroSectionI } from "@/types/userData";
+import { AboutSection, HeroSectionI } from "@/types/userData";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { updateAbout, updateHero } from "@/store/portfolioSlice";
+import AboutForm from "./Forms/AboutForm";
 
 const EditProfileBox = () => {
   const [activeForm, setActiveForm] = useState<string | null>(null);
-  const data = useSelector((state: RootState) => state.portfolio.data.hero);
+  const data = useSelector((state: RootState) => state.portfolio.data);
+  const dispatch = useDispatch();
+
+  const handleSubmitHero = (data: HeroSectionI)=>{
+    dispatch(updateHero(data))
+  }
+
+  const handleSubmitAbout = (data: AboutSection)=>{
+    dispatch(updateAbout(data))
+  }
 
   const sections = [
     {
       id: "hero",
-      title: "Hero Sectoin",
-      description: "You name , role ,description and image",
+      title: "Hero Section",
+      description: "You name, role, description and image",
       icon: <LayoutPanelTop />,
     },
     {
@@ -55,14 +66,38 @@ const EditProfileBox = () => {
                 <DialogTitle className="capitalize">
                   {activeForm} Section
                 </DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="sr-only">
                   Change {activeForm} contents
                 </DialogDescription>
               </DialogHeader>
               <HeroForm
-                initialData={data}
+                initialData={data.hero}
                 onSubmit={(data) => {
                   console.log(data);
+                  handleSubmitHero(data);
+                  setActiveForm(null);
+                }}
+                onCancel={() => setActiveForm(null)}
+              />
+            </>
+          )}
+
+        
+          {activeForm === "about" && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="capitalize">
+                  {activeForm} Section
+                </DialogTitle>
+                <DialogDescription className="sr-only">
+                  Change {activeForm} contents
+                </DialogDescription>
+              </DialogHeader>
+              <AboutForm
+                initialData={data.about}
+                onSubmit={(data) => {
+                  console.log(data);
+                  handleSubmitAbout(data);
                   setActiveForm(null);
                 }}
                 onCancel={() => setActiveForm(null)}
