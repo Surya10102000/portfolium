@@ -6,12 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { HeroSectionI } from "@/types/userData";
+import { Badge } from "@/components/ui/badge";
 
 interface HeroFormProps {
   initialData: HeroSectionI;
   onSubmit: (data: HeroSectionI) => void;
   onCancel?: () => void;
 }
+
 
 export const HeroForm = ({
   initialData,
@@ -21,7 +23,7 @@ export const HeroForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty},
     setValue,
     watch,
   } = useForm<HeroSectionI>({
@@ -38,12 +40,15 @@ export const HeroForm = ({
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Name Field */}
       <div>
+      <div>
+        {isDirty && <div className="flex justify-end absolute right-8 top-12 "><Badge variant='destructive'>Unsaved Changes</Badge></div>}
+      </div>
         <Label htmlFor="name">Full Name*</Label>
         <Input
           id="name"
           {...register("name")}
           placeholder="John Doe"
-          className="mt-1"
+          className="mt-2"
         />
         {errors.name && (
           <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
@@ -57,7 +62,7 @@ export const HeroForm = ({
           id="role"
           {...register("role")}
           placeholder="Frontend Developer"
-          className="mt-1"
+          className="mt-2"
         />
       </div>
 
@@ -68,7 +73,7 @@ export const HeroForm = ({
           id="description"
           {...register("description")}
           placeholder="A passionate developer with..."
-          className="mt-1 h-[100px] "       
+          className="mt-2 h-[100px] "       
         />
       </div>
 

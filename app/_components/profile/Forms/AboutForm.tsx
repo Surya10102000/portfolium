@@ -57,7 +57,7 @@ const AboutForm = ({ initialData, onSubmit, onCancel }: AboutFormProps) => {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* About me field */}
       <div>
-        {isDirty && <div className="flex justify-end absolute right-8 "><Badge variant='destructive'>Unsaved Changes</Badge></div>}
+        {isDirty && <div className="flex justify-end absolute right-8 top-12"><Badge variant='destructive'>Unsaved Changes</Badge></div>}
       </div>
       <div>
         <Label htmlFor="aboutMe">About Yourself</Label>
