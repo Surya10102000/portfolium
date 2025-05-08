@@ -9,12 +9,7 @@ export interface HeroSectionI {
   export interface AboutSection {
     aboutMe: string;
     whatIDo: string;
-    techStack?: techStacktype[];
-  }
-
-  export interface techStacktype{
-    name : string;
-    type : "Frontend" | "Backend" | "DevOps" | "AI" | "Others"
+    techStack?: string[];
   }
 
   

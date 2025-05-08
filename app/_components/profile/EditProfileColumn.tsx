@@ -73,7 +73,6 @@ const EditProfileBox = () => {
               <HeroForm
                 initialData={data.hero}
                 onSubmit={(data) => {
-                  console.log(data);
                   handleSubmitHero(data);
                   setActiveForm(null);
                 }}
@@ -96,8 +95,8 @@ const EditProfileBox = () => {
               <AboutForm
                 initialData={data.about}
                 onSubmit={(data) => {
-                  console.log(data);
                   handleSubmitAbout(data);
+                  console.log(data)
                   setActiveForm(null);
                 }}
                 onCancel={() => setActiveForm(null)}

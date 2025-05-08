@@ -1,5 +1,14 @@
-import { AboutSection, Contact, Education, Experience, HeroSectionI, Project, UserData } from "@/types/userData";
+import {
+  AboutSection,
+  Contact,
+  Education,
+  Experience,
+  HeroSectionI,
+  Project,
+  UserData,
+} from "@/types/userData";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 
 interface PortfolioState {
   data: UserData;
@@ -11,26 +20,50 @@ const initialState: PortfolioState = {
     hero: {
       name: "Surya",
       role: "SDE",
-      description: "I am a SDE with a passion for building scalable applications.",
+      description:
+        "I am a SDE with a passion for building scalable applications.",
       image: "",
     },
     about: {
       aboutMe: "",
       whatIDo: "",
-      techStack: [],
+      techStack: []
     },
     projects: [],
     experience: [],
     education: [],
     contact: [],
   },
-  visibleSections: ["hero"], 
+  visibleSections: ["hero"],
 };
 
 export const portfolioSlice = createSlice({
   name: "portfolio",
   initialState,
   reducers: {
+    // Add tech to about section
+    addTechToAbout: (state, action: PayloadAction<string>) => {
+      if (!state.data.about.techStack) {
+        state.data.about.techStack = [];
+      }
+      if (!state.data.about.techStack.includes(action.payload)) {
+        state.data.about.techStack.push(action.payload);
+      }
+    },
+
+    // Remove tech from about section
+    removeTechFromAbout: (state, action: PayloadAction<string>) => {
+      if (state.data.about.techStack) {
+        state.data.about.techStack = state.data.about.techStack.filter(
+          tech => tech !== action.payload
+        );
+      }
+    },
+
+    // Update about section
+    updateAbout: (state, action: PayloadAction<AboutSection>) => {
+      state.data.about = action.payload;
+    },
     //add a new section to the visibleSections array
     addSection: (state, action: PayloadAction<string>) => {
       if (!state.visibleSections.includes(action.payload)) {
@@ -49,44 +82,37 @@ export const portfolioSlice = createSlice({
     updateHero: (state, action: PayloadAction<HeroSectionI>) => {
       state.data.hero = action.payload;
     },
-    updateAbout: (state, action: PayloadAction<AboutSection>) => {
-      state.data.about = action.payload;
-
-    },
-    
     addProject: (state, action: PayloadAction<Project>) => {
       state.data.projects.push(action.payload);
     },
     updateProject: (state, action: PayloadAction<Project>) => {
       const index = state.data.projects.findIndex(
-        p => p.id === action.payload.id
+        (p) => p.id === action.payload.id
       );
       if (index !== -1) {
         state.data.projects[index] = action.payload;
       }
     },
-    
+
     // Similar reducers for other sections...
     addExperience: (state, action: PayloadAction<Experience>) => {
       state.data.experience.push(action.payload);
     },
-    
+
     addEducation: (state, action: PayloadAction<Education>) => {
       state.data.education.push(action.payload);
     },
-    
+
     addContact: (state, action: PayloadAction<Contact>) => {
       state.data.contact.push(action.payload);
     },
-    
+
     // Reorder sections
     reorderSections: (state, action: PayloadAction<string[]>) => {
       state.visibleSections = action.payload;
-    }
+    },
   },
 });
-
-
 
 export const {
   addSection,
@@ -98,7 +124,9 @@ export const {
   addExperience,
   addEducation,
   addContact,
-  reorderSections
+  reorderSections,
+  addTechToAbout,
+  removeTechFromAbout
 } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;
