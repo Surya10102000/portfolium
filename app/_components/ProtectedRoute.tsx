@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function ProtectedRoute ({ children } : {children : React.ReactNode}) {
-  const { status } = useSession();
+  const { status,data } = useSession();
   const router = useRouter();
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -13,6 +13,7 @@ export default function ProtectedRoute ({ children } : {children : React.ReactNo
   }, [status, router]);
 
   if (status === "authenticated") {
+    localStorage.setItem('emailID', data?.user?.email!)
     return children;
   }
 
