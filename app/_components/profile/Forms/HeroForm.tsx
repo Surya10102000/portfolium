@@ -41,6 +41,7 @@ export const HeroForm = ({
           {...register("name",{required : "Name is required",})}
           placeholder="John Doe"
           className="mt-2"
+          disabled={isSubmitting}
         />
         {errors.name && (
           <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
@@ -55,6 +56,7 @@ export const HeroForm = ({
           {...register("role",{required : "Role is required"})}
           placeholder="Frontend Developer"
           className="mt-2"
+          disabled={isSubmitting}
         />
         {errors.role && (
           <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
@@ -68,7 +70,8 @@ export const HeroForm = ({
           id="description"
           {...register("description",{required : "Description is required"})}
           placeholder="A passionate developer with..."
-          className="mt-2 h-[100px] "       
+          className="mt-2 h-[100px] "  
+          disabled={isSubmitting}     
         />
         {errors.description && (
           <p className="text-sm text-red-500 mt-1">{errors.description.message}</p>
