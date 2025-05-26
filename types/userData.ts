@@ -18,10 +18,8 @@ export interface HeroSectionI {
     projectName: string;
     description: string;
     date?: string;
-    techStack: string[];
     image?: string;
     projectLink?: string;
-    githubLink?: string;
   }
   
   export interface Experience {

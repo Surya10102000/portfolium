@@ -9,7 +9,6 @@ import {
 } from "@/types/userData";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 interface PortfolioState {
   data: UserData;
   visibleSections: string[];
@@ -27,7 +26,7 @@ const initialState: PortfolioState = {
     about: {
       aboutMe: "",
       whatIDo: "",
-      techStack: []
+      techStack: [],
     },
     projects: [],
     experience: [],
@@ -55,7 +54,7 @@ export const portfolioSlice = createSlice({
     removeTechFromAbout: (state, action: PayloadAction<string>) => {
       if (state.data.about.techStack) {
         state.data.about.techStack = state.data.about.techStack.filter(
-          tech => tech !== action.payload
+          (tech) => tech !== action.payload
         );
       }
     },
@@ -126,7 +125,7 @@ export const {
   addContact,
   reorderSections,
   addTechToAbout,
-  removeTechFromAbout
+  removeTechFromAbout,
 } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;

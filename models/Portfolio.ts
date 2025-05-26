@@ -1,39 +1,49 @@
-import { Schema, model } from "mongoose";
-import { IPortfolio } from "../types/models";
+import { IPortfolio } from "@/types/models";
+import { model, models, Schema } from "mongoose";
 
-const PortfolioSchema = new Schema<IPortfolio>(
-  {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    about: {
-      title: { type: String, default: "About Me" },
-      description: { type: String, default: "" },
-      image: String,
-    },
-    projects: [
-      {
-        title: String,
-        description: String,
-        url: String,
-        image: String,
-      },
-    ],
-    skills: [
-      {
-        name: String,
-        level: { type: Number, min: 0, max: 100 },
-      },
-    ],
-    contact: {
-      email: String,
-      socials: [
-        {
-          platform: String,
-          url: String,
-        },
-      ],
-    },
+const PortfolioSchema: Schema = new Schema({
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+  hero: {
+    name: { type: String },
+    role: String,
+    description: String,
+    image: String
   },
-  { timestamps: true }
-);
+  about: {
+    aboutMe: { type: String },
+    whatIDo: { type: String},
+    techStack: [String]
+  },
+  projects: [{
+    id: Number,
+    projectName: { type: String },
+    description: { type: String },
+    date: String,
+    image: String,
+    projectLink: String,
+    techStack: [String]
+  }],
+  experience: [{
+    id: Number,
+    role: { type: String },
+    duration: { type: String },
+    company: { type: String },
+    description: String
+  }],
+  education: [{
+    id: Number,
+    universityName: { type: String },
+    courseName: { type: String },
+    description: String,
+    duration: String
+  }],
+  contact: {
+    email: { type: String },
+    socials: [{
+      platform: { type: String },
+      url: { type: String }
+    }]
+  }
+}, { timestamps: true });
 
-export default model<IPortfolio>("Portfolio", PortfolioSchema);
+export const Portfolio = models?.Portfolio || model<IPortfolio>("Portfolio", PortfolioSchema);

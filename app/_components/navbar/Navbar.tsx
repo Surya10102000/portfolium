@@ -10,8 +10,11 @@ import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog";
 import { Menu, Pencil } from "lucide-react";
 import { useState } from "react";
 import EditProfileBox from "../profile/EditProfileColumn";
+import { useGetPortfolioQuery } from "@/services/portfolioApi";
 
 const Navbar = () => {
+    const {data, isLoading, error}= useGetPortfolioQuery()
+  
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="h-16 flex justify-between items-center px-4">
@@ -20,11 +23,11 @@ const Navbar = () => {
       </div>
       <div className="space-x-2.5">
         <Dialog>
-          <DialogTrigger asChild>
+          {data && <DialogTrigger asChild>
             <Button size="icon">
               <Pencil />
             </Button>
-          </DialogTrigger>
+          </DialogTrigger>}
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Edit Profile</DialogTitle>

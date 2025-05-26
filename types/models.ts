@@ -8,29 +8,47 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
-
 export interface IPortfolio extends Document {
   userId: Schema.Types.ObjectId;
-  about: {
-    title: string;
-    description: string;
+  hero: {
+    name: string;
+    role?: string;
+    description?: string;
     image?: string;
   };
-  projects: Array<{
-    title: string;
+  about?: {
+    aboutMe: string;
+    whatIDo: string;
+    techStack?: string[];
+  };
+  projects?: Array<{
+    id: number; 
+    projectName: string;
     description: string;
-    url?: string;
+    date?: string;
     image?: string;
+    projectLink?: string; 
+    techStack?: string[]; 
   }>;
-  skills: Array<{
-    name: string;
-    level: number;
+  experience?: Array<{ 
+    id: number;
+    role: string;
+    duration: string;
+    company: string;
+    description?: string;
   }>;
-  contact: {
+  education?: Array<{ 
+    id: number;
+    universityName: string;
+    courseName: string;
+    description?: string;
+    duration?: string;
+  }>;
+  contact?: {
     email: string;
     socials: Array<{
-      platform: string;
-      url: string;
+      platform: string; 
+      url: string; 
     }>;
   };
   createdAt: Date;

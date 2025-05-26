@@ -32,7 +32,7 @@ export default function RootLayout({
       <ReduxProvider>
         <SessionWrapper>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased `}
             >
             <Navbar/>
             {children}
