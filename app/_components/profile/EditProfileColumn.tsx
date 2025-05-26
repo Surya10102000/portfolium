@@ -1,7 +1,7 @@
 "use client";
-import { LayoutPanelTop, SquareUser } from "lucide-react";
+import { FolderGit, LayoutPanelTop, Pickaxe, SquareUser } from "lucide-react";
 import Section from "./Section";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,24 +10,38 @@ import {
 } from "@/components/ui/dialog";
 import { HeroForm } from "./Forms/HeroForm";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store/store";
-import { AboutSection, HeroSectionI } from "@/types/userData";
+import { RootState } from "@/redux/store";
+import { AboutSection, HeroSectionI, UserData } from "@/types/userData";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { updateAbout, updateHero } from "@/store/portfolioSlice";
+import { updateAbout, updateHero } from "@/redux/portfolioSlice";
 import AboutForm from "./Forms/AboutForm";
+import ProjectSectionEditor from "./ProjectSectionEditor";
+import ExperienceSectionEditor from "./ExperienceForm/ExperienceSectionEditor";
+import {
+  useGetPortfolioQuery,
+  useUpdateAboutMutation,
+  useUpdateHeroMutation,
+} from "@/services/portfolioApi";
 
 const EditProfileBox = () => {
   const [activeForm, setActiveForm] = useState<string | null>(null);
-  const data = useSelector((state: RootState) => state.portfolio.data);
+  // const data = useSelector((state: RootState) => state.portfolio.data);
+  const {data}= useGetPortfolioQuery()
   const dispatch = useDispatch();
+  const [updateHero] = useUpdateHeroMutation();
+  const [updateAbout] = useUpdateAboutMutation()
 
-  const handleSubmitHero = (data: HeroSectionI)=>{
-    dispatch(updateHero(data))
-  }
+  const handleSubmitHero = async (data: HeroSectionI) => {
+    const response = await updateHero(data).unwrap();
+    console.log(response);
+    setActiveForm(null)
+  };
 
-  const handleSubmitAbout = (data: AboutSection)=>{
-    dispatch(updateAbout(data))
-  }
+  const handleSubmitAbout = async (data: AboutSection) => {
+    const response = await updateAbout(data).unwrap();
+    console.log(response);
+    setActiveForm(null)
+  };
 
   const sections = [
     {
@@ -41,6 +55,18 @@ const EditProfileBox = () => {
       title: "About Section",
       description: "Your bio and and what you do ",
       icon: <SquareUser />,
+    },
+    {
+      id: "project",
+      title: "Project Section",
+      description: "Your projects and their details",
+      icon: <FolderGit />,
+    },
+    {
+      id: "experience",
+      title: "Experience Section",
+      description: "Your Experience and their details",
+      icon: <Pickaxe />,
     },
   ];
   return (
@@ -60,7 +86,7 @@ const EditProfileBox = () => {
         onOpenChange={(open) => !open && setActiveForm(null)}
       >
         <DialogContent className="max-w-2xl">
-          {activeForm === "hero" && (
+          {data?.hero && activeForm === "hero" && (
             <>
               <DialogHeader>
                 <DialogTitle className="capitalize">
@@ -74,15 +100,13 @@ const EditProfileBox = () => {
                 initialData={data.hero}
                 onSubmit={(data) => {
                   handleSubmitHero(data);
-                  setActiveForm(null);
                 }}
                 onCancel={() => setActiveForm(null)}
               />
             </>
           )}
 
-        
-          {activeForm === "about" && (
+          {data?.about && activeForm === "about" && (
             <>
               <DialogHeader>
                 <DialogTitle className="capitalize">
@@ -96,11 +120,38 @@ const EditProfileBox = () => {
                 initialData={data.about}
                 onSubmit={(data) => {
                   handleSubmitAbout(data);
-                  console.log(data)
                   setActiveForm(null);
                 }}
                 onCancel={() => setActiveForm(null)}
               />
+            </>
+          )}
+          {activeForm === "project" && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="capitalize">
+                  {activeForm} Section
+                </DialogTitle>
+                <DialogDescription className="sr-only">
+                  Change {activeForm} contents
+                </DialogDescription>
+              </DialogHeader>
+              {/* all the projects will come here */}
+              <ProjectSectionEditor onCancel={() => setActiveForm(null)} />
+            </>
+          )}
+          {activeForm === "experience" && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="capitalize">
+                  {activeForm} Section
+                </DialogTitle>
+                <DialogDescription className="sr-only">
+                  Change {activeForm} contents
+                </DialogDescription>
+              </DialogHeader>
+              {/* all the projects will come here */}
+              <ExperienceSectionEditor onCancel={() => setActiveForm(null)} />
             </>
           )}
         </DialogContent>
