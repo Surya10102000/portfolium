@@ -23,30 +23,22 @@ export const HeroForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty},
-    setValue,
-    watch,
+    formState: { errors, isDirty, isSubmitting },
   } = useForm<HeroSectionI>({
     defaultValues: initialData,
   });
-
-  const imageUrl = watch("image");
-
-  const handleImageUpload = (url: string) => {
-    setValue("image", url, { shouldValidate: true });
-  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Name Field */}
       <div>
       <div>
-        {isDirty && <div className="flex justify-end absolute right-8 top-12 "><Badge variant='destructive'>Unsaved Changes</Badge></div>}
+        {isDirty && <div className="flex justify-end absolute right-8 top-12 "><Badge variant='secondary'>Unsaved Changes</Badge></div>}
       </div>
         <Label htmlFor="name">Full Name*</Label>
         <Input
           id="name"
-          {...register("name")}
+          {...register("name",{required : "Name is required",})}
           placeholder="John Doe"
           className="mt-2"
         />
@@ -60,10 +52,13 @@ export const HeroForm = ({
         <Label htmlFor="role">Professional Role</Label>
         <Input
           id="role"
-          {...register("role")}
+          {...register("role",{required : "Role is required"})}
           placeholder="Frontend Developer"
           className="mt-2"
         />
+        {errors.role && (
+          <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
+        )}
       </div>
 
       {/* Description Field */}
@@ -71,20 +66,23 @@ export const HeroForm = ({
         <Label htmlFor="description">Brief Introduction</Label>
         <Textarea
           id="description"
-          {...register("description")}
+          {...register("description",{required : "Description is required"})}
           placeholder="A passionate developer with..."
           className="mt-2 h-[100px] "       
         />
+        {errors.description && (
+          <p className="text-sm text-red-500 mt-1">{errors.description.message}</p>
+        )}
       </div>
 
       {/* Form Actions */}
       <div className="flex justify-end gap-3 pt-4">
         {onCancel && (
-          <Button type="button" variant="outline" onClick={onCancel}>
+          <Button disabled={isSubmitting} type="button" variant="outline" onClick={onCancel}>
             Cancel
           </Button>
         )}
-        <Button type="submit">Save Changes</Button>
+        <Button disabled={!isDirty || isSubmitting} type="submit">{isSubmitting ? "Saving..." : "Save Changes"}</Button>
       </div>
     </form>
   );
