@@ -9,11 +9,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { HeroForm } from "./Forms/HeroForm";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { AboutSection, HeroSectionI, UserData } from "@/types/userData";
+import { useDispatch } from "react-redux";
+import { AboutSection, HeroSectionI } from "@/types/userData";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { updateAbout, updateHero } from "@/redux/portfolioSlice";
 import AboutForm from "./Forms/AboutForm";
 import ProjectSectionEditor from "./ProjectSectionEditor";
 import ExperienceSectionEditor from "./ExperienceForm/ExperienceSectionEditor";
@@ -27,19 +25,16 @@ const EditProfileBox = () => {
   const [activeForm, setActiveForm] = useState<string | null>(null);
   // const data = useSelector((state: RootState) => state.portfolio.data);
   const {data}= useGetPortfolioQuery()
-  const dispatch = useDispatch();
   const [updateHero] = useUpdateHeroMutation();
   const [updateAbout] = useUpdateAboutMutation()
 
   const handleSubmitHero = async (data: HeroSectionI) => {
     const response = await updateHero(data).unwrap();
-    console.log(response);
     setActiveForm(null)
   };
 
   const handleSubmitAbout = async (data: AboutSection) => {
     const response = await updateAbout(data).unwrap();
-    console.log(response);
     setActiveForm(null)
   };
 
@@ -126,7 +121,7 @@ const EditProfileBox = () => {
               />
             </>
           )}
-          {activeForm === "project" && (
+          {data?.projects && activeForm === "project" && (
             <>
               <DialogHeader>
                 <DialogTitle className="capitalize">
@@ -140,7 +135,7 @@ const EditProfileBox = () => {
               <ProjectSectionEditor onCancel={() => setActiveForm(null)} />
             </>
           )}
-          {activeForm === "experience" && (
+          {data?.experience && activeForm === "experience" && (
             <>
               <DialogHeader>
                 <DialogTitle className="capitalize">

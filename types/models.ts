@@ -21,8 +21,7 @@ export interface IPortfolio extends Document {
     whatIDo: string;
     techStack?: string[];
   };
-  projects?: Array<{
-    id: number; 
+  projects?: Array<{ 
     projectName: string;
     description: string;
     date?: string;
@@ -31,14 +30,12 @@ export interface IPortfolio extends Document {
     techStack?: string[]; 
   }>;
   experience?: Array<{ 
-    id: number;
     role: string;
     duration: string;
     company: string;
     description?: string;
   }>;
   education?: Array<{ 
-    id: number;
     universityName: string;
     courseName: string;
     description?: string;

@@ -14,7 +14,7 @@ export interface HeroSectionI {
 
   
   export interface Project {
-    id: number;
+    _id?: string;
     projectName: string;
     description: string;
     date?: string;
@@ -23,7 +23,7 @@ export interface HeroSectionI {
   }
   
   export interface Experience {
-    id: number;
+    _id?: string;
     role: string;
     duration: string;
     company: string;
@@ -31,7 +31,7 @@ export interface HeroSectionI {
   }
   
   export interface Education {
-    id: number;
+    _id?: string;
     universityName: string;
     courseName: string;
     description?: string;
