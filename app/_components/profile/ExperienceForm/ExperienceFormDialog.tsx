@@ -11,10 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { addExperience } from "@/redux/portfolioSlice";
-import { useAddExperienceMutation } from "@/services/portfolioApi";
+import { useAddExperienceMutation, useUpdateExperienceMutation } from "@/services/portfolioApi";
 import { Experience } from "@/types/userData";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 interface ExperienceFormDialogProps {
@@ -28,9 +26,8 @@ const ExperienceFormDialog = ({
   onOpenChange,
   experience,
 }: ExperienceFormDialogProps) => {
-
   console.log("child");
- 
+
   const {
     register,
     handleSubmit,
@@ -46,14 +43,26 @@ const ExperienceFormDialog = ({
   });
 
   const [addExperience] = useAddExperienceMutation();
+  const [updateExperience] = useUpdateExperienceMutation();
 
-  const onSubmit = async (data: Experience) => {
-    // add data to the db and revalidate the global state.
-    const response = await addExperience(data).unwrap();
-    console.log(response);
-    onOpenChange(false);
+  const onSubmit = async (formData: Experience) => {
+  try {
+    if (experience?._id) {
+      await updateExperience({
+        experienceId: experience._id,
+        formData
+      }).unwrap();
+    } else {
+      await addExperience(formData).unwrap();
+    }
+    
     reset();
-  };
+    onOpenChange(false);
+    
+  } catch (error) {
+    console.error("Failed to save experience:", error);
+  }
+};
 
   const handleCancel = () => {
     onOpenChange(false);

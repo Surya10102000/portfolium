@@ -1,6 +1,4 @@
-import { RootState } from "@/redux/store";
 import { Experience } from "@/types/userData";
-import { useDispatch, useSelector } from "react-redux";
 import ExperienceCard from "./ExperienceCard";
 import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle } from "lucide-react";
@@ -26,10 +24,6 @@ const ExperienceSectionEditor = ({
   const { data } = useGetPortfolioQuery();
   const [deleteExperience] = useDeleteExperienceMutation();
 
-  // const experiences = useSelector(
-  //   (state: RootState) => state.portfolio.data.experience
-  // );
-  const dispatch = useDispatch();
 
   const handleEditClick = (experience: Experience) => {
     setCurrentExperience(experience);
