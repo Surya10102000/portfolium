@@ -11,7 +11,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useAddExperienceMutation, useUpdateExperienceMutation } from "@/services/portfolioApi";
+import {
+  useAddExperienceMutation,
+  useUpdateExperienceMutation,
+} from "@/services/portfolioApi";
 import { Experience } from "@/types/userData";
 import { useForm } from "react-hook-form";
 
@@ -31,7 +34,7 @@ const ExperienceFormDialog = ({
   const {
     register,
     handleSubmit,
-    formState: { isDirty, errors, isSubmitting},
+    formState: { isDirty, errors, isSubmitting },
     reset,
   } = useForm<Experience>({
     defaultValues: experience || {
@@ -46,23 +49,22 @@ const ExperienceFormDialog = ({
   const [updateExperience] = useUpdateExperienceMutation();
 
   const onSubmit = async (formData: Experience) => {
-  try {
-    if (experience?._id) {
-      await updateExperience({
-        experienceId: experience._id,
-        formData
-      }).unwrap();
-    } else {
-      await addExperience(formData).unwrap();
+    try {
+      if (experience?._id) {
+        await updateExperience({
+          experienceId: experience._id,
+          formData,
+        }).unwrap();
+      } else {
+        await addExperience(formData).unwrap();
+      }
+
+      reset();
+      onOpenChange(false);
+    } catch (error) {
+      console.error("Failed to save experience:", error);
     }
-    
-    reset();
-    onOpenChange(false);
-    
-  } catch (error) {
-    console.error("Failed to save experience:", error);
-  }
-};
+  };
 
   const handleCancel = () => {
     onOpenChange(false);
@@ -103,6 +105,7 @@ const ExperienceFormDialog = ({
               })}
               placeholder="Enter the job role"
               disabled={isSubmitting}
+              className="mt-2"
             />
             {errors.role && (
               <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
@@ -122,6 +125,7 @@ const ExperienceFormDialog = ({
               })}
               placeholder="Enter the Company name"
               disabled={isSubmitting}
+              className="mt-2"
             />
             {errors.company && (
               <p className="text-sm text-red-500 mt-1">
@@ -142,7 +146,7 @@ const ExperienceFormDialog = ({
                 },
               })}
               placeholder="A brief description of your role in the company..."
-              className="min-h-[100px]"
+              className="mt-2 h-[100px]"
               disabled={isSubmitting}
             />
             {errors.description && (
@@ -166,6 +170,7 @@ const ExperienceFormDialog = ({
               })}
               placeholder="May 2020 - April 2023"
               disabled={isSubmitting}
+              className="mt-2"
             />
             {errors.duration && (
               <p className="text-sm text-red-500 mt-1">
@@ -178,7 +183,9 @@ const ExperienceFormDialog = ({
             <Button type="button" variant="outline" onClick={handleCancel}>
               Cancel
             </Button>
-            <Button disabled={isSubmitting || !isDirty} type="submit">{isSubmitting ? "Saving..." : "Save Changes"}</Button>
+            <Button disabled={isSubmitting || !isDirty} type="submit">
+              {isSubmitting ? "Saving..." : "Save Changes"}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
