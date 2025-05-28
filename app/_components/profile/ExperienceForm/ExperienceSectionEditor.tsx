@@ -9,6 +9,16 @@ import {
   useDeleteExperienceMutation,
   useGetPortfolioQuery,
 } from "@/services/portfolioApi";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface ExperienceSectionEditorProps {
   onCancel: () => void;
@@ -18,12 +28,13 @@ const ExperienceSectionEditor = ({
   onCancel,
 }: ExperienceSectionEditorProps) => {
   const [activeForm, setActiveForm] = useState<boolean>(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
   const [currentExperience, setCurrentExperience] = useState<Experience | null>(
     null
   );
   const { data } = useGetPortfolioQuery();
-  const [deleteExperience] = useDeleteExperienceMutation();
-
+  const [deleteExperience, { isLoading }] = useDeleteExperienceMutation();
 
   const handleEditClick = (experience: Experience) => {
     setCurrentExperience(experience);
@@ -35,25 +46,15 @@ const ExperienceSectionEditor = ({
     setActiveForm(true);
   };
 
-  const handleDeleteClick = async (experienceId: string) => {
-    if (window.confirm("Are you sure you want to delete this experience?")) {
-      try {
-        // Call the mutation function
-        await deleteExperience(experienceId).unwrap(); // .unwrap() throws an error if the mutation fails
-        console.log("Experience deleted successfully!");
-        // RTK Query's invalidatesTags: ["Portfolio"] will automatically refetch the Portfolio data
-        // so you might not need to call refetch() explicitly here if "Portfolio" tag is
-        // invalidated by this deleteExperience mutation.
-        // If your list doesn't update, ensure your "Portfolio" tag is being invalidated correctly
-        // and also tagged on your data fetching query (e.g., getPortfolio: providesTags: ['Portfolio']).
-      } catch (err) {
-        console.error("Failed to delete the experience:", err);
-        // You can display an error message to the user here
-        // e.g., if (err.data?.message) alert(err.data.message);
-        // else alert("An error occurred while deleting.");
-      }
-      setActiveForm(false)
-    }
+  const handleDeleteClick = async (experience: Experience) => {
+    setCurrentExperience(experience);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async (experienceId: string) => {
+    await deleteExperience(experienceId).unwrap(); // .unwrap() throws an error if the mutation fails
+    setDeleteDialogOpen(false);
+    setActiveForm(false);
   };
 
   return (
@@ -75,7 +76,7 @@ const ExperienceSectionEditor = ({
             key={experience._id}
             experience={experience}
             onEdit={() => handleEditClick(experience)}
-            onDelete={() => handleDeleteClick(experience._id as string)}
+            onDelete={() => handleDeleteClick(experience)}
           />
         ))}
       </div>
@@ -97,6 +98,30 @@ const ExperienceSectionEditor = ({
           experience={currentExperience}
         />
       )}
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete the
+              project.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                handleConfirmDelete(currentExperience?._id || "");
+              }}
+              className="bg-destructive hover:bg-destructive/90"
+              disabled={isLoading}
+            >
+              {isLoading ? "Deleting..." : "Delete"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
