@@ -31,7 +31,7 @@ const ExperienceFormDialog = ({
   const {
     register,
     handleSubmit,
-    formState: { isDirty, errors },
+    formState: { isDirty, errors, isSubmitting},
     reset,
   } = useForm<Experience>({
     defaultValues: experience || {
@@ -102,6 +102,7 @@ const ExperienceFormDialog = ({
                 },
               })}
               placeholder="Enter the job role"
+              disabled={isSubmitting}
             />
             {errors.role && (
               <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
@@ -120,6 +121,7 @@ const ExperienceFormDialog = ({
                 },
               })}
               placeholder="Enter the Company name"
+              disabled={isSubmitting}
             />
             {errors.company && (
               <p className="text-sm text-red-500 mt-1">
@@ -141,6 +143,7 @@ const ExperienceFormDialog = ({
               })}
               placeholder="A brief description of your role in the company..."
               className="min-h-[100px]"
+              disabled={isSubmitting}
             />
             {errors.description && (
               <p className="text-sm text-red-500 mt-1">
@@ -162,6 +165,7 @@ const ExperienceFormDialog = ({
                 },
               })}
               placeholder="May 2020 - April 2023"
+              disabled={isSubmitting}
             />
             {errors.duration && (
               <p className="text-sm text-red-500 mt-1">
@@ -174,7 +178,7 @@ const ExperienceFormDialog = ({
             <Button type="button" variant="outline" onClick={handleCancel}>
               Cancel
             </Button>
-            <Button type="submit">Save Changes</Button>
+            <Button disabled={isSubmitting || !isDirty} type="submit">{isSubmitting ? "Saving..." : "Save Changes"}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

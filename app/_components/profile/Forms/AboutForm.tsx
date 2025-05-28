@@ -31,18 +31,16 @@ const AboutForm = ({ initialData, onSubmit, onCancel }: AboutFormProps) => {
     },
   });
 
-  // TypeScript now knows techStack will always be an array
+  // techStack will always be an array
   const techStack: string[] = watch("techStack") || [];
 
   // Track initial tech stack for comparison
   const [initialTechStack] = useState([...(initialData.techStack || [])]);
 
-  // Manually check if tech stack has changed
   const techStackChanged =
     techStack.length !== initialTechStack.length ||
     techStack.some((tech, i) => tech !== initialTechStack[i]);
 
-  // Combine form isDirty with our tech stack check
   const formIsDirty = isDirty || techStackChanged;
 
   const handleAddTech = () => {
