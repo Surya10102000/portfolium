@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { AboutSection, HeroSectionI } from "@/types/userData";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import AboutForm from "./Forms/AboutForm";
-import ProjectSectionEditor from "./ProjectSectionEditor";
+import ProjectSectionEditor from "./ProjectForm/ProjectSectionEditor";
 import ExperienceSectionEditor from "./ExperienceForm/ExperienceSectionEditor";
 import {
   useGetPortfolioQuery,

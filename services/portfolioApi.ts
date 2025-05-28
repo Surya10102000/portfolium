@@ -2,6 +2,7 @@ import {
   AboutSection,
   Experience,
   HeroSectionI,
+  Project,
   UserData,
 } from "@/types/userData";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -56,6 +57,31 @@ export const portfolioApi = createApi({
       }),
       invalidatesTags: ["Portfolio"],
     }),
+    addProject: builder.mutation<Project, Project>({
+      query: (formData) => ({
+        url: "formhandler/project",
+        method: "POST",
+        body: { formData },
+      }),
+      invalidatesTags: ["Portfolio"],
+    }),
+     updateProject: builder.mutation<Project,{projectId : string , formData : Project}>({
+      query: ({ projectId, formData }) => ({
+        url: "formhandler/project",
+        method: "PUT",
+        body: { projectId, formData },
+      }),
+      invalidatesTags: ["Portfolio"],
+    }),
+
+    deleteProject: builder.mutation<void, string>({
+      query: (projectId) => ({
+        url: "formhandler/project",
+        method: "DELETE",
+        body: { projectId },
+      }),
+      invalidatesTags: ["Portfolio"],
+    }),
   }),
 });
 
@@ -65,5 +91,8 @@ export const {
   useUpdateAboutMutation,
   useAddExperienceMutation,
   useUpdateExperienceMutation,
-  useDeleteExperienceMutation
+  useDeleteExperienceMutation,
+  useAddProjectMutation,
+  useUpdateProjectMutation,
+  useDeleteProjectMutation,
 } = portfolioApi;

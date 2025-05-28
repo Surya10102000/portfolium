@@ -20,7 +20,7 @@
       date: String,
       image: String,
       projectLink: String,
-      techStack: [String]
+      githubLink: String,
     }],
     experience: [{
       role: { type: String },

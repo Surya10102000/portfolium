@@ -20,6 +20,7 @@ export interface HeroSectionI {
     date?: string;
     image?: string;
     projectLink?: string;
+    githubLink?: string;
   }
   
   export interface Experience {
