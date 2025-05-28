@@ -1,4 +1,3 @@
-import { updateAbout } from "@/redux/portfolioSlice";
 import {
   AboutSection,
   Experience,
@@ -40,10 +39,7 @@ export const portfolioApi = createApi({
       }),
       invalidatesTags: ["Portfolio"],
     }),
-    updateExperience: builder.mutation<
-      Experience,
-      { experienceId: string; formData: Experience }
-    >({
+    updateExperience: builder.mutation<Experience,{experienceId : string , formData : Experience}>({
       query: ({ experienceId, formData }) => ({
         url: "formhandler/experience",
         method: "PUT",
