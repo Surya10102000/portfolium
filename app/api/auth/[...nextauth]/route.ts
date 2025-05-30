@@ -22,10 +22,12 @@ const handler = NextAuth({
           return false;
         }
         await dbConnect();
-        // Add your user to database logic here
+        
+        // Check if user exists
         const user = await User.findOne({ email: profile.email });
 
         if (!user) {
+          // Create new user and portfolio for first-time sign-in
           const newUser = await User.create({
             name: profile.name,
             email: profile.email,
@@ -51,6 +53,29 @@ const handler = NextAuth({
               socials: [],
             },
           });
+        } else {
+          const existingPortfolio = await Portfolio.findOne({ userId: user._id });
+          if (!existingPortfolio) {
+            // Create portfolio if it doesn't exist
+            await Portfolio.create({
+              userId: user._id,
+              hero: {
+                name: user.name,
+                image: user.image,
+              },
+              about: {
+                aboutMe: "",
+                whatIDo: "",
+              },
+              projects: [],
+              experience: [],
+              education: [],
+              contact: {
+                email: user.email,
+                socials: [],
+              },
+            });
+          }
         }
 
         return true;
