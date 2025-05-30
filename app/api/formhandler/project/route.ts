@@ -114,3 +114,41 @@ export async function PUT(req: Request) {
     );
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const session = await getServerSession();
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const { projectId }: { projectId: string } = await req.json();
+    const user = await User.findOne({ email: session.user.email });
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    const updatedPortfolio = await Portfolio.findOneAndUpdate(
+      { userId: user._id },
+      { $pull: { projects : { _id: projectId } } },
+      { new: true }
+    );
+
+    if (!updatedPortfolio) {
+      return NextResponse.json(
+        { error: "Portfolio not found" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Experience deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting experience:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
