@@ -1,8 +1,13 @@
 import { Portfolio } from "@/models/Portfolio";
 import User from "@/models/User";
 import { Project } from "@/types/userData";
+import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+
+type ProjectDocument = Project & {
+  _id: mongoose.Types.ObjectId;
+};
 
 export async function POST(req: Request) {
   try {
@@ -24,11 +29,11 @@ export async function POST(req: Request) {
       { new: true, upsert: true }
     );
 
-    const project: Project = updatedPortfolio.experience.slice(-1)[0];
+    const project: Project = updatedPortfolio.project.slice(-1)[0];
 
     return NextResponse.json(project, { status: 200 });
   } catch (error) {
-    console.error("Error adding experience:", error);
+    console.error("Error adding project:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
@@ -42,16 +47,14 @@ export async function PUT(req: Request) {
     if (!session?.user?.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
     // Parse the request body once
     const requestBody = await req.json();
-    const { experienceId, formData } = requestBody;
+    const { projectId, formData } = requestBody;
 
-    console.log("updateing experienceId:", experienceId)
     // Validate required fields
-    if (!experienceId || !formData) {
+    if (!projectId || !formData) {
       return NextResponse.json(
-        { error: "Missing experienceId or formData" },
+        { error: "Missing projectId or formData" },
         { status: 400 }
       );
     }
@@ -62,17 +65,17 @@ export async function PUT(req: Request) {
     }
 
     // Create update object dynamically
-    const updateObj: Record<string, any> = {};
+    const updateObj: Record<string, unknown> = {};
     Object.entries(formData).forEach(([key, value]) => {
       if (value !== undefined) {
-        updateObj[`experience.$.${key}`] = value;
+        updateObj[`project.$.${key}`] = value;
       }
     });
 
     const updatedPortfolio = await Portfolio.findOneAndUpdate(
       {
         userId: user._id,
-        "experience._id": experienceId,
+        "project._id": projectId,
       },
       { $set: updateObj },
       {
@@ -83,26 +86,26 @@ export async function PUT(req: Request) {
 
     if (!updatedPortfolio) {
       return NextResponse.json(
-        { error: "Experience not found" },
+        { error: "Project not found" },
         { status: 404 }
       );
     }
 
-    // Find and return the updated experience
-    const updatedExperience = updatedPortfolio.experience.find(
-      (exp: any) => exp._id.toString() === experienceId
+    // Find and return the updated project
+    const updatedProject = updatedPortfolio.project.find(
+      (pro: ProjectDocument) => pro._id.toString() === projectId
     );
 
-    if (!updatedExperience) {
+    if (!updatedProject) {
       return NextResponse.json(
-        { error: "Updated experience not found in array" },
+        { error: "Updated project not found in array" },
         { status: 404 }
       );
     }
 
-    return NextResponse.json(updatedExperience, { status: 200 });
+    return NextResponse.json(updatedProject, { status: 200 });
   } catch (error) {
-    console.error("Error updating experience:", error);
+    console.error("Error updating project:", error);
     return NextResponse.json(
       {
         error: "Internal server error",

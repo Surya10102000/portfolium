@@ -20,7 +20,7 @@ export async function GET() {
     return NextResponse.json(portfolio, { status: 200 });
   } catch (err) {
     return NextResponse.json(
-      { error: "Error /api/profile GET" },
+      { error: "Error /api/profile GET", err },
       { status: 500 }
     );
   }

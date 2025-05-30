@@ -3,6 +3,11 @@ import { Portfolio } from "@/models/Portfolio";
 import { getServerSession } from "next-auth";
 import { Experience } from "@/types/userData";
 import User from "@/models/User";
+import mongoose from "mongoose";
+
+type ExperienceDocument = Experience & {
+  _id: mongoose.Types.ObjectId;
+};
 
 export async function POST(req: Request) {
   try {
@@ -47,7 +52,6 @@ export async function PUT(req: Request) {
     const requestBody = await req.json();
     const { experienceId, formData } = requestBody;
 
-    console.log("updateing experienceId:", experienceId)
     // Validate required fields
     if (!experienceId || !formData) {
       return NextResponse.json(
@@ -62,7 +66,7 @@ export async function PUT(req: Request) {
     }
 
     // Create update object dynamically
-    const updateObj: Record<string, any> = {};
+    const updateObj: Record<string, unknown> = {};
     Object.entries(formData).forEach(([key, value]) => {
       if (value !== undefined) {
         updateObj[`experience.$.${key}`] = value;
@@ -90,7 +94,7 @@ export async function PUT(req: Request) {
 
     // Find and return the updated experience
     const updatedExperience = updatedPortfolio.experience.find(
-      (exp: any) => exp._id.toString() === experienceId
+      (exp: ExperienceDocument) => exp._id.toString() === experienceId
     );
 
     if (!updatedExperience) {
@@ -119,9 +123,7 @@ export async function DELETE(req: Request) {
     if (!session?.user?.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    console.log("Deleting exp");
     const { experienceId }: { experienceId: string } = await req.json();
-    console.log(experienceId);
     const user = await User.findOne({ email: session.user.email });
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

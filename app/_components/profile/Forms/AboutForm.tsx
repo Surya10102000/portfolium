@@ -23,7 +23,6 @@ const AboutForm = ({ initialData, onSubmit, onCancel }: AboutFormProps) => {
     setValue,
     watch,
     formState: { errors, isDirty, isSubmitting },
-    reset,
   } = useForm<AboutSection>({
     defaultValues: {
       ...initialData,

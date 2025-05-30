@@ -1,7 +1,7 @@
 "use client";
 import { FolderGit, LayoutPanelTop, Pickaxe, SquareUser } from "lucide-react";
 import Section from "./Section";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { HeroForm } from "./Forms/HeroForm";
-import { useDispatch } from "react-redux";
 import { AboutSection, HeroSectionI } from "@/types/userData";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import AboutForm from "./Forms/AboutForm";
@@ -23,18 +22,17 @@ import {
 
 const EditProfileBox = () => {
   const [activeForm, setActiveForm] = useState<string | null>(null);
-  // const data = useSelector((state: RootState) => state.portfolio.data);
   const {data}= useGetPortfolioQuery()
   const [updateHero] = useUpdateHeroMutation();
   const [updateAbout] = useUpdateAboutMutation()
 
   const handleSubmitHero = async (data: HeroSectionI) => {
-    const response = await updateHero(data).unwrap();
+    await updateHero(data).unwrap();
     setActiveForm(null)
   };
 
   const handleSubmitAbout = async (data: AboutSection) => {
-    const response = await updateAbout(data).unwrap();
+    await updateAbout(data).unwrap();
     setActiveForm(null)
   };
 

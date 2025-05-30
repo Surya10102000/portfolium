@@ -3,10 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-// import {
-//   useDeleteProjectMutation,
-//   useGetPortfolioQuery,
-// } from "@/services/portfolioApi";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,7 +13,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useDeleteProjectMutation, useGetPortfolioQuery } from "@/services/portfolioApi";
+import {
+  useDeleteProjectMutation,
+  useGetPortfolioQuery,
+} from "@/services/portfolioApi";
 import ProjectFormDialog from "./ProjectFormDialog";
 import ProjectCard from "./ProjectCard";
 
@@ -25,15 +24,12 @@ interface ProjectSectionEditorProps {
   onCancel: () => void;
 }
 
-const ProjectSectionEditor = ({
-  onCancel,
-}: ProjectSectionEditorProps) => {
+const ProjectSectionEditor = ({ onCancel }: ProjectSectionEditorProps) => {
   const [activeForm, setActiveForm] = useState<boolean>(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState<Project | null>(null);
-  
+
   const { data } = useGetPortfolioQuery();
-  console.log("ProjectSection datt : " , data?.projects)
   const [deleteProject, { isLoading }] = useDeleteProjectMutation();
 
   const handleEditClick = (project: Project) => {
@@ -57,7 +53,7 @@ const ProjectSectionEditor = ({
       setDeleteDialogOpen(false);
       setActiveForm(false);
     } catch (error) {
-      console.error("Failed to delete project:", error);
+      console.log("Failed to delete project:", error);
     }
   };
 
@@ -75,7 +71,7 @@ const ProjectSectionEditor = ({
             <span className="text-muted-foreground">Add New Project</span>
           </CardContent>
         </Card>
-        
+
         {data?.projects?.map((project: Project) => (
           <ProjectCard
             key={project._id}
@@ -88,9 +84,9 @@ const ProjectSectionEditor = ({
 
       {/* Form Actions */}
       <div className="flex justify-end gap-3 pt-4">
-        <Button variant="outline" onClick={onCancel}>
+        {onCancel && <Button variant="outline" onClick={onCancel}>
           Cancel
-        </Button>
+        </Button>}
       </div>
 
       {/* Edit/Add Project Dialog */}
@@ -108,18 +104,18 @@ const ProjectSectionEditor = ({
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the project.
+              This action cannot be undone. This will permanently delete the
+              project.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => currentProject?._id && handleConfirmDelete(currentProject._id)}
+              onClick={() => handleConfirmDelete(currentProject?._id || "")}
               className="bg-destructive hover:bg-destructive/90"
               disabled={isLoading}
             >
               {isLoading ? "Deleting..." : "Delete"}
-              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

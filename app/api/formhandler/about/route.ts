@@ -25,8 +25,8 @@ export async function POST(req: Request) {
     );
 
     return NextResponse.json(about, { status: 200 });
-  } catch (err: any) {
-    console.error("Error in hero form handler:", err.message);
+  } catch (err: unknown) {
+    console.error("Error in hero form handler:", err instanceof Error ? err.message : 'Unknown error');
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

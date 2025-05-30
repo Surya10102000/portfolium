@@ -52,7 +52,7 @@ const ExperienceSectionEditor = ({
   };
 
   const handleConfirmDelete = async (experienceId: string) => {
-    await deleteExperience(experienceId).unwrap(); // .unwrap() throws an error if the mutation fails
+    await deleteExperience(experienceId).unwrap(); 
     setDeleteDialogOpen(false);
     setActiveForm(false);
   };

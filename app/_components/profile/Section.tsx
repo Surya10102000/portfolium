@@ -1,4 +1,4 @@
-import { ArrowRightIcon, Table } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import React from "react";
 
 interface SectionsProps{

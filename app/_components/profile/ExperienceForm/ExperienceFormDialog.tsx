@@ -29,7 +29,6 @@ const ExperienceFormDialog = ({
   onOpenChange,
   experience,
 }: ExperienceFormDialogProps) => {
-  console.log("child");
 
   const {
     register,
@@ -58,11 +57,10 @@ const ExperienceFormDialog = ({
       } else {
         await addExperience(formData).unwrap();
       }
-
       reset();
       onOpenChange(false);
     } catch (error) {
-      console.error("Failed to save experience:", error);
+      console.log("Failed to save experience:", error);
     }
   };
 

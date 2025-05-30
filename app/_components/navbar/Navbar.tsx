@@ -13,8 +13,7 @@ import EditProfileBox from "../profile/EditProfileColumn";
 import { useGetPortfolioQuery } from "@/services/portfolioApi";
 
 const Navbar = () => {
-    const {data, isLoading, error}= useGetPortfolioQuery()
-  
+  const {data}= useGetPortfolioQuery()
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="h-16 flex justify-between items-center px-4">

@@ -1,9 +1,9 @@
 'use client'
-import { useGetPortfolioQuery } from "@/services/portfolioApi";
+// import { useGetPortfolioQuery } from "@/services/portfolioApi";
 import EditProfileBox from "./EditProfileColumn";
 
 const ProfileContainer = () => {
-  const { data, isLoading, error } = useGetPortfolioQuery();
+  // const { data, isLoading, error } = useGetPortfolioQuery();
   return (
     <div className="flex h-full">
       {/* left column container */}
