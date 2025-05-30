@@ -1,7 +1,14 @@
 import mongoose from 'mongoose';
 
-declare global{
-    var mongoose: any;
+// Define a type for the cached connection
+type MongooseConnection = {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
+};
+
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: MongooseConnection;
 }
 
 const DATABASE_URL = process.env.DATABASE_URL!;

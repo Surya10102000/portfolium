@@ -84,14 +84,6 @@ export const portfolioSlice = createSlice({
     addProject: (state, action: PayloadAction<Project>) => {
       state.data.projects.push(action.payload);
     },
-    updateProject: (state, action: PayloadAction<Project>) => {
-      const index = state.data.projects.findIndex(
-        (p) => p.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.data.projects[index] = action.payload;
-      }
-    },
 
     // Similar reducers for other sections...
     addExperience: (state, action: PayloadAction<Experience>) => {
@@ -119,7 +111,6 @@ export const {
   updateHero,
   updateAbout,
   addProject,
-  updateProject,
   addExperience,
   addEducation,
   addContact,
