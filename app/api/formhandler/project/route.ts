@@ -28,8 +28,7 @@ export async function POST(req: Request) {
       { $push: { projects: formData } },
       { new: true, upsert: true }
     );
-
-    const project: Project = updatedPortfolio.project.slice(-1)[0];
+    const project: Project = updatedPortfolio.projects.slice(-1)[0];
 
     return NextResponse.json(project, { status: 200 });
   } catch (error) {
@@ -68,14 +67,14 @@ export async function PUT(req: Request) {
     const updateObj: Record<string, unknown> = {};
     Object.entries(formData).forEach(([key, value]) => {
       if (value !== undefined) {
-        updateObj[`project.$.${key}`] = value;
+        updateObj[`projects.$.${key}`] = value;
       }
     });
 
     const updatedPortfolio = await Portfolio.findOneAndUpdate(
       {
         userId: user._id,
-        "project._id": projectId,
+        "projects._id": projectId,
       },
       { $set: updateObj },
       {
@@ -92,7 +91,7 @@ export async function PUT(req: Request) {
     }
 
     // Find and return the updated project
-    const updatedProject = updatedPortfolio.project.find(
+    const updatedProject = updatedPortfolio.projects.find(
       (pro: ProjectDocument) => pro._id.toString() === projectId
     );
 
