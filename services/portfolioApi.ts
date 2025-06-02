@@ -12,6 +12,10 @@ export const portfolioApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
   tagTypes: ["Portfolio"],
   endpoints: (builder) => ({
+    getPortfolioByUsername: builder.query<UserData, string>({
+      query: (username) => `profile/${username}`,
+      providesTags: (result, error, username) => [{ type: 'Portfolio', id: username }],
+    }),
     getPortfolio: builder.query<UserData, void>({
       query: () => "profile",
       providesTags: ["Portfolio"],
@@ -95,4 +99,5 @@ export const {
   useAddProjectMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
+  useGetPortfolioByUsernameQuery
 } = portfolioApi;

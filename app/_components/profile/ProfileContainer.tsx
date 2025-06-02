@@ -1,6 +1,7 @@
 'use client'
 // import { useGetPortfolioQuery } from "@/services/portfolioApi";
 import EditProfileBox from "./EditProfileColumn";
+import PortfolioView from "./ProfileView";
 
 const ProfileContainer = () => {
   // const { data, isLoading, error } = useGetPortfolioQuery();
@@ -11,7 +12,9 @@ const ProfileContainer = () => {
         <EditProfileBox />
       </div>
       {/* right preview container */}
-      <div className="border-l">preview</div>
+      <div className="border-l">
+      <PortfolioView username="sfrost488@gmail.com"/>
+      </div>
     </div>
   );
 };
