@@ -5,7 +5,7 @@
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     primaryColor : {
       type : String,
-      default : '#3b82f6'
+      default : 'blue'
     },
     hero: {
       name: { type: String },

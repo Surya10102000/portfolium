@@ -70,7 +70,7 @@ export const HeroForm = ({
           id="description"
           {...register("description",{required : "Description is required"})}
           placeholder="A passionate developer with..."
-          className="mt-2 h-[100px] "  
+          className="mt-2 h-[100px]"  
           disabled={isSubmitting}     
         />
         {errors.description && (

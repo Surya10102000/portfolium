@@ -22,7 +22,7 @@ const handler = NextAuth({
           return false;
         }
         await dbConnect();
-        
+
         // Check if user exists
         const user = await User.findOne({ email: profile.email });
 
@@ -37,6 +37,8 @@ const handler = NextAuth({
 
           await Portfolio.create({
             userId: newUser._id,
+            primaryColor: "blue",
+            
             hero: {
               name: newUser.name,
               image: newUser.image,
@@ -54,11 +56,14 @@ const handler = NextAuth({
             },
           });
         } else {
-          const existingPortfolio = await Portfolio.findOne({ userId: user._id });
+          const existingPortfolio = await Portfolio.findOne({
+            userId: user._id,
+          });
           if (!existingPortfolio) {
             // Create portfolio if it doesn't exist
             await Portfolio.create({
               userId: user._id,
+              primaryColor: "blue",
               hero: {
                 name: user.name,
                 image: user.image,

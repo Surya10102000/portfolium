@@ -188,3 +188,45 @@
     letter-spacing: var(--tracking-normal);
   }
 }
+
+@layer utilities {
+  /* Hide scrollbar by default, show only when needed */
+  .scrollable-content {
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+  }
+
+  /* Webkit (Chrome, Safari) scrollbar */
+  .scrollable-content::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  .scrollable-content::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-primary/20;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  .scrollable-content::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/30;
+  }
+
+  .scrollable-content::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  /* Firefox scrollbar */
+  .scrollable-content {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--primary)) transparent;
+  }
+
+  /* Dark mode adjustments */
+  .dark .scrollable-content::-webkit-scrollbar-thumb {
+    @apply bg-primary/30;
+  }
+
+  .dark .scrollable-content {
+    scrollbar-color: hsl(var(--primary)) transparent;
+  }
+}

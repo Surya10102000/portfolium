@@ -1,10 +1,11 @@
 'use client'
-// import { useGetPortfolioQuery } from "@/services/portfolioApi";
+import { useGetPortfolioQuery } from "@/services/portfolioApi";
 import EditProfileBox from "./EditProfileColumn";
 import PortfolioView from "./ProfileView";
+import { ColorSelector } from "./ColorSelector";
 
 const ProfileContainer = () => {
-  // const { data, isLoading, error } = useGetPortfolioQuery();
+  const { data, isLoading, error } = useGetPortfolioQuery();
   return (
     <div className="flex h-full">
       {/* left column container */}
@@ -14,6 +15,8 @@ const ProfileContainer = () => {
       {/* right preview container */}
       <div className="border-l">
       <PortfolioView username="sfrost488@gmail.com"/>
+            <ColorSelector currentColor={data?.primaryColor as string} />
+
       </div>
     </div>
   );

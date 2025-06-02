@@ -12,6 +12,13 @@ export const portfolioApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
   tagTypes: ["Portfolio"],
   endpoints: (builder) => ({
+    updatePrimaryColor: builder.mutation({
+      query: (color) => ({
+        url: '/theme/color',
+        method: 'PUT',
+        body: { color },
+      }),
+    }),
     getPortfolioByUsername: builder.query<UserData, string>({
       query: (username) => `profile/${username}`,
       providesTags: (result, error, username) => [{ type: 'Portfolio', id: username }],
@@ -99,5 +106,6 @@ export const {
   useAddProjectMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
-  useGetPortfolioByUsernameQuery
+  useGetPortfolioByUsernameQuery,
+  useUpdatePrimaryColorMutation
 } = portfolioApi;

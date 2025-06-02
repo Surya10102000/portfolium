@@ -22,18 +22,18 @@ import {
 
 const EditProfileBox = () => {
   const [activeForm, setActiveForm] = useState<string | null>(null);
-  const {data}= useGetPortfolioQuery()
+  const { data } = useGetPortfolioQuery();
   const [updateHero] = useUpdateHeroMutation();
-  const [updateAbout] = useUpdateAboutMutation()
+  const [updateAbout] = useUpdateAboutMutation();
 
   const handleSubmitHero = async (data: HeroSectionI) => {
     await updateHero(data).unwrap();
-    setActiveForm(null)
+    setActiveForm(null);
   };
 
   const handleSubmitAbout = async (data: AboutSection) => {
     await updateAbout(data).unwrap();
-    setActiveForm(null)
+    setActiveForm(null);
   };
 
   const sections = [
@@ -63,7 +63,7 @@ const EditProfileBox = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-2 ">
+    <div className="flex flex-col gap-2 overflow-y-scroll scrollable-content">
       {sections.map((section) => (
         <Section
           key={section.id}
