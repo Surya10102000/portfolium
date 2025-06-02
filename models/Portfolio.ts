@@ -3,6 +3,10 @@
 
   const PortfolioSchema: Schema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    primaryColor : {
+      type : String,
+      default : '#3b82f6'
+    },
     hero: {
       name: { type: String },
       role: String,
