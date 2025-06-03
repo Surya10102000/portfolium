@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import dbConnect from "@/lib/connectDB";
 import User from "@/models/User";
 import { Portfolio } from "@/models/Portfolio";
+import { generateUsername } from "@/utils/generateUsername";
 
 const handler = NextAuth({
   providers: [
@@ -32,13 +33,13 @@ const handler = NextAuth({
             name: profile.name,
             email: profile.email,
             image: profile.image,
-            username: profile.email,
+            username: generateUsername(profile?.name as string),
           });
 
           await Portfolio.create({
             userId: newUser._id,
             primaryColor: "blue",
-            
+
             hero: {
               name: newUser.name,
               image: newUser.image,
