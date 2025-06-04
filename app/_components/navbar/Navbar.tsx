@@ -28,7 +28,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useGetUsernameQuery } from "@/services/userApi";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
