@@ -1,26 +1,26 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import styles from "./ThemeToggle.module.css"
 
 export default function ThemeToggle() {
-      const { theme, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    theme === 'dark' ? setTheme('light') : setTheme('dark')
+    theme === "dark" ? setTheme("light") : setTheme("dark");
   };
 
   return (
-    <label className="theme-switch">
+    <label className={styles.themeSwitch}>
       <input
         type="checkbox"
-        className="theme-switch__checkbox"
-        checked={theme === 'dark'}
+        className={styles.checkbox}
+        checked={theme === "dark"}
         onChange={toggleTheme}
       />
-      <div className="theme-switch__container">
-        <div className="theme-switch__clouds"></div>
-        <div className="theme-switch__stars-container">
+      <div className={styles.container}>
+        <div className={styles.clouds}></div>
+        <div className={styles.starsContainer}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
             <path
               fillRule="evenodd"
@@ -30,12 +30,12 @@ export default function ThemeToggle() {
             ></path>
           </svg>
         </div>
-        <div className="theme-switch__circle-container">
-          <div className="theme-switch__sun-moon-container">
-            <div className="theme-switch__moon">
-              <div className="theme-switch__spot"></div>
-              <div className="theme-switch__spot"></div>
-              <div className="theme-switch__spot"></div>
+        <div className={styles.circleContainer}>
+          <div className={styles.sunMoonContainer}>
+            <div className={styles.moon}>
+              <div className={styles.spot}></div>
+              <div className={styles.spot}></div>
+              <div className={styles.spot}></div>
             </div>
           </div>
         </div>
