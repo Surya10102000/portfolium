@@ -45,12 +45,12 @@ export function UrlToggleGroup({
       const url = `${baseUrl}/${currentUsername}`;
       const urlObj = new URL(url);
       return {
-        displayUrl: `${urlObj.hostname.replace("www.", "")}/${currentUsername}`,
+        displayUrl: `/${currentUsername}`,
         fullUrl: url,
       };
     } catch (err) {
       return {
-        displayUrl: `example.com/${currentUsername}`,
+        displayUrl: `${currentUsername}`,
         fullUrl: `https://example.com/${currentUsername}`,
       };
     }
@@ -67,72 +67,6 @@ export function UrlToggleGroup({
       }
     },
     [updateUsername, reset]
-  );
-
-  const toggleItems = useMemo(
-    () => [
-      <Dialog key="edit" open={open} onOpenChange={setOpen}>
-        {/* Dialog content remains the same */}
-        <DialogTrigger asChild>
-          <ToggleGroupItem disabled value="a">
-            <SquarePen />
-          </ToggleGroupItem>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Change you Username</DialogTitle>
-            <DialogDescription className="sr-only">
-              Change Username
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div>
-              <Label htmlFor="username"></Label>
-              <Input
-                id="username"
-                {...register("username", {
-                  required: "Username is required",
-                  minLength: {
-                    value: 3,
-                    message: "Username must be at least 3 characters",
-                  },
-                  maxLength: {
-                    value: 50,
-                    message: "Username must be less that 50 characters",
-                  },
-                })}
-              />
-              {errors.username && (
-                <p className="text-sm text-red-500 mt-1">
-                  {errors.username.message}
-                </p>
-              )}
-              <Button
-                className="mt-2"
-                type="submit"
-                disabled={isSubmitting || !isDirty}
-              >
-                {isSubmitting ? "Saving..." : "Save"}
-              </Button>
-            </div>
-          </form>
-        </DialogContent>
-      </Dialog>,
-      <ToggleGroupItem disabled key="url" value="b" className="max-w-[250px] truncate">
-        {displayUrl}
-      </ToggleGroupItem>,
-      fullUrl && (
-        <ToggleGroupItem
-        disabled
-          key="external"
-          value="c"
-          onClick={() => window.open(fullUrl, "_blank")}
-        >
-          <ExternalLink />
-        </ToggleGroupItem>
-      ),
-    ],
-    [displayUrl, fullUrl]
   );
 
   return (

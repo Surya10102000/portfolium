@@ -9,7 +9,6 @@ export async function GET(
 ) {
   try {
     const { username } = await params;
-    
     if (!username) {
       return NextResponse.json(
         { error: "Username is required" },
@@ -18,7 +17,6 @@ export async function GET(
     }
 
     const user = await User.findOne({ username });
-
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
