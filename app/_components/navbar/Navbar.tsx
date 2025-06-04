@@ -7,7 +7,16 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { DialogTrigger } from "@radix-ui/react-dialog";
-import { Menu, Pencil, ExternalLink, Copy, LogIn, LogOut, UserPlus, User } from "lucide-react";
+import {
+  Menu,
+  Pencil,
+  ExternalLink,
+  Copy,
+  LogIn,
+  LogOut,
+  UserPlus,
+  User,
+} from "lucide-react";
 import { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import { useGetPortfolioQuery } from "@/services/portfolioApi";
@@ -20,29 +29,31 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useGetUsernameQuery } from "@/services/userApi";
-
+import Logo from "./Logo";
 
 // Lazy load the edit profile component
 const EditProfileBox = dynamic(() => import("../profile/EditProfileColumn"), {
   loading: () => <div className="h-64 w-full animate-pulse bg-muted" />,
-  ssr: false
+  ssr: false,
 });
 
 const Navbar = () => {
-  const {data } = useGetUsernameQuery()
+  const { data } = useGetUsernameQuery();
   const router = useRouter();
-  const {data : session } = useSession()
+  const { data: session } = useSession();
   // Memoize the website URL to prevent recalculations
   const websiteUrl = useMemo(() => {
-    return typeof window !== 'undefined' ? `${window.location.origin}/${data?.username}` : '';
+    return typeof window !== "undefined"
+      ? `${window.location.origin}/${data?.username}`
+      : "";
   }, [data?.username]);
 
   const copyWebsiteLink = () => {
     if (!websiteUrl) return;
     navigator.clipboard.writeText(websiteUrl);
-    console.log("copy")
+    console.log("copy");
   };
 
   // Prefer static icons over dynamic ones
@@ -51,14 +62,15 @@ const Navbar = () => {
 
   return (
     <div className="h-16 flex justify-between items-center px-4">
-      <div className="font-extrabold text-3xl">
-        Portfoli<span className="text-green-700">u</span>m
+      <div onClick={()=> router.push("/")}>
+        <Logo className="text-primary" width={40} height={40} />
       </div>
       
+
       <div className="flex items-center space-x-2.5">
         {data && (
           <Dialog>
-            <DialogTrigger asChild>
+            <DialogTrigger asChild className="md:hidden">
               <Button size="icon" aria-label="Edit profile">
                 <Pencil size={iconSize} />
               </Button>
@@ -91,7 +103,9 @@ const Navbar = () => {
                       <User size={iconSize} className={iconClass} />
                       <span>My Profile</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onSelect={() => router.push(`/${data?.username}`)}>
+                    <DropdownMenuItem
+                      onSelect={() => router.push(`/${data?.username}`)}
+                    >
                       <ExternalLink size={iconSize} className={iconClass} />
                       <span>Go to my website</span>
                     </DropdownMenuItem>
