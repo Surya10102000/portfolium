@@ -34,7 +34,7 @@ export function UrlToggleGroup({
     reset,
   } = useForm<FormData>({
     defaultValues: {
-      username: currentUsername || "",
+      username: "",
     },
   });
 
@@ -74,7 +74,7 @@ export function UrlToggleGroup({
       <Dialog key="edit" open={open} onOpenChange={setOpen}>
         {/* Dialog content remains the same */}
         <DialogTrigger asChild>
-          <ToggleGroupItem value="a">
+          <ToggleGroupItem disabled value="a">
             <SquarePen />
           </ToggleGroupItem>
         </DialogTrigger>
@@ -118,11 +118,12 @@ export function UrlToggleGroup({
           </form>
         </DialogContent>
       </Dialog>,
-      <ToggleGroupItem key="url" value="b" className="max-w-[250px] truncate">
+      <ToggleGroupItem disabled key="url" value="b" className="max-w-[250px] truncate">
         {displayUrl}
       </ToggleGroupItem>,
       fullUrl && (
         <ToggleGroupItem
+        disabled
           key="external"
           value="c"
           onClick={() => window.open(fullUrl, "_blank")}
