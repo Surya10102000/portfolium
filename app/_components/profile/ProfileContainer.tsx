@@ -11,9 +11,9 @@ const ProfileContainer = () => {
   const { data } = useGetPortfolioQuery();
   const { data: userResponse } = useGetUsernameQuery();
   return (
-    <div className="flex h-full">
+    <div className="flex">
       {/* left column container */}
-      <div className="max-w-[320px] px-1 hidden md:block">
+      <div className="max-w-[320px] px-1 py-2 hidden md:block">
         <EditProfileBox />
       </div>
       {/* right preview container */}

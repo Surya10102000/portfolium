@@ -5,6 +5,7 @@ import SessionWrapper from "./_components/SessionWrapper";
 import dbConnect from "@/lib/connectDB";
 import ReduxProvider from "./_components/ReduxProvider";
 import NavbarWrapper from "./_components/navbar/NavbarWrapper";
+import Provider from "./_components/Provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,14 +29,17 @@ export default function RootLayout({
 }>) {
   dbConnect();
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <ReduxProvider>
         <SessionWrapper>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased thin-scrollbar overscroll-none`}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased thin-scrollbar overscroll-none h-screen`}
           >
+            <Provider>
+
             <NavbarWrapper />
             {children}
+            </Provider>
           </body>
         </SessionWrapper>
       </ReduxProvider>

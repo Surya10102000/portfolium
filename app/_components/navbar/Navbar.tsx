@@ -31,6 +31,7 @@ import { useRouter } from "next/navigation";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useGetUsernameQuery } from "@/services/userApi";
 import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 
 // Lazy load the edit profile component
 const EditProfileBox = dynamic(() => import("../profile/EditProfileColumn"), {
@@ -66,7 +67,8 @@ const Navbar = () => {
       </div>
       
 
-      <div className="flex items-center space-x-2.5">
+      <div className="flex gap-2 items-center space-x-2.5">
+        <ThemeToggle/>
         {data && (
           <Dialog>
             <DialogTrigger asChild className="md:hidden">
