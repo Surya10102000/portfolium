@@ -32,7 +32,7 @@ export default function RootLayout({
       <ReduxProvider>
         <SessionWrapper>
           <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased thin-scrollbar `}
+            className={`${geistSans.variable} ${geistMono.variable} antialiased thin-scrollbar overscroll-none`}
           >
             <NavbarWrapper />
             {children}

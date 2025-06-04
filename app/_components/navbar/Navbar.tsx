@@ -6,48 +6,124 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog";
-import { Menu, Pencil } from "lucide-react";
-import { useState } from "react";
-import EditProfileBox from "../profile/EditProfileColumn";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import { Menu, Pencil, ExternalLink, Copy, LogIn, LogOut, UserPlus, User } from "lucide-react";
+import { useState, useMemo } from "react";
+import dynamic from "next/dynamic";
 import { useGetPortfolioQuery } from "@/services/portfolioApi";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
+import { useSession, signIn, signOut } from "next-auth/react"
+import { useGetUsernameQuery } from "@/services/userApi";
+
+
+// Lazy load the edit profile component
+const EditProfileBox = dynamic(() => import("../profile/EditProfileColumn"), {
+  loading: () => <div className="h-64 w-full animate-pulse bg-muted" />,
+  ssr: false
+});
 
 const Navbar = () => {
-  const {data}= useGetPortfolioQuery()
-  const [isOpen, setIsOpen] = useState(false);
+  const {data } = useGetUsernameQuery()
+  const router = useRouter();
+  const {data : session } = useSession()
+  // Memoize the website URL to prevent recalculations
+  const websiteUrl = useMemo(() => {
+    return typeof window !== 'undefined' ? `${window.location.origin}/${data?.username}` : '';
+  }, [data?.username]);
+
+  const copyWebsiteLink = () => {
+    if (!websiteUrl) return;
+    navigator.clipboard.writeText(websiteUrl);
+    console.log("copy")
+  };
+
+  // Prefer static icons over dynamic ones
+  const iconSize = 16;
+  const iconClass = "mr-2";
+
   return (
     <div className="h-16 flex justify-between items-center px-4">
       <div className="font-extrabold text-3xl">
         Portfoli<span className="text-green-700">u</span>m
       </div>
-      <div className="space-x-2.5">
-        <Dialog>
-          {data && <DialogTrigger asChild>
-            <Button size="icon">
-              <Pencil />
+      
+      <div className="flex items-center space-x-2.5">
+        {data && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="icon" aria-label="Edit profile">
+                <Pencil size={iconSize} />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-[95vw] sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Edit Profile</DialogTitle>
+              </DialogHeader>
+              <EditProfileBox />
+            </DialogContent>
+          </Dialog>
+        )}
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button size="icon" variant="outline" aria-label="Menu">
+              <Menu size={iconSize} />
             </Button>
-          </DialogTrigger>}
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Edit Profile</DialogTitle>
-              <DialogDescription className="sr-only"></DialogDescription>
-            </DialogHeader>
-
-            {/* Profile container for editing */}
-            <EditProfileBox />
-          </DialogContent>
-        </Dialog>
-
-        <Button
-          onClick={() => setIsOpen(!isOpen)}
-          size="icon"
-          variant="outline"
-        >
-          <Menu />
-        </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="end" sideOffset={8}>
+            {session ? (
+              <>
+                {session.user && (
+                  <>
+                    <DropdownMenuLabel className="truncate">
+                      {session.user.name}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onSelect={() => router.push("/profile")}>
+                      <User size={iconSize} className={iconClass} />
+                      <span>My Profile</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => router.push(`/${data?.username}`)}>
+                      <ExternalLink size={iconSize} className={iconClass} />
+                      <span>Go to my website</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={copyWebsiteLink}>
+                      <Copy size={iconSize} className={iconClass} />
+                      <span>Copy website link</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onSelect={() => signOut()}>
+                      <LogOut size={iconSize} className={iconClass} />
+                      <span>Sign Out</span>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <DropdownMenuItem onSelect={() => router.push("/signup")}>
+                  <LogIn size={iconSize} className={iconClass} />
+                  <span>Login</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => router.push("/profile")}>
+                  <UserPlus size={iconSize} className={iconClass} />
+                  <span>Create my website</span>
+                </DropdownMenuItem>
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-      {isOpen && <div className="absolute right-4 top-14 border">OPTIONs</div>}
     </div>
   );
 };
+
 export default Navbar;

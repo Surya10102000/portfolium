@@ -10,7 +10,6 @@ const ProfileContainer = () => {
   const { data, isLoading, error } = useGetPortfolioQuery();
   const {data : userResponse } = useGetUsernameQuery()
   return (
-    <>
     <div className="flex h-full">
       {/* left column container */}
       <div className="max-w-[320px] px-1 hidden md:block">
@@ -31,7 +30,6 @@ const ProfileContainer = () => {
         {/* <PortfolioView username={userResponse?.username as string} /> */}
       </div>}
     </div>
-    </>
   );
 };
 export default ProfileContainer;

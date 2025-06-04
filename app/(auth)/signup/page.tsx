@@ -1,13 +1,10 @@
 "use client";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 
 export default function SignIn() {
-  const router = useRouter()
   const handleClick = async ()=>{
     try{
       await signIn("google")
-      router.push('/profile')
     }catch(err){
       console.error({error : err})
     }
