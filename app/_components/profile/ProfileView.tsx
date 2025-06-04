@@ -1,31 +1,10 @@
-import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
+"use client";
+import ResponsiveIframe from './ResponsiveIFrame';
 
-
-interface PortfolioViewProps {
-  username: string;
-}
-
-const PortfolioView = ({ username }: PortfolioViewProps) => {
-  const {
-    data : portfolio,
-    isLoading,
-    isError,
-    error
-  } = useGetPortfolioByUsernameQuery(username);
-
-
-
-  if (isLoading) return <p>loading</p>
-  if (isError) return <p>{error?.toString() || 'Failed to load portfolio'}</p>
-  if (!portfolio) return <div>No portfolio found</div>;
-
+export default function ProfileView({ username }: { username: string }) {
   return (
-    <div>
-      {/* Render your portfolio data here */}
-      <h1 className={`text-[${portfolio.primaryColor}]`}>{portfolio.hero.name}{portfolio.primaryColor}</h1>
-      {/* ...other portfolio data */}
+    <div className="flex flex-col items-center gap-4 p-4 w-full">
+      <ResponsiveIframe username={username}/>
     </div>
   );
-};
-
-export default PortfolioView;
+}

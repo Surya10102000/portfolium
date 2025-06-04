@@ -6,6 +6,56 @@ const DefaultTemplate = ({data} : {data : UserData}) => {
   return (
     <div>DefaultTemplate
         <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
+        <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
     </div>
   )
 }

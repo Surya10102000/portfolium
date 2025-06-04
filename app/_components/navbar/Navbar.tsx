@@ -17,9 +17,8 @@ import {
   UserPlus,
   User,
 } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import dynamic from "next/dynamic";
-import { useGetPortfolioQuery } from "@/services/portfolioApi";
 import {
   DropdownMenu,
   DropdownMenuContent,

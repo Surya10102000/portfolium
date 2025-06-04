@@ -5,10 +5,11 @@ import PortfolioView from "./ProfileView";
 import { ColorSelector } from "./ColorSelector";
 import { UrlToggleGroup } from "./UrlToggleGroup";
 import { useGetUsernameQuery } from "@/services/userApi";
+import { ViewModeToggle } from "./ViewModeToggle";
 
 const ProfileContainer = () => {
-  const { data, isLoading, error } = useGetPortfolioQuery();
-  const {data : userResponse } = useGetUsernameQuery()
+  const { data } = useGetPortfolioQuery();
+  const { data: userResponse } = useGetUsernameQuery();
   return (
     <div className="flex h-full">
       {/* left column container */}
@@ -17,18 +18,25 @@ const ProfileContainer = () => {
       </div>
       {/* right preview container */}
 
-      {data && <div className="w-full px-4">
-        {/* topbar */}
-        <div className="flex justify-between items-center gap-2">
-          <ColorSelector currentColor={data?.primaryColor as string} />
+      {data && (
+        <div className="w-full px-4">
+          {/* topbar */}
+          <div className="flex justify-between items-center gap-2">
+            <ColorSelector currentColor={data?.primaryColor as string} />
 
-          {userResponse && <div className="flex-1">
-            <UrlToggleGroup currentUsername={userResponse?.username as string}/>
-          </div>}
+            {userResponse && (
+              <div className="flex-1">
+                <UrlToggleGroup
+                  currentUsername={userResponse?.username as string}
+                />
+              </div>
+            )}
+            <ViewModeToggle/>
+          </div>
+
+          <PortfolioView username={userResponse?.username as string} />
         </div>
-
-        {/* <PortfolioView username={userResponse?.username as string} /> */}
-      </div>}
+      )}
     </div>
   );
 };
