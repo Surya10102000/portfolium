@@ -18,14 +18,14 @@ const ProfileContainer = () => {
       </div>
       {/* right preview container */}
 
-      {data && userResponse && <div className="w-full px-4">
+      {data && <div className="w-full px-4">
         {/* topbar */}
         <div className="flex justify-between items-center gap-2">
           <ColorSelector currentColor={data?.primaryColor as string} />
 
-          <div className="flex-1">
+          {userResponse && <div className="flex-1">
             <UrlToggleGroup currentUsername={userResponse?.username as string}/>
-          </div>
+          </div>}
         </div>
 
         {/* <PortfolioView username={userResponse?.username as string} /> */}

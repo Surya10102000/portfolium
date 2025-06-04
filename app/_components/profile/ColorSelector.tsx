@@ -30,14 +30,14 @@ export function ColorSelector({ currentColor }: { currentColor: string }) {
   }, [currentColor]);
 
   const handleColorChange = async (color: string) => {
+    const previousColor = value;
     setValue(color);
     try {
-      const response = await updateColor(color).unwrap();
-      console.log(response)
+      await updateColor(color).unwrap();
     } catch (err) {
       console.error("Failed to update color:", err);
       // Revert on error
-      setValue(currentColor);
+      setValue(previousColor);
     }
   };
 
