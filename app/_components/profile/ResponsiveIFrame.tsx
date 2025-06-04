@@ -8,8 +8,8 @@ export default function ResponsiveIframe({ username }: { username: string }) {
   return (
     <div className={`relative border rounded-lg overflow-hidden
       ${viewMode === 'mobile' ? 
-        'w-[375px] h-[667px] mx-auto' : 
-        'w-full h-[800px]'}
+        'w-[375px] h-[600px] mx-auto' : 
+        'w-full h-[600px]'}
     `}>
       <iframe
         src={`/${username}`}

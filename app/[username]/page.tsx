@@ -14,7 +14,7 @@ const UserPortfolio = () => {
 
   if(!data) return <div>{"no Data"}</div>
   const templates = {
-    'default': DefaultTemplate,
+    'default': DefaultTemplate, 
     // Add other templates here
   };
 
