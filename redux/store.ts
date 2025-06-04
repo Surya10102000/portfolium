@@ -1,14 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import portfolioReducer from './portfolioSlice';
 import { portfolioApi } from '@/services/portfolioApi';
+import { userApi } from '@/services/userApi';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       portfolio: portfolioReducer,
-      [portfolioApi.reducerPath] : portfolioApi.reducer
+      [portfolioApi.reducerPath] : portfolioApi.reducer,
+      [userApi.reducerPath] : userApi.reducer,
     },
-    middleware: (gDM)=>gDM().concat(portfolioApi.middleware)
+    middleware: (gDM)=>gDM().concat(portfolioApi.middleware).concat(userApi.middleware)
   });
 };
 

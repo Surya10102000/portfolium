@@ -43,7 +43,7 @@ export function ColorSelector({ currentColor }: { currentColor: string }) {
 
   return (
     <Select value={value} onValueChange={handleColorChange}>
-      <SelectTrigger className="w-[180px] mt-2">
+      <SelectTrigger className="w-[160px]">
         <SelectValue placeholder="Select color" />
       </SelectTrigger>
       <SelectContent>

@@ -1,13 +1,24 @@
 "use client";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export default function SignIn() {
+  const router = useRouter()
+  const handleClick = async ()=>{
+    try{
+      await signIn("google")
+      router.push('/profile')
+    }catch(err){
+      console.error({error : err})
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-6">Sign In</h1>
         <button
-          onClick={() => signIn("google")}
+          onClick={handleClick}
           className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded flex items-center"
         >
           <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
