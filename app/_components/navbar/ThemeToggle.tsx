@@ -1,13 +1,17 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import styles from "./ThemeToggle.module.css"
+import styles from "./ThemeToggle.module.css";
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
-    theme === "dark" ? setTheme("light") : setTheme("dark");
+    if (theme === "dark") {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
   };
 
   return (
@@ -21,7 +25,11 @@ export default function ThemeToggle() {
       <div className={styles.container}>
         <div className={styles.clouds}></div>
         <div className={styles.starsContainer}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 55" fill="none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 144 55"
+            fill="none"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
