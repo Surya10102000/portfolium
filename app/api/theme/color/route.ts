@@ -27,7 +27,7 @@ export async function PUT(req: Request) {
     return NextResponse.json({ success: true, portfolio: updatedPortfolio });
   } catch (err) {
     return NextResponse.json(
-      { error: "Failed to update color" },
+      { error: "Failed to update color", err },
       { status: 500 }
     );
   }
