@@ -1,7 +1,7 @@
 /* ThemeToggle.module.css */
 
 .themeSwitch {
-  --toggle-size: 12px;
+  --toggle-size: 8px;
   --container-width: 5.625em;
   --container-height: 3.25em;
   --container-radius: 1.5em;

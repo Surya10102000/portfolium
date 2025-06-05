@@ -62,13 +62,12 @@ const Navbar = () => {
 
   return (
     <div className="h-16 flex justify-between items-center px-4">
-      <div onClick={()=> router.push("/")}>
+      <div onClick={() => router.push("/")}>
         <Logo className="text-primary" width={40} height={40} />
       </div>
-      
 
-      <div className="flex gap-2 items-center space-x-2.5">
-        <ThemeToggle/>
+      <div className="flex items-center gap-2">
+        
         {data && (
           <Dialog>
             <DialogTrigger asChild className="md:hidden">
@@ -96,8 +95,8 @@ const Navbar = () => {
               <>
                 {session.user && (
                   <>
-                    <DropdownMenuLabel className="truncate">
-                      {session.user.name}
+                    <DropdownMenuLabel className="flex justify-between items-center">
+                      <span className="truncate ">{session.user.name}</span><ThemeToggle/>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onSelect={() => router.push("/profile")}>
