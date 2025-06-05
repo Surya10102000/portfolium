@@ -57,6 +57,10 @@ const Navbar = () => {
     console.log("copy");
   };
 
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: "/", redirect: true });
+  };
+
   // Prefer static icons over dynamic ones
   const iconSize = 16;
   const iconClass = "mr-2";
@@ -70,11 +74,11 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         {data && (
           <Dialog>
-              <DialogTrigger asChild className="md:hidden">
-                <Button size="icon" aria-label="Edit profile">
-                  <Pencil size={iconSize} />
-                </Button>
-              </DialogTrigger>
+            <DialogTrigger asChild className="md:hidden">
+              <Button size="icon" aria-label="Edit profile">
+                <Pencil size={iconSize} />
+              </Button>
+            </DialogTrigger>
             <DialogContent className="max-w-[95vw] max-h-[80lvh] sm:max-w-md">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
@@ -123,7 +127,7 @@ const Navbar = () => {
                       <span>Copy website link</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onSelect={() => signOut()}>
+                    <DropdownMenuItem onSelect={handleSignOut}>
                       <LogOut size={iconSize} className={iconClass} />
                       <span>Sign Out</span>
                     </DropdownMenuItem>
