@@ -1,5 +1,5 @@
 // components/UrlToggleGroup.tsx
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,12 +43,12 @@ export function UrlToggleGroup({
       const baseUrl =
         typeof window !== "undefined" ? window.location.origin : "";
       const url = `${baseUrl}/${currentUsername}`;
-      const urlObj = new URL(url);
       return {
         displayUrl: `/${currentUsername}`,
         fullUrl: url,
       };
     } catch (err) {
+      console.error( err)
       return {
         displayUrl: `${currentUsername}`,
         fullUrl: `https://example.com/${currentUsername}`,
