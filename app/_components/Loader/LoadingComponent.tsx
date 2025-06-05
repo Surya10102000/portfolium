@@ -1,6 +1,6 @@
 const LoadingComponent = () => {
   return (
-    <div className="flex-col gap-4 w-full flex items-center justify-center inset-0 h-[88vh]">
+    <div className="absolute flex-col gap-4 w-full flex items-center justify-center inset-0 h-[100vh]">
   <div
     className="w-20 h-20 border-4 border-transparent text-purple-400 text-4xl animate-spin flex items-center justify-center border-t-purple-400 rounded-full"
   >
