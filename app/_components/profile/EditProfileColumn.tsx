@@ -5,12 +5,12 @@ import { useState } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { HeroForm } from "./Forms/HeroForm";
 import { AboutSection, HeroSectionI } from "@/types/userData";
-import { DialogDescription } from "@radix-ui/react-dialog";
 import AboutForm from "./Forms/AboutForm";
 import ProjectSectionEditor from "./ProjectForm/ProjectSectionEditor";
 import ExperienceSectionEditor from "./ExperienceForm/ExperienceSectionEditor";
@@ -40,13 +40,13 @@ const EditProfileBox = () => {
     {
       id: "hero",
       title: "Hero Section",
-      description: "You name, role, description and image",
+      description: "Your name, role, description and image",
       icon: <LayoutPanelTop />,
     },
     {
       id: "about",
       title: "About Section",
-      description: "Your bio and and what you do ",
+      description: "Your bio and what you do",
       icon: <SquareUser />,
     },
     {
@@ -58,10 +58,11 @@ const EditProfileBox = () => {
     {
       id: "experience",
       title: "Experience Section",
-      description: "Your Experience and their details",
+      description: "Your work experience details",
       icon: <Pickaxe />,
     },
   ];
+
   return (
     <div className="flex flex-col gap-2 overflow-y-scroll scrollable-content">
       {sections.map((section) => (
@@ -74,82 +75,47 @@ const EditProfileBox = () => {
         />
       ))}
 
-      <Dialog
-        open={!!activeForm}
-        onOpenChange={(open) => !open && setActiveForm(null)}
-      >
+      <Dialog open={!!activeForm} onOpenChange={(open) => !open && setActiveForm(null)}>
         <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="capitalize">
+              {activeForm ? `${activeForm} Section` : "Edit Section"}
+            </DialogTitle>
+            <DialogDescription className="sr-only">
+              {activeForm === "hero" && "Edit your name, role, description and image"}
+              {activeForm === "about" && "Edit your bio and what you do"}
+              {activeForm === "project" && "Edit your projects and their details"}
+              {activeForm === "experience" && "Edit your work experience details"}
+            </DialogDescription>
+          </DialogHeader>
+
           {data?.hero && activeForm === "hero" && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="capitalize">
-                  {activeForm} Section
-                </DialogTitle>
-                <DialogDescription className="sr-only">
-                  Change {activeForm} contents
-                </DialogDescription>
-              </DialogHeader>
-              <HeroForm
-                initialData={data.hero}
-                onSubmit={(data) => {
-                  handleSubmitHero(data);
-                }}
-                onCancel={() => setActiveForm(null)}
-              />
-            </>
+            <HeroForm
+              initialData={data.hero}
+              onSubmit={handleSubmitHero}
+              onCancel={() => setActiveForm(null)}
+            />
           )}
 
           {data?.about && activeForm === "about" && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="capitalize">
-                  {activeForm} Section
-                </DialogTitle>
-                <DialogDescription className="sr-only">
-                  Change {activeForm} contents
-                </DialogDescription>
-              </DialogHeader>
-              <AboutForm
-                initialData={data.about}
-                onSubmit={(data) => {
-                  handleSubmitAbout(data);
-                  setActiveForm(null);
-                }}
-                onCancel={() => setActiveForm(null)}
-              />
-            </>
+            <AboutForm
+              initialData={data.about}
+              onSubmit={handleSubmitAbout}
+              onCancel={() => setActiveForm(null)}
+            />
           )}
+
           {data?.projects && activeForm === "project" && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="capitalize">
-                  {activeForm} Section
-                </DialogTitle>
-                <DialogDescription className="sr-only">
-                  Change {activeForm} contents
-                </DialogDescription>
-              </DialogHeader>
-              {/* all the projects will come here */}
-              <ProjectSectionEditor onCancel={() => setActiveForm(null)} />
-            </>
+            <ProjectSectionEditor onCancel={() => setActiveForm(null)} />
           )}
+
           {data?.experience && activeForm === "experience" && (
-            <>
-              <DialogHeader>
-                <DialogTitle className="capitalize">
-                  {activeForm} Section
-                </DialogTitle>
-                <DialogDescription className="sr-only">
-                  Change {activeForm} contents
-                </DialogDescription>
-              </DialogHeader>
-              {/* all the projects will come here */}
-              <ExperienceSectionEditor onCancel={() => setActiveForm(null)} />
-            </>
+            <ExperienceSectionEditor onCancel={() => setActiveForm(null)} />
           )}
         </DialogContent>
       </Dialog>
     </div>
   );
 };
-export default EditProfileBox;
+
+export default EditProfileBox;  
