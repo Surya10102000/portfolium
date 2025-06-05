@@ -32,6 +32,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useGetUsernameQuery } from "@/services/userApi";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
+import { AnimatedGradientText } from "@/components/AnimatedGradientText";
 
 // Lazy load the edit profile component
 const EditProfileBox = dynamic(() => import("../profile/EditProfileColumn"), {
@@ -63,7 +64,7 @@ const Navbar = () => {
   return (
     <div className="h-16 flex justify-between items-center px-4">
       <div onClick={() => router.push("/")}>
-        <Logo className="text-primary" width={40} height={40} />
+        <Logo className="text-primary" width={50} height={50} />
       </div>
 
       <div className="flex items-center gap-2">
@@ -92,7 +93,7 @@ const Navbar = () => {
           <DropdownMenuContent className="w-56" align="end" sideOffset={8}>
             <DropdownMenuLabel className="flex justify-between items-center">
               <span className="truncate ">
-                {session ? session.user?.name : "Portfolium"}
+                {session ? session.user?.name : <AnimatedGradientText className="font-semibold">Portfolium</AnimatedGradientText>}
               </span>
               <ThemeToggle />
             </DropdownMenuLabel>
