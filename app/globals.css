@@ -252,3 +252,20 @@
     }
   }
 }
+
+/* BlurIn animation */
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.animate-in {
+  animation: blurIn var(--duration) ease-out forwards;
+  animation-delay: var(--delay);
+}

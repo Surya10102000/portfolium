@@ -33,6 +33,7 @@ import { useGetUsernameQuery } from "@/services/userApi";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { AnimatedGradientText } from "@/components/AnimatedGradientText";
+import { BlurInAnimation } from "@/components/BlurInAnimation";
 
 // Lazy load the edit profile component
 const EditProfileBox = dynamic(() => import("../profile/EditProfileColumn"), {
@@ -70,12 +71,14 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         {data && (
           <Dialog>
-            <DialogTrigger asChild className="md:hidden">
-              <Button size="icon" aria-label="Edit profile">
-                <Pencil size={iconSize} />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-[95vw] sm:max-w-md">
+            <BlurInAnimation duration={200}>
+              <DialogTrigger asChild className="md:hidden">
+                <Button size="icon" aria-label="Edit profile">
+                  <Pencil size={iconSize} />
+                </Button>
+              </DialogTrigger>
+            </BlurInAnimation>
+            <DialogContent className="max-w-[95vw] max-h-[80lvh] sm:max-w-md">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
               </DialogHeader>
@@ -93,7 +96,13 @@ const Navbar = () => {
           <DropdownMenuContent className="w-56" align="end" sideOffset={8}>
             <DropdownMenuLabel className="flex justify-between items-center">
               <span className="truncate ">
-                {session ? session.user?.name : <AnimatedGradientText className="font-semibold">Portfolium</AnimatedGradientText>}
+                {session ? (
+                  session.user?.name
+                ) : (
+                  <AnimatedGradientText className="font-semibold">
+                    Portfolium
+                  </AnimatedGradientText>
+                )}
               </span>
               <ThemeToggle />
             </DropdownMenuLabel>
