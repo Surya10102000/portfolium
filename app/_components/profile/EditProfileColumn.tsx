@@ -64,7 +64,7 @@ const EditProfileBox = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-2 overflow-y-scroll scrollable-content">
+    <div className="flex flex-col gap-2 overflow-y-scroll scrollable-content h-[88vh] ">
       {sections.map((section) => (
         <Section
           key={section.id}

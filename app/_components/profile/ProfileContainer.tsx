@@ -6,15 +6,21 @@ import { ColorSelector } from "./ColorSelector";
 import { UrlToggleGroup } from "./UrlToggleGroup";
 import { useGetUsernameQuery } from "@/services/userApi";
 import { ViewModeToggle } from "./ViewModeToggle";
+import LoadingComponent from "../Loader/LoadingComponent";
 
 const ProfileContainer = () => {
-  const { data } = useGetPortfolioQuery();
-  const { data: userResponse } = useGetUsernameQuery();
+  const { data, isLoading } = useGetPortfolioQuery();
+  const { data: userResponse, isLoading: isUserLoading } = useGetUsernameQuery();
+
+  if (isLoading || isUserLoading) {
+    return <LoadingComponent/>
+  }
+
   return (
     <div className="flex">
       {/* left column container */}
       <div className="max-w-[320px] px-1 py-2 hidden md:block">
-        <EditProfileBox />
+        {data && <EditProfileBox/>}
       </div>
       {/* right preview container */}
 

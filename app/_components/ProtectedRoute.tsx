@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import LoadingComponent from "./Loader/LoadingComponent";
 
 export default function ProtectedRoute({
   children,
@@ -21,5 +22,5 @@ export default function ProtectedRoute({
   }
 
   // Show loading state
-  return <div>Loading...</div>;
+  return <LoadingComponent/>
 }
