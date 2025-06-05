@@ -71,13 +71,11 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         {data && (
           <Dialog>
-            <BlurInAnimation duration={200}>
               <DialogTrigger asChild className="md:hidden">
                 <Button size="icon" aria-label="Edit profile">
                   <Pencil size={iconSize} />
                 </Button>
               </DialogTrigger>
-            </BlurInAnimation>
             <DialogContent className="max-w-[95vw] max-h-[80lvh] sm:max-w-md">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
