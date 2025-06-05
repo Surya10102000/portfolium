@@ -67,7 +67,6 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-2">
-        
         {data && (
           <Dialog>
             <DialogTrigger asChild className="md:hidden">
@@ -91,13 +90,16 @@ const Navbar = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" sideOffset={8}>
+            <DropdownMenuLabel className="flex justify-between items-center">
+              <span className="truncate ">
+                {session ? session.user?.name : "Portfolium"}
+              </span>
+              <ThemeToggle />
+            </DropdownMenuLabel>
             {session ? (
               <>
                 {session.user && (
                   <>
-                    <DropdownMenuLabel className="flex justify-between items-center">
-                      <span className="truncate ">{session.user.name}</span><ThemeToggle/>
-                    </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem onSelect={() => router.push("/profile")}>
                       <User size={iconSize} className={iconClass} />

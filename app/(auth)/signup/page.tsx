@@ -9,7 +9,7 @@ export default function SignIn() {
         redirect: true, // Let NextAuth handle the redirect
       });
     } catch (err) {
-      console.error({ error: err });
+      console.log({ error: err });
     }
   };
 
