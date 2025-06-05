@@ -6,10 +6,10 @@ export default function ResponsiveIframe({ username }: { username: string }) {
   const viewMode = useSelector(selectViewMode);
   
   return (
-    <div className={`relative border rounded-lg overflow-hidden
+    <div className={`relative border rounded-lg overflow-hidden max-w-[100vw] w-full h-[80vh] mx-auto
       ${viewMode === 'mobile' ? 
-        'w-[375px] h-[600px] mx-auto' : 
-        'w-full h-[600px]'}
+        'md:max-w-[300px]' : 
+        'w-full '}
     `}>
       <iframe
         src={`/${username}`}
