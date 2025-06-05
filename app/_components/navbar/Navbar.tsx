@@ -33,7 +33,6 @@ import { useGetUsernameQuery } from "@/services/userApi";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { AnimatedGradientText } from "@/components/AnimatedGradientText";
-import { BlurInAnimation } from "@/components/BlurInAnimation";
 
 // Lazy load the edit profile component
 const EditProfileBox = dynamic(() => import("../profile/EditProfileColumn"), {
