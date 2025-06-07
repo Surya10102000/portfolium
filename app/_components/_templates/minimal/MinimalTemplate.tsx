@@ -2,10 +2,10 @@ import { UserData } from "@/types/userData"
 import { aboutIsEmpty, arrayIsEmpty } from "../templateUtils";
 
 
-const DefaultTemplate = ({data} : {data : UserData}) => {
+const MinimalTemplate = ({data} : {data : UserData}) => {
     const {hero, about, education, projects, experience,primaryColor} = data;
   return (
-    <div>DefaultTemplate
+    <div>MinimalTemplate
         <h1 className="text-4xl font-bold">{hero.name}{primaryColor}</h1>
          {aboutIsEmpty(about) && (<h1>{about.aboutMe}</h1>)}
          {arrayIsEmpty(education)?<h1>Education is empty </h1> : <h1>Education is present</h1>}
@@ -15,4 +15,4 @@ const DefaultTemplate = ({data} : {data : UserData}) => {
     </div>
   )
 }
-export default DefaultTemplate
+export default MinimalTemplate
