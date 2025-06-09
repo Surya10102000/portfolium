@@ -29,7 +29,6 @@ const ProjectFormDialog = ({
   onOpenChange,
   project,
 }: ProjectFormDialogProps) => {
-
   const {
     register,
     handleSubmit,
@@ -136,33 +135,31 @@ const ProjectFormDialog = ({
             />
           </div>
 
-          <div>
-            <Label htmlFor="projectLink">Project Link</Label>
-            <Input
-              id="projectLink"
-              {...register("projectLink")}
-              placeholder="https://example.com"
-              className="mt-2"
-              disabled={isSubmitting}
-            />
-          </div>
-          <div>
-            <Label htmlFor="githubLink">Github Link</Label>
-            <Input
-              id="githubLink"
-              {...register("githubLink")}
-              placeholder="https://github.com"
-              className="mt-2"
-              disabled={isSubmitting}
-            />
+          <div className="flex gap-2 w-full ">
+            <div>
+              <Label htmlFor="projectLink">Project Link</Label>
+              <Input
+                id="projectLink"
+                {...register("projectLink")}
+                placeholder="https://example.com"
+                className="mt-2"
+                disabled={isSubmitting}
+              />
+            </div>
+            <div>
+              <Label htmlFor="githubLink">Github Link</Label>
+              <Input
+                id="githubLink"
+                {...register("githubLink")}
+                placeholder="https://github.com"
+                className="mt-2"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
 
           <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-            >
+            <Button type="button" variant="outline" onClick={handleCancel}>
               Cancel
             </Button>
             <Button disabled={isSubmitting || !isDirty} type="submit">
