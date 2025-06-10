@@ -55,9 +55,9 @@ const DefaultNavbar = () => {
   };
 
   return (
-    <m.div initial={{ y: -100 }}
+    <m.div initial={{ y: "-100%" }}
     animate={{y: 0 , transition : {
-      duration : 0.5,
+      duration : 0.6,
       ease : "easeOut"
     }}}>
       <div className="flex justify-between items-center py-4 md:py-6 ">
