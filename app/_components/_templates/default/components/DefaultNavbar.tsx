@@ -42,7 +42,7 @@ const itemVariants: Variants = {
 const DefaultNavbar = () => {
   const section = ["hero", "project", "experience", "contact", "education"];
   const { name } = mockHeroData;
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleScroll = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
@@ -55,8 +55,12 @@ const DefaultNavbar = () => {
   };
 
   return (
-    <>
-      <div className="flex justify-between items-center py-4 md:py-6 animate-slide-in-down">
+    <m.div initial={{ y: -100 }}
+    animate={{y: 0 , transition : {
+      duration : 0.5,
+      ease : "easeOut"
+    }}}>
+      <div className="flex justify-between items-center py-4 md:py-6 ">
         <p className="text-3xl font-bold ">{`${name?.split(" ")?.[0]}.`}</p>
         <div>
           <button onClick={() => setIsOpen(!isOpen)}>
@@ -92,7 +96,7 @@ const DefaultNavbar = () => {
           )}
         </div>
       </AnimatePresence>
-    </>
+    </m.div>
   );
 };
 export default DefaultNavbar;
