@@ -17,7 +17,7 @@ const DefaultLayout = ({ children , userData }: LayoutProps) => {
 
   const username = "new"
   return (
-    <div className={`${styles.figtreeFont} mx-auto`}>
+    <div className={`${styles.figtreeFont} mx-auto tracking-tight`}>
        <nav className={`default-navbar`}>
           <DefaultNavbar/>
       </nav>

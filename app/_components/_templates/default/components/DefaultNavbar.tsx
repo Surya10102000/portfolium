@@ -55,8 +55,8 @@ const DefaultNavbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-4 md:p-6">
-      <p className="text-3xl md:text-4xl font-bold">{name?.split(" ")?.[0]}</p>
+    <div className="flex justify-between items-center p-4 md:p-6 animate-slide-in-down">
+      <p className="text-3xl font-bold">{name?.split(" ")?.[0]}</p>
       <div>
         <button onClick={() => setIsOpen(!isOpen)}>
           {<EllipsisVertical />}
