@@ -55,7 +55,7 @@ const DefaultNavbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-4 md:p-6 animate-slide-in-down">
+    <div className="flex justify-between items-center py-4 md:py-6 animate-slide-in-down">
       <p className="text-4xl font-bold">{name?.split(" ")?.[0]}</p>
       <div>
         <button onClick={() => setIsOpen(!isOpen)}>
@@ -68,7 +68,7 @@ const DefaultNavbar = () => {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex flex-col text-xl md:text-2xl text-right font-semibold absolute bg-background overflow-hidden right-4 p-2 capitalize"
+              className="flex flex-col text-xl md:text-2xl text-right font-semibold absolute bg-background overflow-hidden right-8 p-2 capitalize"
             >
               {section.map((sec, i) => (
                 <m.a
