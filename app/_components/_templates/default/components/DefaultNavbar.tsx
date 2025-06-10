@@ -6,20 +6,20 @@ import { AnimatePresence, motion as m, Variants } from "motion/react";
 const menuVariants: Variants = {
   initial: {
     opacity: 0,
-    y: -20,
+    height : 0,
   },
   animate: {
     opacity: 1,
-    y: 0,
+    height : "auto",
     transition: {
-      duration: 0.2,
+      duration: 0.1,
       staggerChildren: 0.1, // For staggered child animations
       when: "beforeChildren", // Animate parent first
     },
   },
   exit: {
-    opacity: 0,
-    y: -20,
+    opacity: 0.5,
+    height : 0,
     transition: {
       duration: 0.15,
     },
@@ -56,7 +56,7 @@ const DefaultNavbar = () => {
 
   return (
     <div className="flex justify-between items-center p-4 md:p-6 animate-slide-in-down">
-      <p className="text-3xl font-bold">{name?.split(" ")?.[0]}</p>
+      <p className="text-4xl font-bold">{name?.split(" ")?.[0]}</p>
       <div>
         <button onClick={() => setIsOpen(!isOpen)}>
           {<EllipsisVertical />}
@@ -68,7 +68,7 @@ const DefaultNavbar = () => {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex flex-col text-xl md:text-2xl text-right font-semibold absolute bg-background right-4 p-2 capitalize"
+              className="flex flex-col text-xl md:text-2xl text-right font-semibold absolute bg-background overflow-hidden right-4 p-2 capitalize"
             >
               {section.map((sec, i) => (
                 <m.a
