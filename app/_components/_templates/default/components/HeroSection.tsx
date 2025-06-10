@@ -6,7 +6,7 @@ import FadeIn from "@/app/_components/motion/FadeIn";
 const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
   const { image, name, description, role } = hero;
   return (
-    <div className="h-[80lvh] tracking-tighter" id="hero">
+    <div className="h-[80lvh] tracking-tighter lg:px-12" id="hero">
       <div className="md:flex md:flex-row-reverse md:justify-between gap-2">
         {image && (
           <div className="mt-12 lg:mt-2">
@@ -20,7 +20,7 @@ const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
           </div>
         )}
 
-        <div className="font-semibold py-6 lg:px-12 flex-1">
+        <div className="font-semibold py-6 flex-1">
           {name.split(" ").map((n, i) => (
             <div
               className="text-7xl md:text-9xl uppercase space-y-1 wrap-break-word"
@@ -51,13 +51,13 @@ const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 md:flex">
         <div>
           <FadeIn>
-            <p className="text-xl font-bold">{role}</p>
+            <p className="text-xl font-bold flex-1/3">{role}</p>
           </FadeIn>
         </div>
-        <div>
+        <div className="flex-1/3">
           <FadeIn>
             <p className="text-right text-balance text-2xl tracking-wide ">
               {description}
