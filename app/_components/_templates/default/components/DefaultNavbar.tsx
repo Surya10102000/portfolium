@@ -6,11 +6,11 @@ import { AnimatePresence, motion as m, Variants } from "motion/react";
 const menuVariants: Variants = {
   initial: {
     opacity: 0,
-    height : 0,
+    height: 0,
   },
   animate: {
     opacity: 1,
-    height : "auto",
+    height: "auto",
     transition: {
       duration: 0.1,
       staggerChildren: 0.1, // For staggered child animations
@@ -19,7 +19,7 @@ const menuVariants: Variants = {
   },
   exit: {
     opacity: 0.5,
-    height : 0,
+    height: 0,
     transition: {
       duration: 0.15,
     },
@@ -55,20 +55,24 @@ const DefaultNavbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center py-4 md:py-6 animate-slide-in-down">
-      <p className="text-4xl font-bold">{name?.split(" ")?.[0]}</p>
-      <div>
-        <button onClick={() => setIsOpen(!isOpen)}>
-          {<EllipsisVertical />}
-        </button>
-        <AnimatePresence>
+    <>
+      <div className="flex justify-between items-center py-4 md:py-6 animate-slide-in-down">
+        <p className="text-3xl font-bold ">{`${name?.split(" ")?.[0]}.`}</p>
+        <div>
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {<EllipsisVertical />}
+          </button>
+        </div>
+      </div>
+      <AnimatePresence>
+        <div className="relative">
           {isOpen && (
             <m.div
               variants={menuVariants}
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex flex-col text-xl md:text-2xl text-right font-semibold absolute bg-background overflow-hidden right-8 p-2 capitalize"
+              className="flex flex-col text-xl md:text-2xl text-right font-semibold bg-background overflow-hidden absolute right-0 p-2 capitalize"
             >
               {section.map((sec, i) => (
                 <m.a
@@ -86,9 +90,9 @@ const DefaultNavbar = () => {
               ))}
             </m.div>
           )}
-        </AnimatePresence>
-      </div>
-    </div>
+        </div>
+      </AnimatePresence>
+    </>
   );
 };
 export default DefaultNavbar;
