@@ -16,12 +16,9 @@ const DefaultLayout = ({ children , userData }: LayoutProps) => {
   return (
     <div>
        <nav className="default-navbar">
-        <Link href={`/${username}`}>Home</Link>
-        {userData.about && <Link href={`/${username}/about`}>About</Link>}
-        {userData.projects?.length > 0 && (
-          <Link href={`/${username}/projects`}>Projects</Link>
-        )}
-      </nav><div>{children}</div>
+          Default Navbar
+      </nav>
+      <main>{children}</main>
     </div>
   ); 
 };
