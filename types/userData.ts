@@ -40,8 +40,11 @@ export interface HeroSectionI {
   }
   
   export interface Contact {
-    name: string;
-    link: string;
+    email?: string;
+    github?: string;
+    linkedIn?:string;
+    twitter?:string;
+    
   }
   
   export interface UserData {
