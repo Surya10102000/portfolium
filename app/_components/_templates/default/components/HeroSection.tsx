@@ -54,7 +54,7 @@ const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
       <div className="space-y-6">
         <div>
           <FadeIn>
-            <p className="text-accent-foreground text-xl font-bold">{role}</p>
+            <p className="text-xl font-bold">{role}</p>
           </FadeIn>
         </div>
         <div>
