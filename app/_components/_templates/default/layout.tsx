@@ -3,6 +3,8 @@ import { useGetUsernameQuery } from "@/services/userApi";
 import { UserData } from "@/types/userData";
 import Link from "next/link";
 import { ReactNode } from "react";
+import DefaultNavbar from "./components/DefaultNavbar";
+import styles from './layout.module.css'
 
 interface LayoutProps {
   children: ReactNode;
@@ -10,15 +12,16 @@ interface LayoutProps {
 }
 
 const DefaultLayout = ({ children , userData }: LayoutProps) => {
-  const {data }  = useGetUsernameQuery()
+  // const {data }  = useGetUsernameQuery()
+  // const username = data?.username;
 
-  const username = data?.username;
+  const username = "new"
   return (
-    <div>
-       <nav className="default-navbar">
-          Default Navbar
+    <div className={`${styles.figtreeFont} mx-auto`}>
+       <nav className={`default-navbar`}>
+          <DefaultNavbar/>
       </nav>
-      <main>{children}</main>
+      <main >{children}</main>
     </div>
   ); 
 };

@@ -3,13 +3,16 @@ import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
 import { usePathname } from "next/navigation";
 import DefaultHome from "../_components/_templates/default/DefaultHome";
 import MinimalHome from "../_components/_templates/minimal/MinimalHome";
+import { mockUserData } from "@/public/mockData";
 
 type TemplateKey = 'default' | 'minimal'; 
 
 
 const UserPortfolio = () => {
   const username = usePathname().slice(1);
-  const { data, isLoading } = useGetPortfolioByUsernameQuery(username);
+  // const { data, isLoading } = useGetPortfolioByUsernameQuery(username);
+
+  const data = mockUserData
 
   if (!data) return <div>{"no Data"}</div>;
   const templates = {
@@ -23,7 +26,7 @@ const UserPortfolio = () => {
 
   // const Template = templates[userData.templateId];
   const Template = templates[templateKey];
-  if (isLoading) <p>Loading</p>;
+  // if (isLoading) <p>Loading</p>;
 
   if (!Template) return <div>Template not found</div>;
 

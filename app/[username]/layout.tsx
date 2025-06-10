@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 import DefaultLayout from "../_components/_templates/default/layout";
 import MinimalLayout from "../_components/_templates/minimal/layout";
 import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
+import { mockUserData } from "@/public/mockData";
 
 type TemplateKey = 'default' | 'minimal'; 
 
@@ -14,8 +15,8 @@ const UserLayout = ({
   children: ReactNode;
 }) => {
   const { username } = React.use(params);
-  const { data: userData } = useGetPortfolioByUsernameQuery(username);
-
+  // const { data: userData } = useGetPortfolioByUsernameQuery(username);
+  const userData = mockUserData
   const templates = {
     default: DefaultLayout,
     minimal: MinimalLayout,

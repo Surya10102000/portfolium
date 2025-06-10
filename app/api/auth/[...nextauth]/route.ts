@@ -39,7 +39,7 @@ const handler = NextAuth({
           await Portfolio.create({
             userId: newUser._id,
             primaryColor: "blue",
-
+            template: "default",
             hero: {
               name: newUser.name,
               image: newUser.image,
@@ -65,6 +65,7 @@ const handler = NextAuth({
             await Portfolio.create({
               userId: user._id,
               primaryColor: "blue",
+              template : "default",
               hero: {
                 name: user.name,
                 image: user.image,
