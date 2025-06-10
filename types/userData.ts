@@ -44,7 +44,7 @@ export interface HeroSectionI {
     github?: string;
     linkedIn?:string;
     twitter?:string;
-    
+
   }
   
   export interface UserData {
@@ -55,6 +55,6 @@ export interface HeroSectionI {
     projects: Project[];
     experience: Experience[];
     education: Education[];
-    contact: Contact[];
+    contact: Contact;
   }
   

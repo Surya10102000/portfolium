@@ -1,10 +1,12 @@
 import { HeroSectionI } from "@/types/userData";
 import Image from "next/image";
-import { easeOut, motion as m } from "motion/react";
+import { motion as m } from "motion/react";
+import FadeIn from "@/app/_components/motion/FadeIn";
 
-const HeroSection = ({ name, description, image, role }: HeroSectionI) => {
+const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
+  const { image, name, description, role } = hero;
   return (
-    <div className="h-[80lvh] " id="hero">
+    <div className="h-[80lvh] tracking-tighter" id="hero">
       <div className="md:flex md:flex-row-reverse md:justify-between gap-2">
         {image && (
           <div className="mt-12 lg:mt-2">
@@ -18,10 +20,10 @@ const HeroSection = ({ name, description, image, role }: HeroSectionI) => {
           </div>
         )}
 
-        <div className="font-semibold py-6 lg:px-12 flex-1 text-balance">
+        <div className="font-semibold py-6 lg:px-12 flex-1">
           {name.split(" ").map((n, i) => (
             <div
-              className="text-7xl md:text-9xl uppercase tracking-tighter space-y-1"
+              className="text-7xl md:text-9xl uppercase space-y-1 wrap-break-word"
               key={i}
             >
               <m.div
@@ -32,10 +34,13 @@ const HeroSection = ({ name, description, image, role }: HeroSectionI) => {
                 <m.p
                   variants={{
                     initial: { y: "100%" },
-                    animate: { y: 0 , transition : {
-                        duration : 0.6,
-                        ease : "easeOut"
-                    }},
+                    animate: {
+                      y: 0,
+                      transition: {
+                        duration: 0.6,
+                        ease: "easeOut",
+                      },
+                    },
                   }}
                 >
                   {n}
@@ -46,9 +51,19 @@ const HeroSection = ({ name, description, image, role }: HeroSectionI) => {
         </div>
       </div>
 
-      <div>
-        <div>email</div>
-        <div>description</div>
+      <div className="space-y-6">
+        <div>
+          <FadeIn>
+            <p className="text-accent-foreground text-xl font-bold">{role}</p>
+          </FadeIn>
+        </div>
+        <div>
+          <FadeIn>
+            <p className="text-right text-balance text-2xl tracking-wide ">
+              {description}
+            </p>
+          </FadeIn>
+        </div>
       </div>
     </div>
   );
