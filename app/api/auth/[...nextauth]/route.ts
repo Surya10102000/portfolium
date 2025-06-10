@@ -52,8 +52,7 @@ const handler = NextAuth({
             experience: [],
             education: [],
             contact: {
-              email: newUser.email,
-              socials: [],
+              email: profile.email,
             },
           });
         } else {
@@ -65,7 +64,7 @@ const handler = NextAuth({
             await Portfolio.create({
               userId: user._id,
               primaryColor: "blue",
-              template : "default",
+              template: "default",
               hero: {
                 name: user.name,
                 image: user.image,
@@ -78,8 +77,7 @@ const handler = NextAuth({
               experience: [],
               education: [],
               contact: {
-                email: user.email,
-                socials: [],
+                email: profile.email,
               },
             });
           }
