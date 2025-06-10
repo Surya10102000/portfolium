@@ -4,6 +4,9 @@
 .username-theme {
   overflow: auto; /* Ensure scrolling is enabled */
   height: 100vh;
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -54,6 +57,11 @@
 
 /* Dark mode overrides for username theme */
 .username-theme[data-theme="dark"] {
+  overflow: auto; /* Ensure scrolling is enabled */
+  height: 100vh;
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+
   --background: oklch(0 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.1149 0 0);
@@ -150,8 +158,4 @@
   --shadow-2xl: var(--shadow-2xl);
 
   --font-sans: "Figtree", sans-serif;
-  
-  /* Apply to all text elements in the theme */
-  font-family: var(--font-sans);
-  font-optical-sizing: auto;
 }
