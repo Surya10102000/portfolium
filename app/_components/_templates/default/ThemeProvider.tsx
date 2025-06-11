@@ -12,7 +12,6 @@ export function ThemeProvider({ children } : {children : ReactNode}) {
     const html = document.documentElement;
     html.classList.add('username-theme');
     html.style.visibility = 'hidden';
-    html.setAttribute('data-theme', theme || 'light');
     
     // Force repaint before showing
     requestAnimationFrame(() => {
@@ -22,7 +21,6 @@ export function ThemeProvider({ children } : {children : ReactNode}) {
     
     return () => {
       html.classList.remove('username-theme');
-      html.removeAttribute('data-theme');
     };
   }, [theme]);
 
