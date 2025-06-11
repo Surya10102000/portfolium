@@ -7,7 +7,7 @@ const fadeInVariant: Variants = {
     opacity: 0
   },
   visible: {
-    y: 0, // Changed from 20 to 0 for actual movement
+    y: 0, 
     opacity: 1,
     transition: {
       duration: 0.6,
@@ -28,7 +28,7 @@ const FadeIn = ({
   children,
   className = "",
   delay = 0,
-  amount = 0.8,
+  amount = 0.4,
   once = true
 }: FadeInProps) => {
   return (
