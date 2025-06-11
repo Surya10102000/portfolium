@@ -1,16 +1,143 @@
-'use client'
-import { useSession, signIn, signOut } from "next-auth/react"
+"use client";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { ArrowRight, LayoutTemplate, Rocket, Sparkles } from "lucide-react";
 
-export default function Component() {
-  const { data: session } = useSession()
-  if(session) {
-    return <>
-      Signed in as {session.user?.email} <br/>
-      <button onClick={() => signOut()}>Sign out</button>
-    </>
-  }
-  return <>
-    Not signed in <br/>
-    <button onClick={() => signIn()}>Sign in</button>
-  </>
+export default function LandingPage() {
+  const { data: session } = useSession();
+
+  return (
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 -z-10 h-full w-full items-center [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,#63e_100%)]"></div>
+
+      {/* Hero section */}
+      <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            Build Your Perfect Portfolio in Minutes
+          </h1>
+          <p className="mt-6 text-lg leading-8">
+            Portfolium helps you create a stunning professional portfolio with
+            our easy-to-use templates. No coding required - just pick a design
+            and showcase your work.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6 ">
+            {
+              <a
+                href="/profile"
+                className="flex items-center text-white rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-primary focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                Get Started <Rocket className="ml-2 h-4 w-4" />
+              </a>
+            }
+            <a href="#templates" className="text-sm font-semibold leading-6 ">
+              Browse Templates <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Features section */}
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:max-w-none">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                name: "Easy Setup",
+                description:
+                  "Get your portfolio live in minutes with our intuitive editor.",
+                icon: Rocket,
+              },
+              {
+                name: "Beautiful Templates",
+                description:
+                  "Choose from professionally designed templates for any industry.",
+                icon: LayoutTemplate,
+              },
+              {
+                name: "No Coding",
+                description:
+                  "Everything works out of the box - no technical skills needed.",
+                icon: Sparkles,
+              },
+            ].map((feature) => (
+              <div
+                key={feature.name}
+                className="rounded-2xl bg-white/5 p-8 backdrop-blur-sm"
+              >
+                <feature.icon
+                  className="h-8 w-8 text-primary"
+                  aria-hidden="true"
+                />
+                <h3 className="mt-6 text-lg font-semibold ">{feature.name}</h3>
+                <p className="mt-2 text-sm">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+
+      {/* CTA section */}
+      <div className="relative isolate overflow-hidden bg-white/5 px-6 py-24 mt-12 sm:py-32 lg:px-8 backdrop-blur-sm">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight  sm:text-4xl">
+            Ready to showcase your work?
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-8">
+            Join thousands of professionals who use Portfolium to present their
+            best work.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-x-6">
+            {session ? (
+              <a
+                href="/dashboard"
+                className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-primary focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                Go to Dashboard
+              </a>
+            ) : (
+              <button
+                onClick={() => signIn()}
+                className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold  shadow-sm hover:bg-primary focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                Get started
+              </button>
+            )}
+            <a href="#templates" className="text-sm font-semibold leading-6 ">
+              Learn more <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-foreground/30 px-6 py-12">
+        <div className="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-12 lg:px-8">
+          <nav
+            className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
+            aria-label="Footer"
+          >
+            {[
+              { name: "About", href: "#" },
+              { name: "Blog", href: "#" },
+              { name: "Templates", href: "#templates" },
+              { name: "Pricing", href: "#" },
+              { name: "Contact", href: "#" },
+              { name: "Terms", href: "#" },
+            ].map((item) => (
+              <div key={item.name} className="pb-6">
+                <a href={item.href} className="text-sm leading-6 hover:">
+                  {item.name}
+                </a>
+              </div>
+            ))}
+          </nav>
+          <p className="mt-10 text-center text-xs leading-5 text-foreground/40">
+            &copy; {new Date().getFullYear()} Portfolium. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
 }

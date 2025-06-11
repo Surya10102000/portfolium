@@ -16,6 +16,7 @@ import {
   LogOut,
   UserPlus,
   User,
+  Sparkles,
 } from "lucide-react";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
@@ -67,8 +68,11 @@ const Navbar = () => {
 
   return (
     <div className="h-16 flex justify-between items-center px-4">
-      <div onClick={() => router.push("/")}>
-        <Logo className="text-primary" width={50} height={50} />
+      <div className="flex items-center space-x-2" onClick={() => router.push("/")}>
+        <Sparkles className="h-6 w-6 text-primary" />
+        <span className="text-xl font-bold">
+          <p>Portfolium</p>
+        </span>
       </div>
 
       <div className="flex items-center gap-2">
