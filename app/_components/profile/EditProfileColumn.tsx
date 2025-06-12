@@ -1,5 +1,5 @@
 "use client";
-import { FolderGit, LayoutPanelTop, Pickaxe, SquareUser } from "lucide-react";
+import { FolderGit, LayoutPanelTop, LucideMousePointerClick, Pickaxe, SquareUser } from "lucide-react";
 import Section from "./Section";
 import { useState } from "react";
 import {
@@ -10,21 +10,29 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { HeroForm } from "./Forms/HeroForm";
-import { AboutSection, HeroSectionI } from "@/types/userData";
+import { AboutSection, Contact, HeroSectionI } from "@/types/userData";
 import AboutForm from "./Forms/AboutForm";
 import ProjectSectionEditor from "./ProjectForm/ProjectSectionEditor";
 import ExperienceSectionEditor from "./ExperienceForm/ExperienceSectionEditor";
 import {
   useGetPortfolioQuery,
   useUpdateAboutMutation,
+  useUpdateContactMutation,
   useUpdateHeroMutation,
 } from "@/services/portfolioApi";
+import ContactForm from "./Forms/ContactForm";
 
 const EditProfileBox = () => {
   const [activeForm, setActiveForm] = useState<string | null>(null);
   const { data } = useGetPortfolioQuery();
   const [updateHero] = useUpdateHeroMutation();
   const [updateAbout] = useUpdateAboutMutation();
+  const [updateContact] = useUpdateContactMutation();
+
+  const handleSubmitContact = async(data : Contact)=>{
+    await updateContact(data).unwrap()
+    setActiveForm(null)
+  }
 
   const handleSubmitHero = async (data: HeroSectionI) => {
     await updateHero(data).unwrap();
@@ -60,6 +68,12 @@ const EditProfileBox = () => {
       title: "Experience Section",
       description: "Your work experience details",
       icon: <Pickaxe />,
+    },
+    {
+      id: "contact",
+      title: "Contact Section",
+      description: "Contact Details",
+      icon: <LucideMousePointerClick />,
     },
   ];
 
@@ -111,6 +125,14 @@ const EditProfileBox = () => {
 
           {data?.experience && activeForm === "experience" && (
             <ExperienceSectionEditor onCancel={() => setActiveForm(null)} />
+          )}
+
+          {data?.contact && activeForm === "contact" && (
+            <ContactForm
+              initialData={data.contact}
+              onSubmit={handleSubmitContact}
+              onCancel={() => setActiveForm(null)}
+            />
           )}
         </DialogContent>
       </Dialog>
