@@ -76,7 +76,12 @@ const AboutForm = ({ initialData, onSubmit, onCancel }: AboutFormProps) => {
         <Label htmlFor="aboutMe">About Yourself</Label>
         <Textarea
           id="aboutMe"
-          {...register("aboutMe", { required: "About Me is required" })}
+          {...register("aboutMe", { required: "About Me is required",validate: (value) => {
+              if (!value?.trim()) {
+                return "About Me cannot be just spaces";
+              }
+              return true;
+            }, })}
           placeholder="I am Frontend expert..."
           className="mt-2 h-[100px]"
           disabled={isSubmitting}
@@ -91,7 +96,12 @@ const AboutForm = ({ initialData, onSubmit, onCancel }: AboutFormProps) => {
         <Label htmlFor="whatIDo">What do You do?</Label>
         <Textarea
           id="whatIDo"
-          {...register("whatIDo", { required: "What I do is required" })}
+          {...register("whatIDo", { required: "What I do is required",validate: (value) => {
+              if (!value?.trim()) {
+                return "WhatIDo cannot be just spaces";
+              }
+              return true;
+            }, })}
           placeholder="Working on creating ..."
           className="mt-2 h-[100px]"
           disabled={isSubmitting}

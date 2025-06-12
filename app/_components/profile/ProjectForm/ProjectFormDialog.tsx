@@ -93,7 +93,12 @@ const ProjectFormDialog = ({
             <Input
               id="projectName"
               {...register("projectName", {
-                required: "Project name is required",
+                required: "Project name is required",validate: (value) => {
+              if (!value?.trim()) {
+                return "Project name cannot be just spaces";
+              }
+              return true;
+            },
               })}
               placeholder="Enter project name"
               className="mt-2"
@@ -111,7 +116,12 @@ const ProjectFormDialog = ({
             <Textarea
               id="description"
               {...register("description", {
-                required: "Description is required",
+                required: "Description is required",validate: (value) => {
+              if (!value?.trim()) {
+                return "Description cannot be just spaces";
+              }
+              return true;
+            },
               })}
               placeholder="Project description"
               className="mt-2 h-[100px]"

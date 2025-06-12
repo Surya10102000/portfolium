@@ -36,9 +36,8 @@ export default function RootLayout({
             className={`${geistSans.variable} ${geistMono.variable} antialiased thin-scrollbar overscroll-none h-screen scroll-smooth`}
           >
             <Provider>
-
-            <NavbarWrapper />
-            {children}
+              <NavbarWrapper />
+              {children}
             </Provider>
           </body>
         </SessionWrapper>

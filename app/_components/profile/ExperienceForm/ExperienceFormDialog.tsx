@@ -29,7 +29,6 @@ const ExperienceFormDialog = ({
   onOpenChange,
   experience,
 }: ExperienceFormDialogProps) => {
-
   const {
     register,
     handleSubmit,
@@ -100,6 +99,12 @@ const ExperienceFormDialog = ({
                   value: 2,
                   message: "Role must be at least 2 characters",
                 },
+                validate: (value) => {
+                  if (!value?.trim()) {
+                    return "Role Me cannot be just spaces";
+                  }
+                  return true;
+                },
               })}
               placeholder="Enter the job role"
               disabled={isSubmitting}
@@ -119,7 +124,12 @@ const ExperienceFormDialog = ({
                 minLength: {
                   value: 2,
                   message: "Company name must be at least 2 characters",
-                },
+                },validate: (value) => {
+              if (!value?.trim()) {
+                return "Company cannot be just spaces";
+              }
+              return true;
+            },
               })}
               placeholder="Enter the Company name"
               disabled={isSubmitting}
@@ -141,7 +151,12 @@ const ExperienceFormDialog = ({
                 minLength: {
                   value: 10,
                   message: "Description must be at least 10 characters",
-                },
+                },validate: (value) => {
+              if (!value?.trim()) {
+                return "Description cannot be just spaces";
+              }
+              return true;
+            },
               })}
               placeholder="A brief description of your role in the company..."
               className="mt-2 h-[100px]"
@@ -164,7 +179,12 @@ const ExperienceFormDialog = ({
                   value: /^[a-zA-Z0-9\s-–—]+$/,
                   message:
                     "Enter a valid duration format (e.g., May 2020 - April 2023)",
-                },
+                },validate: (value) => {
+              if (!value?.trim()) {
+                return "Duration cannot be just spaces";
+              }
+              return true;
+            },
               })}
               placeholder="May 2020 - April 2023"
               disabled={isSubmitting}
