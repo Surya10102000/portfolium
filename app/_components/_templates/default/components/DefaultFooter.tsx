@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUp, Github, Linkedin, Mail, Twitter } from "lucide-react";
+import Link from "next/link";
 
 export interface Contact {
   email?: string;
@@ -9,6 +10,7 @@ export interface Contact {
 }
 
 const DefaultFooter = ({ contact }: { contact: Contact }) => {
+    const fullUrl = `${window.location.origin}`;
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -17,13 +19,7 @@ const DefaultFooter = ({ contact }: { contact: Contact }) => {
   };
 
   return (
-    <motion.footer
-      className="min-h-screen w-full bg-foreground text-background flex flex-col"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-20% 0px" }}
-      transition={{ duration: 0.8 }}
-    >
+    <footer className="min-h-screen w-full bg-foreground text-background flex flex-col">
       <div className="flex-grow flex flex-col items-center justify-center p-8 gap-12">
         <h2 className="text-4xl md:text-5xl font-bold text-center">
           Let&apos;s Connect
@@ -42,7 +38,7 @@ const DefaultFooter = ({ contact }: { contact: Contact }) => {
 
           {contact.github && (
             <a
-              href={`https://github.com/${contact.github}`}
+              href={contact.github}
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 rounded-full bg-background/10 hover:bg-background/20 transition-all"
@@ -54,7 +50,7 @@ const DefaultFooter = ({ contact }: { contact: Contact }) => {
 
           {contact.linkedIn && (
             <a
-              href={`https://linkedin.com/in/${contact.linkedIn}`}
+              href={contact.linkedIn}
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 rounded-full bg-background/10 hover:bg-background/20 transition-all"
@@ -66,7 +62,7 @@ const DefaultFooter = ({ contact }: { contact: Contact }) => {
 
           {contact.twitter && (
             <a
-              href={`https://twitter.com/${contact.twitter}`}
+              href={contact.twitter}
               target="_blank"
               rel="noopener noreferrer"
               className="p-4 rounded-full bg-background/10 hover:bg-background/20 transition-all"
@@ -87,19 +83,22 @@ const DefaultFooter = ({ contact }: { contact: Contact }) => {
         </div>
       </div>
 
-      <div className="py-6 border-t border-background/20 flex flex-col items-center">
-          <button
-            onClick={scrollToTop}
-            className="p-3 rounded-full bg-background/10 hover:bg-background/20 mb-4 transition-all"
-            aria-label="Back to top"
-          >
-            <ArrowUp className="h-6 w-6" />
-          </button>
+      <div className="py-6 flex flex-col items-center gap-2">
+        <button
+          onClick={scrollToTop}
+          className="p-3 rounded-full bg-background/10 hover:bg-background/20 transition-all"
+          aria-label="Back to top"
+        >
+          <ArrowUp className="h-6 w-6" />
+        </button>
         <p className="text-sm opacity-70">
           © {new Date().getFullYear()} All Rights Reserved
         </p>
+        <Link href={fullUrl} className="text-md opacity-70">
+          Made with <span className="font-medium">Portfolium</span>
+        </Link>
       </div>
-    </motion.footer>
+    </footer>
   );
 };
 
