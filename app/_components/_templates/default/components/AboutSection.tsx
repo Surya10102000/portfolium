@@ -25,7 +25,7 @@ const AboutSection = ({
           </FadeIn>
           <TechStack techStack={techStack!} />
           <FadeIn margin="-30% 0px -10% 0px">
-            <ContactLinks className="pt-px" contact={contact} />
+            <ContactLinks className="pt-px px-1" contact={contact} />
           </FadeIn>
         </div>
         <FadeIn>
