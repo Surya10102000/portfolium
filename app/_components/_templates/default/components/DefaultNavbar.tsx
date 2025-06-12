@@ -2,6 +2,7 @@ import { EllipsisVertical } from "lucide-react";
 import { MouseEvent, useState } from "react";
 import { AnimatePresence, motion as m, Variants } from "motion/react";
 import { UserData } from "@/types/userData";
+import { getNonEmptySections } from "../../templateUtils";
 
 const menuVariants: Variants = {
   initial: {
@@ -40,7 +41,7 @@ const itemVariants: Variants = {
 };
 
 const DefaultNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
-  const section = ["hero", "project", "experience", "contact", "education"];
+  const section = getNonEmptySections(portfolioData)
   const name = portfolioData.hero.name as string;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleScroll = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
