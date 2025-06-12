@@ -27,6 +27,8 @@ const DefaultProjectCard = ({
       {image ? (
         <div className="overflow-hidden">
           <Image
+            width={100}
+            height={100}
             src={image}
             alt={projectName}
             className={cn(
@@ -57,13 +59,13 @@ const DefaultProjectCard = ({
             isExpanded ? "top-8 left-8" : "left-8 bottom-7 "
           )}
         >
-          <h3 className="text-white text-3xl lg:text-4xl font-bold">{projectName}</h3>
+          <h3 className="text-white text-3xl lg:text-4xl font-bold">
+            {projectName}
+          </h3>
 
           {isExpanded && (
             <div className="py-2">
-              <p className="text-white pr-4 ">
-                {description}
-              </p>
+              <p className="text-white pr-4 ">{description}</p>
             </div>
           )}
           <div className="flex  py-2 items-center space-x-4">
@@ -75,7 +77,7 @@ const DefaultProjectCard = ({
                 className="text-white hover:scale-110 transform duration-300"
                 onClick={(e) => e.stopPropagation()}
               >
-                <GithubIcon/>
+                <GithubIcon />
               </a>
             )}
             {projectLink && (
@@ -86,7 +88,7 @@ const DefaultProjectCard = ({
                 className="text-white hover:scale-105 transform duration-300"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Link/>
+                <Link />
               </a>
             )}
           </div>

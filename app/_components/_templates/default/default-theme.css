@@ -6,7 +6,6 @@
   height: 100vh;
   font-family: var(--font-sans);
   font-optical-sizing: auto;
-
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -61,7 +60,6 @@
   height: 100vh;
   font-family: var(--font-sans);
   font-optical-sizing: auto;
-
   --background: oklch(0 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.1149 0 0);

@@ -14,7 +14,7 @@ interface LayoutProps {
 const DefaultLayout = ({ children, userData }: LayoutProps) => {
   return (
     <ThemeProvider>
-      <div className={`username-theme mx-auto tracking-tight`}>
+      <div className={`mx-auto tracking-tight`}>
         <div className="px-5 md:px-7 lg:px-9 mx-auto tracking-tight">
           <nav className={`default-navbar`}>
             <DefaultNavbar portfolioData={userData} />
