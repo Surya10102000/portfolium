@@ -1,5 +1,6 @@
 import {
   AboutSection,
+  Contact,
   Experience,
   HeroSectionI,
   Project,
@@ -26,6 +27,14 @@ export const portfolioApi = createApi({
     getPortfolio: builder.query<UserData, void>({
       query: () => "profile",
       providesTags: ["Portfolio"],
+    }),
+    updateContact: builder.mutation<Contact, Contact>({
+      query: (formData) => ({
+        url: "formhandler/contact",
+        method: "POST",
+        body: { formData },
+      }),
+      invalidatesTags: ["Portfolio"],
     }),
     updateHero: builder.mutation<HeroSectionI, HeroSectionI>({
       query: (formData) => ({
@@ -107,5 +116,6 @@ export const {
   useUpdateProjectMutation,
   useDeleteProjectMutation,
   useGetPortfolioByUsernameQuery,
-  useUpdatePrimaryColorMutation
+  useUpdatePrimaryColorMutation,
+  useUpdateContactMutation
 } = portfolioApi;
