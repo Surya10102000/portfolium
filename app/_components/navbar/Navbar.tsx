@@ -31,7 +31,6 @@ import {
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useGetUsernameQuery } from "@/services/userApi";
-import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { AnimatedGradientText } from "@/components/AnimatedGradientText";
 

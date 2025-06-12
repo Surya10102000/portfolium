@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Award, Book } from "lucide-react";
+import { Award } from "lucide-react";
 import FadeIn from "@/app/_components/motion/FadeIn";
 
 export interface Education {
@@ -18,8 +18,7 @@ interface EducationCardProps {
 
 const EducationCard: React.FC<EducationCardProps> = ({
   education,
-  isLast = false,
-}) => {
+  }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}

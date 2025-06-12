@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Project } from "@/types/userData";
 import { cn } from "@/lib/utils";
 import { GithubIcon, Link } from "lucide-react";
+import Image from "next/image";
 
 const DefaultProjectCard = ({
   projectName,
   description,
-  date,
   image,
   githubLink,
   projectLink,
@@ -26,7 +26,7 @@ const DefaultProjectCard = ({
       {/* Project Image */}
       {image ? (
         <div className="overflow-hidden">
-          <img
+          <Image
             src={image}
             alt={projectName}
             className={cn(

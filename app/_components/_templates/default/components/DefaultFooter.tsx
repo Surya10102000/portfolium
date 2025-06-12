@@ -26,7 +26,7 @@ const DefaultFooter = ({ contact }: { contact: Contact }) => {
     >
       <div className="flex-grow flex flex-col items-center justify-center p-8 gap-12">
         <h2 className="text-4xl md:text-5xl font-bold text-center">
-          Let's Connect
+          Let&apos;s Connect
         </h2>
 
         <div className="flex flex-wrap justify-center gap-6">

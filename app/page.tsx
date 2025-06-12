@@ -1,6 +1,7 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { ArrowRight, LayoutTemplate, Rocket, Sparkles } from "lucide-react";
+import { useSession, signIn } from "next-auth/react";
+import {  LayoutTemplate, Rocket, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export default function LandingPage() {
   const { data: session } = useSession();
@@ -23,12 +24,12 @@ export default function LandingPage() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6 ">
             {
-              <a
+              <Link
                 href="/profile"
                 className="flex items-center text-white rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-primary focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 Get Started <Rocket className="ml-2 h-4 w-4" />
-              </a>
+              </Link>
             }
             <a href="#templates" className="text-sm font-semibold leading-6 ">
               Browse Templates <span aria-hidden="true">→</span>
@@ -90,12 +91,12 @@ export default function LandingPage() {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             {session ? (
-              <a
+              <Link
                 href="/dashboard"
                 className="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-primary focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 Go to Dashboard
-              </a>
+              </Link>
             ) : (
               <button
                 onClick={() => signIn()}
@@ -104,9 +105,9 @@ export default function LandingPage() {
                 Get started
               </button>
             )}
-            <a href="#templates" className="text-sm font-semibold leading-6 ">
+            <Link href="#" className="text-sm font-semibold leading-6 ">
               Learn more <span aria-hidden="true">→</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

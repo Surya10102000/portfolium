@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import React from 'react';
 
 export interface Contact {

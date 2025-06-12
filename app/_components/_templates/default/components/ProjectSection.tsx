@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import { Project } from "@/types/userData";
 import DefaultProjectCard from "./DefaultProjectCard";
 import FadeIn from "@/app/_components/motion/FadeIn";

@@ -1,7 +1,7 @@
 import { useInView, motion as m, Variants } from "motion/react";
 import { useRef } from "react";
 
-const TechStack = ({ techStack }: { techStack: String[] }) => {
+const TechStack = ({ techStack }: { techStack: string[] }) => {
   const ref = useRef(null);
 
   const isInView = useInView(ref, {

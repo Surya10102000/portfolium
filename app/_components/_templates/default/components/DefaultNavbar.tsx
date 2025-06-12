@@ -1,7 +1,7 @@
-import { mockHeroData } from "@/public/mockData";
 import { EllipsisVertical } from "lucide-react";
 import { MouseEvent, useState } from "react";
 import { AnimatePresence, motion as m, Variants } from "motion/react";
+import { UserData } from "@/types/userData";
 
 const menuVariants: Variants = {
   initial: {
@@ -39,9 +39,9 @@ const itemVariants: Variants = {
   exit: { opacity: 0, x: 20 },
 };
 
-const DefaultNavbar = () => {
+const DefaultNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
   const section = ["hero", "project", "experience", "contact", "education"];
-  const { name } = mockHeroData;
+  const name = portfolioData.hero.name as string;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleScroll = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
@@ -55,11 +55,16 @@ const DefaultNavbar = () => {
   };
 
   return (
-    <m.div initial={{ y: "-100%" }}
-    animate={{y: 0 , transition : {
-      duration : 0.6,
-      ease : "easeOut"
-    }}}>
+    <m.div
+      initial={{ y: "-100%" }}
+      animate={{
+        y: 0,
+        transition: {
+          duration: 0.6,
+          ease: "easeOut",
+        },
+      }}
+    >
       <div className="flex justify-between items-center py-4 md:py-6 ">
         <p className="text-3xl font-bold ">{`${name?.split(" ")?.[0]}.`}</p>
         <div>
