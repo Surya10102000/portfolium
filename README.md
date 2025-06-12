@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌐 Portfolium
 
-## Getting Started
+**Portfolium** is a full-featured portfolio website builder where users can effortlessly create, customize, and share their personal portfolio. Built with **Next.js App Router**, this project allows users to choose templates, add their project and experience details, and get a live portfolio at `/username`.
 
-First, run the development server:
+---
+
+## 🚀 Features
+
+- ✨ Multiple portfolio templates with dynamic layouts
+- 🧠 User authentication
+- 📁 Easy form-based content input (Projects, Experience, About, Contact)
+- 🖼️ Dynamic page generation using `app/[username]` route
+- 🧩 Template selection and live previews
+- 🎨 Theme customization (colors, layout, etc.)
+- 🌐 Public portfolio link: `https://portfolium.com/username`
+- 📄 PDF export & social share options (coming soon)
+
+---
+
+## 🛠️ Tech Stack
+
+| Frontend        | Backend         | Database   | Auth              | Styling        |
+|-----------------|------------------|------------|-------------------|----------------|
+| Next.js (App Router) | Node.js (Express) | MongoDB    |   NextAuth   | Tailwind CSS + ShadCN |
+
+---
+
+## 🧑‍💻 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/yourusername/portfolium.git
+cd portfolium
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Set environment variables
+
+Create a `.env.local` file and add:
+
+```env
+AUTH_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXTAUTH_URL=
+DATABASE_URL=
+PORT=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+```
+
+### 4. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Templates
 
-## Learn More
+Each template is stored under `components/_templates/` and has:
+- Custom Layout
+- Custom Navbar
+- Project Detail Page
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ✅ TODO (Contributions Welcome)
 
-## Deploy on Vercel
+- [ ] Add more beautiful templates
+- [ ] Export as PDF & PNG
+- [ ] Custom domain support
+- [ ] Template preview gallery
+- [ ] Realtime form preview
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🪪 License
+
+MIT License
+
+---
+
+## 👨‍💻 Developed by
+
+**Surya Prakash Mallah**  
+[GitHub](https://github.com/suryaprakashmallah) ・ [LinkedIn](https://linkedin.com/in/suryaprakashmallah)
