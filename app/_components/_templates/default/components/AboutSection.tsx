@@ -13,7 +13,7 @@ const AboutSection = ({
   const { techStack, whatIDo, aboutMe } = about;
   return (
     <div id="about" className="lg:px-11">
-      <FadeIn delay={1}>
+      <FadeIn>
         <div className="py-8">
           <p className="capitalize font-bold">about.</p>
         </div>
