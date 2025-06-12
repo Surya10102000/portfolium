@@ -22,6 +22,7 @@ interface FadeInProps {
   delay?: number;
   amount?: number; // Viewport threshold (0-1)
   once?: boolean;
+  margin?: string;
 }
 
 const FadeIn = ({
@@ -29,13 +30,14 @@ const FadeIn = ({
   className = "",
   delay = 0,
   amount = 0.4,
-  once = true
+  once = true,
+  margin
 }: FadeInProps) => {
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount }}
+      viewport={{ once, amount , margin}}
       variants={fadeInVariant}
       custom={delay}
       className={className}
