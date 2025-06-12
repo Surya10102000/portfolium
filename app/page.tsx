@@ -8,10 +8,11 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 -z-10 h-full w-full items-center [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,#63e_100%)]"></div>
 
       {/* Hero section */}
+      <div className="relative h-[100lvh]">
+      <div className="absolute inset-0 -z-10 h-full w-full items-center [background:radial-gradient(125%_125%_at_50%_10%,var(--background)_40%,#63e_100%)]"></div>
+
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
@@ -37,9 +38,10 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
+      </div>
 
       {/* Features section */}
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto py-12 max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-none">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {[
@@ -64,7 +66,7 @@ export default function LandingPage() {
             ].map((feature) => (
               <div
                 key={feature.name}
-                className="rounded-2xl bg-white/5 p-8 backdrop-blur-sm"
+                className="rounded-2xl p-8 shadow-primary bg-card backdrop-blur-sm hover:shadow-2xl"
               >
                 <feature.icon
                   className="h-8 w-8 text-primary"
