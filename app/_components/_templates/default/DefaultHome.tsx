@@ -6,16 +6,39 @@ import ProjectSection from "./components/ProjectSection";
 import AboutSection from "./components/AboutSection";
 import { ExperienceList } from "./components/ExperienceList";
 import EducationList from "./components/EducationList";
+import { aboutIsEmpty, arrayIsEmpty } from "../templateUtils";
+import { useMemo } from "react";
 const DefaultHome = ({ data }: { data: UserData }) => {
   const { hero, about, education, projects, experience, contact } = data;
 
+  const sectionChecks = useMemo(
+    () => ({
+      hasHero: !!(hero.name || hero.role || hero.description || hero.image),
+      hasAbout: !!(about.aboutMe || about.whatIDo || about.techStack?.length),
+      hasProjects: !!projects?.length,
+      hasExperience: !!experience?.length,
+      hasEducation: !!education?.length,
+      hasContact: !!(
+        contact.email ||
+        contact.github ||
+        contact.linkedIn ||
+        contact.twitter
+      ),
+    }),
+    [hero, about, projects, experience, education, contact]
+  );
+
   return (
     <div>
-      <HeroSection hero={hero}/>
-      <ProjectSection projects={projects}/>
-      <AboutSection contact={contact} about={about}/>
-      <ExperienceList experiences={experience}/>
-      <EducationList educations={education}/>
+      {sectionChecks.hasHero && <HeroSection hero={hero} />}
+      {sectionChecks.hasProjects && <ProjectSection projects={projects} />}
+      {(sectionChecks.hasAbout) && (
+        <AboutSection contact={contact} about={about} />
+      )}
+      {sectionChecks.hasExperience && (
+        <ExperienceList experiences={experience} />
+      )}
+      {sectionChecks.hasEducation && <EducationList educations={education} />}
     </div>
   );
 };
