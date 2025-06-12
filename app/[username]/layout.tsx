@@ -3,6 +3,7 @@ import React, { ReactNode } from "react";
 import DefaultLayout from "../_components/_templates/default/layout";
 import MinimalLayout from "../_components/_templates/minimal/layout";
 import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
+import { mockUserData } from "@/public/mockData";
 
 type TemplateKey = 'default' | 'minimal'; 
 
@@ -21,7 +22,7 @@ const UserLayout = ({
     // Add other templates here
   };
 
-  if (!userData) return <div>User not found</div>;
+  if (!userData) return null;
 
   const templateKey: TemplateKey =
     (userData.template as TemplateKey) || "default";
