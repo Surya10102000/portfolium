@@ -6,7 +6,6 @@ import ProjectSection from "./components/ProjectSection";
 import AboutSection from "./components/AboutSection";
 import { ExperienceList } from "./components/ExperienceList";
 import EducationList from "./components/EducationList";
-import { aboutIsEmpty, arrayIsEmpty } from "../templateUtils";
 import { useMemo } from "react";
 const DefaultHome = ({ data }: { data: UserData }) => {
   const { hero, about, education, projects, experience, contact } = data;
