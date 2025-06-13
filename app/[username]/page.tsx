@@ -12,7 +12,8 @@ const UserPortfolio = () => {
   const { data, isLoading } = useGetPortfolioByUsernameQuery(username);
 
 
-  if (!data) return <div>{"no Data"}</div>;
+  if (!data) return <div></div>;
+
   const templates = {
     default: DefaultHome,
     minimal: MinimalHome,

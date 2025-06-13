@@ -14,15 +14,14 @@ interface LayoutProps {
 const DefaultLayout = ({ children, userData }: LayoutProps) => {
   return (
     <ThemeProvider>
-      <div className={`mx-auto tracking-tight`}>
-        <div className="px-5 md:px-7 lg:px-9 mx-auto tracking-tight">
+      <div className={`mx-auto tracking-tight flex flex-col justify-between`}>
+        <div className="flex-1 px-5 md:px-7 lg:px-9 mx-auto tracking-tight">
           <nav className={`default-navbar`}>
             <DefaultNavbar portfolioData={userData} />
           </nav>
           <main>{children}</main>
         </div>
-        <div className="py-8"></div>
-        <div>
+        <div className="mt-8">
           <DefaultFooter contact={userData.contact} />
         </div>
       </div>
