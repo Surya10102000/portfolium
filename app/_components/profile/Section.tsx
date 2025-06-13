@@ -16,8 +16,8 @@ const Section: React.FC<SectionsProps> = ({
 }) => {
   return (
     <div
-      className="flex justify-between items-center gap-4 border p-4 rounded-md cursor-pointer
-                 transition-colors duration-200 ease-in-out
+      className="flex justify-between items-center gap-4 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] p-4 rounded-md cursor-pointer
+                 transition-colors duration-200 ease-in-out 
                  "
       onClick={onClick}
       role="button"
