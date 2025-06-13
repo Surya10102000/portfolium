@@ -11,8 +11,8 @@ const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
         {image && (
           <div className="mt-12 lg:mt-2">
             <Image
-              src="/1733255180756.jpg"
-              className="rounded-full w-26 lg:w-40"
+              src={image.url}
+              className="rounded-full aspect-square object-cover w-26 lg:w-40"
               alt={name}
               width={100}
               height={100}

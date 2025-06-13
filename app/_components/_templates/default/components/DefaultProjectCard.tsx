@@ -29,7 +29,7 @@ const DefaultProjectCard = ({
           <Image
             width={100}
             height={100}
-            src={image}
+            src={image.url}
             alt={projectName}
             className={cn(
               "w-full h-full object-cover transition duration-300 ease-in-out",
