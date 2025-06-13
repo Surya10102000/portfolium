@@ -4,10 +4,7 @@ import { model, models, Schema } from "mongoose";
 const PortfolioSchema: Schema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    primaryColor: {
-      type: String,
-      default: "blue",
-    },
+    template : { type : String},
     hero: {
       name: { type: String },
       role: String,

@@ -10,7 +10,7 @@ export interface IUser extends Document {
 }
 export interface IPortfolio extends Document {
   userId: Schema.Types.ObjectId;
-  primaryColor : string;
+  template : string;
   hero: {
     name: string;
     role?: string;

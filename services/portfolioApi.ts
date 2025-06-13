@@ -13,16 +13,20 @@ export const portfolioApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
   tagTypes: ["Portfolio"],
   endpoints: (builder) => ({
-    updatePrimaryColor: builder.mutation({
-      query: (color) => ({
-        url: '/theme/color',
-        method: 'PUT',
-        body: { color },
+    updateTemplate: builder.mutation({
+      query: (template) => ({
+        url: "/theme/template",
+        method: "PUT",
+        body: { template },
+        transformResponse: (response: { template: string }) =>
+          response.template,
       }),
     }),
     getPortfolioByUsername: builder.query<UserData, string>({
       query: (username) => `profile/${username}`,
-      providesTags: (result, error, username) => [{ type: 'Portfolio', id: username }],
+      providesTags: (result, error, username) => [
+        { type: "Portfolio", id: username },
+      ],
     }),
     getPortfolio: builder.query<UserData, void>({
       query: () => "profile",
@@ -60,7 +64,10 @@ export const portfolioApi = createApi({
       }),
       invalidatesTags: ["Portfolio"],
     }),
-    updateExperience: builder.mutation<Experience,{experienceId : string , formData : Experience}>({
+    updateExperience: builder.mutation<
+      Experience,
+      { experienceId: string; formData: Experience }
+    >({
       query: ({ experienceId, formData }) => ({
         url: "formhandler/experience",
         method: "PUT",
@@ -85,7 +92,10 @@ export const portfolioApi = createApi({
       }),
       invalidatesTags: ["Portfolio"],
     }),
-     updateProject: builder.mutation<Project,{projectId : string , formData : Project}>({
+    updateProject: builder.mutation<
+      Project,
+      { projectId: string; formData: Project }
+    >({
       query: ({ projectId, formData }) => ({
         url: "formhandler/project",
         method: "PUT",
@@ -116,6 +126,6 @@ export const {
   useUpdateProjectMutation,
   useDeleteProjectMutation,
   useGetPortfolioByUsernameQuery,
-  useUpdatePrimaryColorMutation,
-  useUpdateContactMutation
+  useUpdateTemplateMutation,
+  useUpdateContactMutation,
 } = portfolioApi;

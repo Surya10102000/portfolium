@@ -49,7 +49,6 @@ export interface HeroSectionI {
   
   export interface UserData {
     template : string;
-    primaryColor: string;
     hero: HeroSectionI;
     about: AboutSection;
     projects: Project[];

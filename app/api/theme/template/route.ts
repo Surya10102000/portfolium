@@ -1,11 +1,14 @@
-// app/api/theme/color/route.ts
+// app/api/theme/template/route.ts
 import { NextResponse } from "next/server";
 import User from "@/models/User";
 import { getServerSession } from "next-auth";
 import { Portfolio } from "@/models/Portfolio";
+import { UserData } from "@/types/userData";
+import dbConnect from "@/lib/connectDB";
 
 export async function PUT(req: Request) {
   try {
+    dbConnect();
     const session = await getServerSession();
     if (!session?.user?.email) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -15,19 +18,31 @@ export async function PUT(req: Request) {
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
-    
-    const { color } = await req.json();
-    
+
+    const { template }: { template: string } = await req.json();
+
     const updatedPortfolio = await Portfolio.findOneAndUpdate(
-      { userId: user._id },  
-      { $set: { primaryColor: color } },
-      { new: true, upsert: true }  // Return updated doc, create if doesn't exist
+      { userId: user._id },
+      { template },
+      { new: true, upsert: true }
     );
 
-    return NextResponse.json({ success: true, portfolio: updatedPortfolio });
+    if (!updatedPortfolio) {
+      return NextResponse.json(
+        { error: "Failed to update portfolio" },
+        { status: 500 }
+      );
+    }
+
+    console.log(updatedPortfolio);
+
+    return NextResponse.json({
+      success: true,
+      template: updatedPortfolio.template,
+    });
   } catch (err) {
     return NextResponse.json(
-      { error: "Failed to update color", err },
+      { error: "Failed to update template", err },
       { status: 500 }
     );
   }

@@ -2,19 +2,20 @@
 import { useGetPortfolioQuery } from "@/services/portfolioApi";
 import EditProfileBox from "./EditProfileColumn";
 import PortfolioView from "./ProfileView";
-import { ColorSelector } from "./ColorSelector";
 import { UrlToggleGroup } from "./UrlToggleGroup";
 import { useGetUsernameQuery } from "@/services/userApi";
 import { ViewModeToggle } from "./ViewModeToggle";
 import LoadingComponent from "../Loader/LoadingComponent";
+import { TemplateSelector } from "./TemplateSelector";
 
 const ProfileContainer = () => {
   const { data, isLoading } = useGetPortfolioQuery();
   const { data: userResponse, isLoading: isUserLoading } = useGetUsernameQuery();
-
   if (isLoading || isUserLoading) {
     return <LoadingComponent/>
   }
+
+  console.log(data?.template)
 
   return (
     <div className="flex">
@@ -28,7 +29,7 @@ const ProfileContainer = () => {
         <div className="w-full px-4">
           {/* topbar */}
           <div className="flex justify-between items-center gap-2">
-            <ColorSelector currentColor={data?.primaryColor as string} />
+            <TemplateSelector currentTemplate={data?.template as string} />
 
             {userResponse && (
               <div className="flex-1">
