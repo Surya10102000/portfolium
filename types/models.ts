@@ -8,6 +8,12 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface ICoudinaryImage {
+  url: string;
+  publicId: string;
+}
+
 export interface IPortfolio extends Document {
   userId: Schema.Types.ObjectId;
   template : string;
@@ -15,7 +21,7 @@ export interface IPortfolio extends Document {
     name: string;
     role?: string;
     description?: string;
-    image?: string;
+    image?: ICoudinaryImage;
   };
   about?: {
     aboutMe: string;
@@ -26,7 +32,7 @@ export interface IPortfolio extends Document {
     projectName: string;
     description: string;
     date?: string;
-    image?: string;
+    image?: ICoudinaryImage;
     projectLink?: string; 
     techStack?: string[]; 
   }>;

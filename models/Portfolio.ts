@@ -4,12 +4,15 @@ import { model, models, Schema } from "mongoose";
 const PortfolioSchema: Schema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    template : { type : String},
+    template: { type: String },
     hero: {
       name: { type: String },
       role: String,
       description: String,
-      image: String,
+      image: {
+        url: String,
+        publicId: String,
+      },
     },
     about: {
       aboutMe: { type: String },
@@ -21,7 +24,10 @@ const PortfolioSchema: Schema = new Schema(
         projectName: { type: String },
         description: { type: String },
         date: String,
-        image: String,
+        image: {
+          url: String,
+          publicId: String,
+        },
         projectLink: String,
         githubLink: String,
       },
