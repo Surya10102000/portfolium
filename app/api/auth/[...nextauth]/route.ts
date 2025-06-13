@@ -32,7 +32,7 @@ const handler = NextAuth({
           const newUser = await User.create({
             name: profile.name,
             email: profile.email,
-            image: profile.image,
+            image: "",
             username: generateUsername(profile?.name as string),
           });
 
@@ -42,7 +42,7 @@ const handler = NextAuth({
             template: "default",
             hero: {
               name: newUser.name,
-              image: newUser.image,
+              image: "",
             },
             about: {
               aboutMe: "",
@@ -67,7 +67,7 @@ const handler = NextAuth({
               template: "default",
               hero: {
                 name: user.name,
-                image: user.image,
+                image: "",
               },
               about: {
                 aboutMe: "",
