@@ -8,7 +8,7 @@ export default function ResponsiveIframe({ username }: { username: string }) {
   return (
     <div className={`relative border rounded-lg overflow-hidden max-w-[100vw] w-full h-[80vh] mx-auto
       ${viewMode === 'mobile' ? 
-        'md:max-w-[480px]' : 
+        'md:max-w-[600px]' : 
         'w-full '}
     `}>
       <iframe
