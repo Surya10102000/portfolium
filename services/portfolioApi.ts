@@ -21,6 +21,7 @@ export const portfolioApi = createApi({
         transformResponse: (response: { template: string }) =>
           response.template,
       }),
+      invalidatesTags : ["Portfolio"]
     }),
     getPortfolioByUsername: builder.query<UserData, string>({
       query: (username) => `profile/${username}`,
