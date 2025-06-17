@@ -33,9 +33,6 @@ export async function PUT(req: Request) {
         { status: 500 }
       );
     }
-
-    console.log(updatedPortfolio);
-
     return NextResponse.json({
       success: true,
       template: updatedPortfolio.template,

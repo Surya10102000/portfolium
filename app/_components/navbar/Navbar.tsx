@@ -54,7 +54,6 @@ const Navbar = () => {
   const copyWebsiteLink = () => {
     if (!websiteUrl) return;
     navigator.clipboard.writeText(websiteUrl);
-    console.log("copy");
   };
 
   const handleSignOut = async () => {

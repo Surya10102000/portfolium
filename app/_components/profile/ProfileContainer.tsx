@@ -15,8 +15,6 @@ const ProfileContainer = () => {
     return <LoadingComponent/>
   }
 
-  console.log(data?.template)
-
   return (
     <div className="flex">
       {/* left column container */}
