@@ -113,7 +113,7 @@ const AboutForm = ({ initialData, onSubmit, onCancel }: AboutFormProps) => {
 
       {/* TechStack field */}
       <div>
-        <Label>Tech Stack</Label>
+        <Label>Skills</Label>
         <div className="flex flex-wrap gap-2 mt-2">
           {techStack.map((tech, index) => (
             <Badge
