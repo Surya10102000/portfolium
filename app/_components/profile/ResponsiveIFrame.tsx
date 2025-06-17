@@ -1,6 +1,6 @@
 "use client";
 import { selectViewMode } from "@/redux/viewModeSlice";
-import { useGetPortfolioQuery, useUpdateTemplateMutation } from "@/services/portfolioApi";
+import { useGetPortfolioQuery } from "@/services/portfolioApi";
 import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 

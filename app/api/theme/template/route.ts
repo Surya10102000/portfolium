@@ -21,7 +21,7 @@ export async function PUT(req: Request) {
 
     const { template }: { template: string } = await req.json();
 
-    const updatedPortfolio = await Portfolio.findOneAndUpdate(
+    const updatedPortfolio : UserData = await Portfolio.findOneAndUpdate(
       { userId: user._id },
       { template },
       { new: true, upsert: true }

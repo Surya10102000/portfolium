@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { HeroSectionI } from "@/types/userData";
 import { Badge } from "@/components/ui/badge";
-import { Dice1, ImagePlus, ImagePlusIcon, Trash } from "lucide-react";
+import { ImagePlus, ImagePlusIcon, Trash } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,10 +23,10 @@ import { AppDispatch, RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearImageState,
-  setImageFile,
   setPublicIdToDelete,
   setUploadStatus,
 } from "@/redux/imageUploadSlice";
+import Image from "next/image";
 
 interface HeroFormProps {
   initialData: HeroSectionI;
@@ -176,7 +176,10 @@ export const HeroForm = ({
           <div className="mt-2 flex items-center gap-4">
             {previewImage || watch("image")?.url ? (
               <div className="relative">
-                <img
+                <Image
+                width={100}
+                height={100}
+                priority={false}
                   src={previewImage || watch("image")?.url || ""}
                   alt="Preview"
                   className="h-24 w-24 rounded-full object-cover"
