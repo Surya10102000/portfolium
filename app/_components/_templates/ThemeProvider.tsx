@@ -25,7 +25,7 @@ export function ThemeProvider({ children } : {children : ReactNode}) {
   }, [theme]);
 
   if (!mounted) {
-    return null; // Or loading skeleton
+    return null; 
   }
 
   return <>{children}</>;

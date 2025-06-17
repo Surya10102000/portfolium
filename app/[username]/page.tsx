@@ -3,8 +3,9 @@ import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
 import { usePathname } from "next/navigation";
 import DefaultHome from "../_components/_templates/default/DefaultHome";
 import MinimalHome from "../_components/_templates/minimal/MinimalHome";
+import SteamHome from "../_components/_templates/steam/SteamHome";
 
-type TemplateKey = 'default' | 'minimal'; 
+type TemplateKey = 'default' | 'minimal' | 'steam'; 
 
 
 const UserPortfolio = () => {
@@ -17,6 +18,7 @@ const UserPortfolio = () => {
   const templates = {
     default: DefaultHome,
     minimal: MinimalHome,
+    steam : SteamHome,
     // Add other templates here
   };
 

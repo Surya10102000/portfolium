@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 const templateOptions = [
   { value: "default", label: "Default" },
   { value: "minimal", label: "Minimal" },
+  { value: "steam", label: "Steam" },
 ];
 
 export function TemplateSelector({ currentTemplate }: { currentTemplate: string }) {
@@ -30,7 +31,6 @@ export function TemplateSelector({ currentTemplate }: { currentTemplate: string 
     try {
       setValue(template);
       const result = await updateTemplate(template).unwrap();
-          console.log('Update successful:', result);
     } catch (err) {
       console.error("Failed to update Template:", err);
       // Revert on error

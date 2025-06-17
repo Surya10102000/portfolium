@@ -2,9 +2,10 @@
 import React, { ReactNode } from "react";
 import DefaultLayout from "../_components/_templates/default/layout";
 import MinimalLayout from "../_components/_templates/minimal/layout";
+import SteamLayout from "../_components/_templates/steam/layout";
 import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
 
-type TemplateKey = 'default' | 'minimal'; 
+type TemplateKey = "default" | "minimal" | "steam";
 
 const UserLayout = ({
   params,
@@ -18,6 +19,7 @@ const UserLayout = ({
   const templates = {
     default: DefaultLayout,
     minimal: MinimalLayout,
+    steam: SteamLayout,
     // Add other templates here
   };
 
