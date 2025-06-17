@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import portfolioReducer from './portfolioSlice';
-import { portfolioApi } from '@/services/portfolioApi';
 import viewModeReducer from './viewModeSlice'
+import imageUploadReducer from './imageUploadSlice'
+import { portfolioApi } from '@/services/portfolioApi';
 import { userApi } from '@/services/userApi';
 
 export const makeStore = () => {
@@ -9,6 +10,7 @@ export const makeStore = () => {
     reducer: {
       portfolio: portfolioReducer,
       viewMode: viewModeReducer,
+      imageUpload : imageUploadReducer,
       [portfolioApi.reducerPath] : portfolioApi.reducer,
       [userApi.reducerPath] : userApi.reducer,
     },
