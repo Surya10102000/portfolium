@@ -1,7 +1,14 @@
 "use client";
 import { UserData } from "@/types/userData";
 import { useMemo } from "react";
-const DefaultHome = ({ data }: { data: UserData }) => {
+import { Heading } from "./components/nav/Heading";
+import { Hero } from "./components/home/hero/Hero";
+import { About } from "./components/home/about/About";
+import { Projects } from "./components/home/projects/Projects";
+import { Experience } from "./components/home/experience/Experience";
+import { Contact } from "./components/home/contact/Contact";
+import Education from "./components/home/education/Education";
+const SteamHome = ({ data }: { data: UserData }) => {
   const { hero, about, education, projects, experience, contact } = data;
 
   const sectionChecks = useMemo(
@@ -23,16 +30,15 @@ const DefaultHome = ({ data }: { data: UserData }) => {
 
   return (
     <div>
-      {sectionChecks.hasHero && (<div>Steam home</div>)}
-      {/* {sectionChecks.hasProjects && <ProjectSection projects={projects} />}
-      {(sectionChecks.hasAbout) && (
-        <AboutSection contact={contact} about={about} />
-      )}
-      {sectionChecks.hasExperience && (
-        <ExperienceList experiences={experience} />
-      )}
-      {sectionChecks.hasEducation && <EducationList educations={education} />} */}
+      <Heading contact={contact} />
+      {sectionChecks.hasHero && <Hero hero={hero} />}
+      {(sectionChecks.hasAbout) && <About about={about} contact={contact} /> }
+      
+      {sectionChecks.hasProjects && <Projects projects={projects}/>}
+      {sectionChecks.hasExperience && <Experience experience={experience}/>}
+      {sectionChecks.hasEducation && <Education education={education}/>}
+      <Contact contact={contact} />
     </div>
   );
 };
-export default DefaultHome;
+export default SteamHome;
