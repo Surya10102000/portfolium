@@ -1,12 +1,6 @@
+import { Contact } from '@/types/userData';
 import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import React from 'react';
-
-export interface Contact {
-  email?: string;
-  github?: string;
-  linkedIn?: string;
-  twitter?: string;
-}
 
 interface ContactLinksProps {
   contact: Contact;
