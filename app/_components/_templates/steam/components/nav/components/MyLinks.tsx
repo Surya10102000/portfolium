@@ -14,7 +14,6 @@ type ContactLink = {
 
 const getContactLinks = (contacts: Contact): 
 ContactLink[] => {
-  console.log(contacts)
   const links: ContactLink[] = [
     {
       name: "email",
