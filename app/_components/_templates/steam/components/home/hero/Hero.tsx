@@ -45,7 +45,7 @@ export const Hero = ({ hero }: { hero: HeroSectionI }) => {
               className={styles.profile}
               src={image?.url}
               priority
-              alt="John Carlo Devera | Frontend Developer"
+              alt={name}
               width={250}
               height={250}
             />
