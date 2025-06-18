@@ -10,9 +10,11 @@ export function ThemeProvider({ children } : {children : ReactNode}) {
 
   useEffect(() => {
     const html = document.documentElement;
-    html.classList.add('username-theme');
+    html.classList.add('steam-theme');
     html.style.visibility = 'hidden';
-    
+    html.style.scrollBehavior = "smooth";
+    document.body.style.scrollBehavior = 'smooth';
+
     // Force repaint before showing
     requestAnimationFrame(() => {
       html.style.visibility = 'visible';
@@ -20,7 +22,9 @@ export function ThemeProvider({ children } : {children : ReactNode}) {
     });
     
     return () => {
-      html.classList.remove('username-theme');
+      html.classList.remove('steam-theme');
+      html.style.scrollBehavior = '';
+      document.body.style.scrollBehavior = '';
     };
   }, [theme]);
 
