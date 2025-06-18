@@ -3,7 +3,7 @@ import { UserData } from "@/types/userData";
 import { ReactNode } from "react";
 import DefaultNavbar from "./components/DefaultNavbar";
 import "./default-theme.css";
-import { ThemeProvider } from "../ThemeProvider";
+import { ThemeProvider } from "./ThemeProvider";
 import DefaultFooter from "./components/DefaultFooter";
 
 interface LayoutProps {

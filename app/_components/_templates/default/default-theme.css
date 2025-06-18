@@ -1,7 +1,7 @@
-/* app/username/username-theme.css */
+/* app/default/default-theme.css */
 @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
 
-.username-theme {
+.default-theme {
   overflow: auto; /* Ensure scrolling is enabled */
   height: 100vh;
   font-family: var(--font-sans);
@@ -54,8 +54,8 @@
   --spacing: 0.28rem;
 }
 
-/* Dark mode overrides for username theme */
-.username-theme[data-theme="dark"] {
+/* Dark mode overrides for default theme */
+.default-theme[data-theme="dark"] {
   overflow: auto; /* Ensure scrolling is enabled */
   height: 100vh;
   font-family: var(--font-sans);
