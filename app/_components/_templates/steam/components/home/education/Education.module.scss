@@ -1,0 +1,97 @@
+.educationItem {
+  background: var(--background-light);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+
+    .icon {
+      color: var(--brand);
+      font-size: 1.8rem;
+    }
+
+    .courseName {
+      font-size: var(--text-md);
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+    }
+  }
+
+  .subheader {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .icon {
+      color: var(--brand);
+      font-size: 1.5rem;
+      opacity: 0.8;
+    }
+
+    .university {
+      font-size: var(--text-sm);
+      color: var(--text);
+      opacity: 0.9;
+      margin: 0;
+      font-style: italic;
+    }
+  }
+
+  .duration {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .icon {
+      color: var(--brand);
+      font-size: 1.5rem;
+      opacity: 0.8;
+    }
+
+    span {
+      font-size: var(--text-xs);
+      color: var(--text);
+      opacity: 0.8;
+      background: var(--background);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+    }
+  }
+
+  .description {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--text);
+    opacity: 0.9;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .educationItem {
+    padding: 1.5rem;
+    
+    .courseName {
+      font-size: var(--text-sm);
+    }
+    
+    .description {
+      font-size: var(--text-xs);
+    }
+  }
+}
