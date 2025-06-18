@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ExternalLink, Github, X } from "lucide-react";
-import Pattern from "./Pattern";
 interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;

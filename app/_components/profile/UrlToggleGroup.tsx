@@ -39,8 +39,6 @@ export function UrlToggleGroup({
       username: "",
     },
   });
-  const [existError, setExistError] = useState("");
-
   // Transform input to lowercase and remove spaces in real-time
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -57,6 +55,7 @@ export function UrlToggleGroup({
         fullUrl: url,
       };
     } catch (err) {
+      console.log(err)
       return {
         displayUrl: `${currentUsername.toLowerCase()}`,
         fullUrl: `https://example.com/${currentUsername.toLowerCase()}`,
@@ -69,7 +68,7 @@ export function UrlToggleGroup({
       try {
         // Ensure final validation before submission
         const finalUsername = data.username.toLowerCase().trim();
-        const result = await updateUsername({ username: finalUsername }).unwrap();  
+        await updateUsername({ username: finalUsername }).unwrap();  
         setOpen(false);
         reset();
       } catch (err) {

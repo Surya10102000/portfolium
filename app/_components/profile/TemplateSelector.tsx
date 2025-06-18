@@ -17,7 +17,11 @@ const templateOptions = [
   { value: "steam", label: "Steam" },
 ];
 
-export function TemplateSelector({ currentTemplate }: { currentTemplate: string }) {
+export function TemplateSelector({
+  currentTemplate,
+}: {
+  currentTemplate: string;
+}) {
   const [value, setValue] = useState(currentTemplate);
   const [updateTemplate] = useUpdateTemplateMutation();
 
@@ -30,7 +34,7 @@ export function TemplateSelector({ currentTemplate }: { currentTemplate: string 
     const previousTemplate = value;
     try {
       setValue(template);
-      const result = await updateTemplate(template).unwrap();
+      await updateTemplate(template).unwrap();
     } catch (err) {
       console.error("Failed to update Template:", err);
       // Revert on error
@@ -45,8 +49,8 @@ export function TemplateSelector({ currentTemplate }: { currentTemplate: string 
       </SelectTrigger>
       <SelectContent>
         {templateOptions.map((option) => (
-          <SelectItem 
-            key={option.value} 
+          <SelectItem
+            key={option.value}
             value={option.value}
             className="flex items-center gap-2"
           >

@@ -1,27 +1,27 @@
 "use client";
 import { selectViewMode } from "@/redux/viewModeSlice";
 import { useGetPortfolioQuery } from "@/services/portfolioApi";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 
 export default function ResponsiveIframe({ username }: { username: string }) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  // This will force the iframe to reload by adding a timestamp to the URL
-  const refreshIframe = () => {
-    if (iframeRef.current) {
-      // Add a timestamp to the URL to force reload
-      iframeRef.current.src = `/${username}?t=${Date.now()}`;
-    }
-  };
   const viewMode = useSelector(selectViewMode);
   const { isFetching } = useGetPortfolioQuery();
+
+  // Memoize the refresh function to prevent unnecessary recreations
+  const refreshIframe = useCallback(() => {
+    if (iframeRef.current) {
+      iframeRef.current.src = `/${username}?t=${Date.now()}`;
+    }
+  }, [username]); // Only recreate if username changes
 
   useEffect(() => {
     if (!isFetching) {
       refreshIframe();
     }
-  }, [isFetching]);
+  }, [isFetching, refreshIframe]); // Now stable dependencies
+
   return (
     <div
       className={`relative border rounded-lg overflow-hidden max-w-[100vw] w-full h-[80vh] mx-auto

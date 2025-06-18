@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Contact as IContact } from "@/types/userData";
 
 export const Contact = ({ contact }: { contact: IContact }) => {
-  const { email, github, linkedIn, twitter } = contact;
+  const { email, linkedIn, twitter } = contact;
   return (
     <section className="section-wrapper" id="contact">
       <div className={styles.contactWrapper}>

@@ -9,7 +9,7 @@ interface LayoutProps {
 const MinimalLayout = ({ children, userData }: LayoutProps) => {
   return (
     <div>
-      <div>Navbar Minimal</div> <div>{children}</div>
+      <div>Navbar {userData.template}</div> <div>{children}</div>
     </div>
   );
 };

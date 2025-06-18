@@ -1,4 +1,4 @@
-import { ArrowUpRightFromSquare, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Reveal } from "../../utils/Reveal";
 import { SectionHeader } from "../../utils/SectionHeader";
 import styles from "./about.module.scss";
@@ -6,7 +6,6 @@ import { Stats } from "./Stats";
 import { MyLinks } from "../../nav/components/MyLinks";
 import { AboutSection, Contact } from "@/types/userData";
 import { cn } from "@/lib/utils";
-import { arrayIsEmpty } from "@/app/_components/_templates/templateUtils";
 
 export const About = ({
   about,

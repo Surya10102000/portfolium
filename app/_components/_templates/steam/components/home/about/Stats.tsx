@@ -1,4 +1,4 @@
-import { Smile, SquareCode } from "lucide-react";
+import {  SquareCode } from "lucide-react";
 import { Reveal } from "../../utils/Reveal";
 import styles from "./stats.module.scss";
 

@@ -19,8 +19,8 @@ export const SideBar = ({ portfolioData }: { portfolioData: UserData }) => {
       threshold: 0.3,
     };
 
-    const callback = (entries: any) => {
-      entries.forEach((entry: any) => {
+    const callback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setSelected(entry.target.id);
         }
@@ -43,9 +43,9 @@ export const SideBar = ({ portfolioData }: { portfolioData: UserData }) => {
         <span
           className={styles.logo}
           onClick={() => {
-            document.location.hash === ""
-              ? document.getElementById("main")?.scrollIntoView()
-              : (document.location.hash = "");
+            if (document.location.hash) {
+              document.getElementById("main")?.scrollIntoView();
+            }
           }}
         >
           {name.slice(0, 2)}

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useAnimation, useInView, motion } from "framer-motion";
 import Link from "next/link";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ProjectModal } from "./ProjectModal";
 import styles from "./projects.module.scss";
 import { Reveal } from "../../utils/Reveal";
@@ -12,7 +12,6 @@ import Pattern from "./Pattern";
 export const Project = ({
   description,
   projectName,
-  _id,
   date,
   githubLink,
   image,
@@ -56,7 +55,7 @@ export const Project = ({
           {image?.url ? (
             <Image
               priority
-              src={image?.url!}
+              src={image?.url || ""}
               alt={`An image of the ${projectName} project.`}
               width={1000}
               height={0}
@@ -103,9 +102,9 @@ export const Project = ({
         projectLink={projectLink!}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
-        imgSrc={image?.url!}
+        imgSrc={image?.url || ""}
         title={projectName}
-        code={githubLink!}
+        code={githubLink || ""}
       />
     </>
   );
