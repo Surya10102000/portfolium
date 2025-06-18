@@ -1,35 +1,66 @@
 .experience {
   margin-bottom: 2.4rem;
-  padding: 0 1.2rem 2.4rem;
-
+  padding: 1.6rem;
+  border-radius: 8px;
   border-bottom: 1px solid var(--background-light);
+  transition: all 0.3s ease;
+  cursor: default;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(189, 95, 255, 0.1);
+    transform: translateY(-2px);
+  }
 }
 
 .heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-bottom: 1.2rem;
+  gap: 1rem;
 }
 
 .title {
   font-size: var(--text-md);
   font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.duration {
+  font-size: var(--text-xs);
+  background: var(--background-light);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  transition: all 0.2s ease;
 }
 
 .position {
   color: var(--brand);
   font-weight: bold;
+  transition: all 0.2s ease;
 }
 
 .description {
   margin-bottom: 1.8rem;
-  font-weight: 200;
+  font-weight: 300;
+  line-height: 1.6;
+  transition: all 0.3s ease;
 }
 
 .tech {
   display: flex;
   flex-wrap: wrap;
   gap: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  
+  .duration {
+    align-self: flex-start;
+  }
 }
