@@ -12,7 +12,6 @@ import Pattern from "./Pattern";
 export const Project = ({
   description,
   projectName,
-  date,
   githubLink,
   image,
   projectLink,
