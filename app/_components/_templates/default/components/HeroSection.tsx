@@ -8,7 +8,7 @@ const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
   return (
     <div className="h-[80lvh] tracking-tighter lg:px-12" id="hero">
       <div className="md:flex md:flex-row-reverse md:justify-between gap-2">
-        {image && (
+        {image?.url && (
           <div className="mt-12 lg:mt-2">
             <Image
               src={image.url}

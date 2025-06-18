@@ -24,7 +24,7 @@ const DefaultProjectCard = ({
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Project Image */}
-      {image ? (
+      {image?.url ? (
         <div className="overflow-hidden">
           <Image
             width={100}
