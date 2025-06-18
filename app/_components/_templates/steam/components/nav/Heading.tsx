@@ -10,7 +10,7 @@ export const Heading = ({ contact }: { contact: Contact }) => {
       {contact && <MyLinks contact={contact} />}
       {contact.email && (
         <OutlineButton>
-          <Link href={`mailto:${contact?.email as string}`}>Email</Link>
+          <Link href="/">Portfolium</Link>
         </OutlineButton>
       )}
     </header>
