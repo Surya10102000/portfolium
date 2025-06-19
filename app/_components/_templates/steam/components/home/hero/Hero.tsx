@@ -4,6 +4,7 @@ import styles from "./hero.module.scss";
 import { Reveal } from "../../utils/Reveal";
 import { StandardButton } from "../../buttons/StandardButton";
 import { HeroSectionI } from "@/types/userData";
+import { cn } from "@/lib/utils";
 
 export const Hero = ({ hero }: { hero: HeroSectionI }) => {
   const { name, description, image, role } = hero;
@@ -42,7 +43,7 @@ export const Hero = ({ hero }: { hero: HeroSectionI }) => {
             transition={{ duration: 0.5, delay: 0.4 }}
           >
             <Image
-              className={styles.profile}
+              className={cn(styles.profile, "object-cover object-center aspect-square")}
               src={image?.url}
               priority
               alt={name}

@@ -60,6 +60,7 @@
   outline-color: var(--brand);
   outline-offset: 6px;
   transition: .4s;
+  object-fit: cover;
   
   &:hover {
     outline: dotted;
