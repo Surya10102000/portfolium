@@ -6,7 +6,6 @@ import dbConnect from "@/lib/connectDB";
 import ReduxProvider from "./_components/ReduxProvider";
 import NavbarWrapper from "./_components/navbar/NavbarWrapper";
 import Provider from "./_components/Provider";
-import Footer from "./_components/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

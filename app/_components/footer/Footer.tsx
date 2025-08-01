@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from 'next/link';
 
 const Footer = () => {
   return (
@@ -18,13 +19,13 @@ const Footer = () => {
           <div className="flex justify-center flex-wrap gap-6 text-sm">
             {["About", "Blogs", "Templates", "Pricing", "Terms", "Contact"].map(
               (item, i) => (
-                <a
+                <Link
                   key={i}
                   href="#"
                   className="text-gray-400 hover:text-white transition-all duration-300 hover:scale-105"
                 >
                   {item}
-                </a>
+                </Link>
               )
             )}
           </div>
@@ -32,13 +33,13 @@ const Footer = () => {
           <div className="flex justify-center gap-6 text-xl">
             {["facebook-f", "x-twitter", "instagram", "linkedin-in"].map(
               (icon, i) => (
-                <a
+                <Link
                   key={i}
                   href="#"
                   className="text-gray-500 hover:text-white transition duration-300 hover:scale-110"
                 >
                   <i className={`fab fa-${icon}`}></i>
-                </a>
+                </Link>
               )
             )}
           </div>
