@@ -48,7 +48,6 @@ export default function RootLayout({
             <Provider>
               <NavbarWrapper />
               {children}
-              <Footer/>
             </Provider>
           </body>
         </SessionWrapper>
