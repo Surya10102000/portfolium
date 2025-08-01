@@ -2,6 +2,7 @@
 import { useSession, signIn } from "next-auth/react";
 import {  LayoutTemplate, Rocket, Sparkles } from "lucide-react";
 import Link from "next/link";
+import Footer from "./_components/footer/Footer";
 
 export default function LandingPage() {
   const { data: session } = useSession();
@@ -80,7 +81,6 @@ export default function LandingPage() {
         </div>
       </div>
 
-
       {/* CTA section */}
       <div className="relative isolate overflow-hidden bg-white/5 px-6 py-24 mt-12 sm:py-32 lg:px-8 backdrop-blur-sm">
         <div className="mx-auto max-w-2xl text-center">
@@ -115,32 +115,7 @@ export default function LandingPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-foreground/30 px-6 py-12">
-        <div className="mx-auto max-w-7xl overflow-hidden px-6 py-12 sm:py-12 lg:px-8">
-          <nav
-            className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
-            aria-label="Footer"
-          >
-            {[
-              { name: "About", href: "#" },
-              { name: "Blog", href: "#" },
-              { name: "Templates", href: "#templates" },
-              { name: "Pricing", href: "#" },
-              { name: "Contact", href: "#" },
-              { name: "Terms", href: "#" },
-            ].map((item) => (
-              <div key={item.name} className="pb-6">
-                <a href={item.href} className="text-sm leading-6 hover:">
-                  {item.name}
-                </a>
-              </div>
-            ))}
-          </nav>
-          <p className="mt-10 text-center text-xs leading-5 text-foreground/40">
-            &copy; {new Date().getFullYear()} Portfolium. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      
     </div>
   );
 }

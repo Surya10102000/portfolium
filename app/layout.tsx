@@ -6,6 +6,7 @@ import dbConnect from "@/lib/connectDB";
 import ReduxProvider from "./_components/ReduxProvider";
 import NavbarWrapper from "./_components/navbar/NavbarWrapper";
 import Provider from "./_components/Provider";
+import Footer from "./_components/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,15 @@ export default function RootLayout({
   dbConnect();
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+      <link 
+      rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" 
+      integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" 
+      crossOrigin="anonymous" 
+      referrerPolicy="no-referrer" />
+      </head>
+
       <ReduxProvider>
         <SessionWrapper>
           <body
@@ -38,6 +48,7 @@ export default function RootLayout({
             <Provider>
               <NavbarWrapper />
               {children}
+              <Footer/>
             </Provider>
           </body>
         </SessionWrapper>
