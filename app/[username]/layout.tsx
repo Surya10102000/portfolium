@@ -16,7 +16,7 @@ const UserLayout = ({
   children: ReactNode;
 }) => {
   const { username } = React.use(params);
-  const { data: userData } = useGetPortfolioByUsernameQuery(username);
+  const { data: userData, isLoading } = useGetPortfolioByUsernameQuery(username);
   const templates = {
     default: DefaultLayout,
     minimal: MinimalLayout,
@@ -24,7 +24,7 @@ const UserLayout = ({
     // Add other templates here
   };
 
-  if (!userData) return <UserNotFound/>;
+  if (!userData) return isLoading ? null : <UserNotFound/>;
 
   const templateKey: TemplateKey =
     (userData.template as TemplateKey) || "default";
