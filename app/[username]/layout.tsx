@@ -4,6 +4,7 @@ import DefaultLayout from "../_components/_templates/default/layout";
 import MinimalLayout from "../_components/_templates/minimal/layout";
 import SteamLayout from "../_components/_templates/steam/layout";
 import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
+import UserNotFound from "../_components/404page/UserNotFound";
 
 type TemplateKey = "default" | "minimal" | "steam";
 
@@ -23,7 +24,7 @@ const UserLayout = ({
     // Add other templates here
   };
 
-  if (!userData) return null;
+  if (!userData) return <UserNotFound/>;
 
   const templateKey: TemplateKey =
     (userData.template as TemplateKey) || "default";
