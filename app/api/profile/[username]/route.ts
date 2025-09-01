@@ -1,3 +1,4 @@
+import dbConnect from "@/lib/connectDB";
 import { Portfolio } from "@/models/Portfolio";
 import User from "@/models/User";
 import { UserData } from "@/types/userData";
@@ -8,6 +9,7 @@ export async function GET(
     { params }: { params: Promise<{ username: string }> }
 ) {
   try {
+    await dbConnect()
     const { username } = await params;
     if (!username) {
       return NextResponse.json(
