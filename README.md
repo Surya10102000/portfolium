@@ -27,20 +27,22 @@
 
 ## 🧑‍💻 Getting Started
 
-### 1. Clone the repository
+### 1.⭐ Star this project (required before contributing)
+
+### 2. Clone the repository
 
 ```bash
 git clone https://github.com/yourusername/portfolium.git
 cd portfolium
 ```
 
-### 2. Install dependencies
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Set environment variables
+### 4. Set environment variables
 
 Create a `.env.local` file and add:
 
@@ -58,7 +60,7 @@ CLOUDINARY_API_SECRET=
 
 ```
 
-### 4. Run the development server
+### 5. Run the development server
 
 ```bash
 npm run dev
