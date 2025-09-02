@@ -1,4 +1,5 @@
 import { AnimatedGradientText } from "@/components/AnimatedGradientText";
+import Image from "next/image";
 import Link from "next/link";
 
 const UserNotFound = () => {
@@ -10,7 +11,7 @@ const UserNotFound = () => {
             <p className="pb-2 font-semibold">Error 404</p>
             <h1 className="pb-4 text-5xl font-bold lg:text-6xl">Hey Buddy</h1>
             <p className="pb-8 font-semibold">
-              We can't seem to find the user :( <br />
+              We can&apos;t seem to find the user &rsquo;( <br />
             </p>
             <Link
               href="/"
@@ -21,8 +22,10 @@ const UserNotFound = () => {
           </div>
 
           <div className=" justify-self-center">
-            <img
-              src={"ghost.png"}
+            <Image
+              width={400}
+              height={400}
+              src="/ghost.png"
               className="w-64 animate-floting lg:w-[400px]"
               alt="home image"
             />
