@@ -1,4 +1,4 @@
-**Code of Conduct — Portfolium | GSSoC’25 Documentation**
+**Code of Conduct — Portfolium Documentation**
 
 ***Our Commitment***
 
@@ -32,18 +32,16 @@ The following behaviors are unacceptable:
 
 This Code applies to all Portfolium spaces, including:
 - GitHub repositories (PRs, issues, discussions).
-- GSSoC’25 communication channels (Discord, email, LinkedIn).
 - Social media and project-related events (virtual/in-person).
 
 ---
 
 ***Reporting Violations***
- 
-If you encounter or witness misconduct, promptly contact:
-- Project Maintainers (via GitHub or GSSoC’25 Discord).
-- GSSoC’25 Organizers.
 
-**All reports will be handled confidentially and investigated fairly.**
+If you encounter or witness misconduct, promptly contact:
+- Project Admin
+
+*All reports will be handled confidentially and investigated fairly.*
 
 ---
 
@@ -59,7 +57,7 @@ Violations may lead to:
 ***Contributor Expectations***
 
 By participating, you agree to:
-- Engage respectfully in all interactions (reviews, issues, chats).
+- Engage respectfully in all interactions (reviews, issues).
 - Attribute sources and avoid copyrighted material.
 - Maintain focus on project-related discussions.
 - Assist newcomers with patience and guidance.
@@ -68,18 +66,18 @@ By participating, you agree to:
 
 ***Portfolium Vision***
 
-*Portfolium* is more than an open-source initiative—it is a platform where creativity, technology, and professional growth converge. We strive to build a community that not only advances the project but also nurtures the skills and confidence of every contributor. Through collaboration and shared learning, we aim to create tools that empower individuals to showcase their achievements effectively.
+Portfolium is more than an open-source initiative—it is a platform where creativity, technology, and professional growth converge. We strive to build a community that not only advances the project but also nurtures the skills and confidence of every contributor. Through collaboration and shared learning, we aim to create tools that empower individuals to showcase their achievements effectively.
 
 ---
 
 ***Attribution***
 
-This Code of Conduct is inspired by the [Contributor Covenant (v3.0)](https://www.contributor-covenant.org/version/3/0/code_of_conduct/), adapted for *Portfolium under GirlScript Summer of Code (GSSoC’25) guidelines.*
+This Code of Conduct is inspired by the [Contributor Covenant (v3.0)](https://www.contributor-covenant.org/version/3/0/code_of_conduct/), adapted for *Portfolium.*
 
-*License: under Creative Commons Attribution 4.0 International* [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+Licensed under Creative Commons Attribution 4.0 International [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
-*Enforcement guidelines inspired* by [Mozilla’s code of conduct enforcement ladder](https://github.com/mozilla/diversity).
+Enforcement guidelines inspired by [Mozilla’s code of conduct enforcement ladder](https://github.com/mozilla/diversity).
 
 ---
 
-***Together, let’s build a portfolio platform that reflects integrity, innovation, and inclusivity.***
+**Together, let’s build a portfolio platform that reflects integrity, innovation, and inclusivity.**
