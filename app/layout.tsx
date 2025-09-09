@@ -6,6 +6,7 @@ import dbConnect from "@/lib/connectDB";
 import ReduxProvider from "./_components/ReduxProvider";
 import NavbarWrapper from "./_components/navbar/NavbarWrapper";
 import Provider from "./_components/Provider";
+import ChatWidget from "./_components/assistant/ChatWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  dbConnect();
+  // Don't block rendering on database connection in test mode
+  if (process.env.NODE_ENV !== 'test') {
+    dbConnect().catch(console.error);
+  }
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -47,6 +52,7 @@ export default function RootLayout({
             <Provider>
               <NavbarWrapper />
               {children}
+              <ChatWidget />
             </Provider>
           </body>
         </SessionWrapper>
