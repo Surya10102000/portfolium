@@ -13,6 +13,7 @@
 - 🧩 Template selection and live previews
 - 🎨 Theme customization (colors, layout, etc.)
 - 🌐 Public portfolio link: `https://portfolium.com/username`
+- 🤖 Built-in AI assistant (Gemini) with animated chat widget for better visibility
 - 📄 PDF export & social share options (coming soon)
 
 ---
@@ -58,6 +59,8 @@ CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 
+# Gemini AI
+GEMINI_API_KEY=
 ```
 
 ### 5. Run the development server
@@ -67,6 +70,39 @@ npm run dev
 ```
 
 Visit [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🤖 AI Assistant (Gemini)
+
+### Features
+- **Floating Chat Widget**: Accessible from any page via an animated chat button
+- **Animated Icon**: Gently pulses to attract attention when first loaded
+- **Responsive Design**: Works on all device sizes
+- **Test Mode**: Try it out without an API key (uses mock responses)
+
+### Implementation
+- **Backend**: `app/api/assistance/route.ts`
+  - Handles AI requests using Google's Generative Language API
+  - Includes test mode for development
+  - Environment variable: `GEMINI_API_KEY`
+
+- **Frontend**:
+  - Service: `services/assistantApi.ts`
+  - UI Component: `app/_components/assistant/ChatWidget.tsx`
+  - Uses Framer Motion for smooth animations
+
+### Usage
+1. The chat widget appears as a floating button in the bottom-right corner
+2. Click to open the chat interface
+3. Type your question and press Enter or click Send
+4. The assistant will respond with helpful information
+
+### Notes
+- API key is required for production (add to `.env.local`)
+- Test mode is enabled by default for development
+- Animation automatically stops after first interaction or 2 minutes
+- Error handling for API failures and network issues
 
 ---
 
