@@ -24,16 +24,16 @@ const LuminaryHome = ({ data }: { data: UserData }) => {
         contact.twitter
       ),
     }),
-    [hero, about, projects, experience, education, contact]
+    [hero, about, projects, experience, education, contact],
   );
 
   return (
     <div className=" min-h-screen font-sans">
       {sectionChecks.hasHero && <HeroSection hero={hero} />}
-      {sectionChecks.hasProjects && <ProjectSection projects={projects} />}
-      {(sectionChecks.hasAbout) && (
+      {sectionChecks.hasAbout && (
         <AboutSection contact={contact} about={about} />
       )}
+      {sectionChecks.hasProjects && <ProjectSection projects={projects} />}
       {sectionChecks.hasExperience && (
         <ExperienceList experiences={experience} />
       )}
