@@ -97,7 +97,7 @@ const HeroSection = ({ hero }: { hero: HeroSectionI }) => {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col lg:flex-row lg:flex-row-reverse lg:justify-between items-center lg:items-start gap-8 lg:gap-12">
+        <div className="flex flex-col lg:flex-row-reverse lg:justify-between items-center lg:items-start gap-8 lg:gap-12">
           {/* Avatar with Glow Effect */}
           {image?.url && (
             <m.div
