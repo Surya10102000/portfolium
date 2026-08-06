@@ -1,7 +1,7 @@
 /* app/luminary/luminary-theme.css */
 @import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
 
-.default-theme {
+.luminary-theme {
   overflow: auto; /* Ensure scrolling is enabled */
   height: 100vh;
   font-family: var(--font-sans);
@@ -61,7 +61,7 @@
 }
 
 /* Dark mode overrides for violet theme */
-.default-theme[data-theme="dark"] {
+.luminary-theme[data-theme="dark"] {
   overflow: auto; /* Ensure scrolling is enabled */
   height: 100vh;
   font-family: var(--font-sans);
