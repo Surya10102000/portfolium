@@ -1,4 +1,5 @@
 "use client";
+import { ReactLenis } from 'lenis/react'
 import { UserData } from "@/types/userData";
 import { ReactNode } from "react";
 import "./luminary-theme.css";
@@ -14,6 +15,7 @@ interface LayoutProps {
 const LuminaryLayout = ({ children, userData }: LayoutProps) => {
   return (
     <ThemeProvider>
+      <ReactLenis root/>
       <div className={`mx-auto tracking-tight flex flex-col justify-between`}>
         <div className="flex-1 px-5 md:px-7 lg:px-9 mx-auto tracking-tight">
           <nav className={`default-navbar`}>
