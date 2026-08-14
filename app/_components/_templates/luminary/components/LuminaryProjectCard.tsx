@@ -11,7 +11,6 @@ export const LuminaryProjectCard = ({
   return (
     <div className="w-full bg-card text-card-foreground border border-border rounded-[var(--radius)] p-6 sm:p-8 md:p-10 shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/40">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-        
         {/* Left Side: Project Title & Links */}
         <div className="lg:col-span-5 space-y-3">
           <h3 className="text-2xl sm:text-3xl font-serif text-card-foreground leading-snug">
@@ -60,7 +59,6 @@ export const LuminaryProjectCard = ({
             </span>
           </div>
         </div>
-
       </div>
     </div>
   );
