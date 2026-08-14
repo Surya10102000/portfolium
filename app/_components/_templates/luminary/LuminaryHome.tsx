@@ -31,7 +31,7 @@ const LuminaryHome = ({ data }: { data: UserData }) => {
     <div className=" min-h-screen font-sans">
       {sectionChecks.hasHero && <HeroSection hero={hero} contact={contact} />}
       {sectionChecks.hasAbout && (
-        <AboutSection contact={contact} about={about} />
+        <AboutSection about={about} />
       )}
       {sectionChecks.hasProjects && <ProjectSection projects={projects} />}
       {sectionChecks.hasExperience && (
