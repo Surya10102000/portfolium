@@ -4,9 +4,11 @@ import LuminaryProjectCard from "./LuminaryProjectCard";
 
 export const ProjectSection = ({ projects }: { projects: Project[] }) => {
   return (
-    <section className="relative py-20 px-4 sm:px-6 lg:px-12 bg-background text-foreground" id="project">
+    <section
+      className="relative py-20 px-4 sm:px-6 lg:px-12 bg-background text-foreground"
+      id="project"
+    >
       <div className="max-w-6xl mx-auto space-y-16">
-        
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-border pb-8">
           <div className="space-y-3">
@@ -16,9 +18,13 @@ export const ProjectSection = ({ projects }: { projects: Project[] }) => {
                 Projects & Work
               </span>
             </div>
-            
+
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground leading-tight">
-              Featured projects <span className="italic font-normal text-muted-foreground">crafted</span> with care.
+              Featured projects{" "}
+              <span className="italic font-normal text-muted-foreground">
+                crafted
+              </span>{" "}
+              with care.
             </h2>
           </div>
 
@@ -46,7 +52,6 @@ export const ProjectSection = ({ projects }: { projects: Project[] }) => {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
