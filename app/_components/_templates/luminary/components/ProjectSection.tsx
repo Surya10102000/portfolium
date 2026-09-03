@@ -1,6 +1,7 @@
 import React from "react";
 import { Project } from "@/types/userData";
 import LuminaryProjectCard from "./LuminaryProjectCard";
+import FadeIn from "@/app/_components/motion/FadeIn";
 
 export const ProjectSection = ({ projects }: { projects: Project[] }) => {
   return (
@@ -10,7 +11,7 @@ export const ProjectSection = ({ projects }: { projects: Project[] }) => {
     >
       <div className="max-w-6xl mx-auto space-y-16">
         {/* Header Section */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-border pb-8">
+        <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-border pb-8">
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="w-8 h-[2px] bg-primary inline-block" />
@@ -36,19 +37,19 @@ export const ProjectSection = ({ projects }: { projects: Project[] }) => {
               across full-stack, design systems, and web interactions.
             </p>
           </div>
-        </div>
+        </FadeIn>
 
         {/* Sticky Stacking Cards Container */}
         <div className="space-y-6">
           {projects.map((project, i) => (
             <div
               key={i}
-              className="sticky transition-all duration-300"
-              style={{
-                top: `${80 + i * 20}px`, // Stacks each card with a slight vertical overlap offset
-              }}
+              className="sticky"
+              style={{ top: `${80 + i * 20}px` }}
             >
-              <LuminaryProjectCard {...project} index={i} />
+              <FadeIn delay={Math.min(i, 3) * 0.1} amount={0.2}>
+                <LuminaryProjectCard {...project} index={i} />
+              </FadeIn>
             </div>
           ))}
         </div>
