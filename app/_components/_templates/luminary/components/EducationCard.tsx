@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion as m, Variants } from "motion/react";
+import { motion as m, useReducedMotion, Variants } from "motion/react";
 import {
   Award,
   Calendar,
@@ -29,11 +29,11 @@ interface EducationCardProps {
   isLast?: boolean;
 }
 
-const cardVariants: Variants = {
+const buildCardVariants = (reduceMotion: boolean): Variants => ({
   hidden: {
     opacity: 0,
-    x: -30,
-    scale: 0.95,
+    x: reduceMotion ? 0 : -30,
+    scale: reduceMotion ? 1 : 0.95,
   },
   visible: {
     opacity: 1,
@@ -45,26 +45,7 @@ const cardVariants: Variants = {
       damping: 25,
     },
   },
-};
-
-const contentVariants: Variants = {
-  collapsed: {
-    height: "auto",
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 30,
-    },
-  },
-  expanded: {
-    height: "auto",
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 30,
-    },
-  },
-};
+});
 
 const EducationCard: React.FC<EducationCardProps> = ({
   education,
@@ -72,13 +53,14 @@ const EducationCard: React.FC<EducationCardProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   // Extract year from duration
   const year = education.duration?.match(/\d{4}/)?.[0] || "";
 
   return (
     <m.div
-    variants={cardVariants}
+      variants={buildCardVariants(!!reduceMotion)}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-20% 0px" }}
@@ -113,18 +95,18 @@ const EducationCard: React.FC<EducationCardProps> = ({
           )}
           animate={{
             boxShadow: isHovered
-              ? "0 0 30px rgba(107, 82, 161, 0.4)"
-              : "0 0 15px rgba(107, 82, 161, 0.2)",
+              ? "0 0 30px color-mix(in oklch, var(--primary) 40%, transparent)"
+              : "0 0 15px color-mix(in oklch, var(--primary) 20%, transparent)",
           }}
         >
           <m.div
             className="w-2 h-2 rounded-full bg-white"
             animate={{
-              scale: isHovered ? [1, 1.3, 1] : 1,
+              scale: isHovered && !reduceMotion ? [1, 1.3, 1] : 1,
             }}
             transition={{
               duration: 1,
-              repeat: isHovered ? Infinity : 0,
+              repeat: isHovered && !reduceMotion ? Infinity : 0,
               ease: "easeInOut",
             }}
           />
@@ -134,13 +116,13 @@ const EducationCard: React.FC<EducationCardProps> = ({
       {/* Card */}
       <m.div
         className={cn(
-          "relative rounded-2xl transition-all duration-300",
+          "relative rounded-2xl transition-[border-color,box-shadow,background-color,transform] duration-300",
           "bg-card/50 backdrop-blur-sm border border-border/50",
           isHovered && "border-primary/30 shadow-xl shadow-primary/10",
           isExpanded && "bg-card/80",
         )}
         style={{
-          transform: isHovered ? "translateY(-2px)" : "translateY(0)",
+          transform: isHovered && !reduceMotion ? "translateY(-2px)" : "translateY(0)",
         }}
       >
         <div className="p-6 md:p-8">
@@ -232,16 +214,7 @@ const EducationCard: React.FC<EducationCardProps> = ({
 
           {/* Description */}
           {(education.description || education.achievements) && (
-            <m.div
-              variants={contentVariants}
-              initial="collapsed"
-              animate={
-                isExpanded || education.description?.length || 0 < 100
-                  ? "expanded"
-                  : "collapsed"
-              }
-              className="mt-4 space-y-4"
-            >
+            <div className="mt-4 space-y-4">
               {/* Description */}
               {education.description && (
                 <m.p
@@ -301,15 +274,15 @@ const EducationCard: React.FC<EducationCardProps> = ({
                 <div className="flex-1 h-px bg-gradient-to-r from-primary/20 to-transparent" />
                 <Sparkles className="w-3 h-3 text-primary/40" />
               </m.div>
-            </m.div>
+            </div>
           )}
         </div>
 
         {/* Card glow effect on hover */}
-        <m.div
-          className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        <div
+          className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100 transition-opacity duration-300"
           style={{
-            boxShadow: "inset 0 0 40px rgba(107, 82, 161, 0.05)",
+            boxShadow: "inset 0 0 40px color-mix(in oklch, var(--primary) 5%, transparent)",
           }}
         />
       </m.div>

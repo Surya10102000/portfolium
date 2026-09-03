@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import { motion as m, Variants, useScroll, useTransform } from "motion/react";
-import { Briefcase, Sparkles, Clock, Building2, Users } from "lucide-react";
+import { motion as m, useReducedMotion, Variants, useScroll, useTransform } from "motion/react";
 import ExperienceCard from "./ExperienceCard";
+import FadeIn from "@/app/_components/motion/FadeIn";
 
 export interface Experience {
   _id?: string;
@@ -18,38 +18,29 @@ interface ExperienceListProps {
   experiences: Experience[];
 }
 
+// 80ms stagger keeps a multi-card list from entering all at once
+// without feeling slow (SKILLS.md: 30-80ms for staggered entrances).
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
     },
   },
 };
 
 const ExperienceList: React.FC<ExperienceListProps> = ({ experiences }) => {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 1, 0.4]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.4, 1, 0.4]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.95, 1, 0.95]);
 
   // Calculate total experience
   const totalYears = experiences.reduce((acc, exp) => {
@@ -58,6 +49,7 @@ const ExperienceList: React.FC<ExperienceListProps> = ({ experiences }) => {
   }, 0);
 
   const companies = [...new Set(experiences.map(exp => exp.company))];
+  const yearsLabel = totalYears > 0 ? `${totalYears}+ years ` : "";
 
   return (
     <section
@@ -77,82 +69,33 @@ const ExperienceList: React.FC<ExperienceListProps> = ({ experiences }) => {
 
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <m.div
-          variants={headerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="flex items-center gap-4 mb-12"
-        >
-          <m.div
-            initial={{ scaleX: 0, originX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden md:block h-px flex-1 bg-gradient-to-r from-transparent to-primary/30"
-          />
-          
-          <div className="flex items-center gap-3">
-            <m.div
-              initial={{ rotate: -180, opacity: 0 }}
-              whileInView={{ rotate: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200 }}
-            >
-              <Briefcase className="w-6 h-6 text-primary" />
-            </m.div>
-            <span className="text-2xl font-bold text-foreground">
-              Work Experience
-            </span>
-            <m.span
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, type: "spring" }}
-            >
-              <Sparkles className="w-5 h-5 text-primary" />
-            </m.span>
-          </div>
-          
-          <m.div
-            initial={{ scaleX: 0, originX: 1 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="hidden md:block h-px flex-1 bg-gradient-to-l from-transparent to-primary/30"
-          />
-        </m.div>
+        <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-[2px] bg-primary inline-block" />
+              <span className="text-xs sm:text-sm font-bold tracking-widest text-primary uppercase">
+                Experience
+              </span>
+            </div>
 
-        {/* Stats Bar */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
-        >
-          {[
-            { label: "Companies", value: companies.length, icon: Building2 },
-            { label: "Years Experience", value: totalYears || "—", icon: Clock },
-            { label: "Roles", value: experiences.length, icon: Briefcase },
-            { label: "Team Size", value: "10+", icon: Users },
-          ].map((stat, i) => (
-            <m.div
-              key={i}
-              className="relative p-4 rounded-xl bg-card/30 backdrop-blur-sm border border-border/50 text-center"
-              whileHover={{
-                y: -4,
-                borderColor: "rgba(107, 82, 161, 0.3)",
-                boxShadow: "0 10px 30px rgba(107, 82, 161, 0.1)",
-              }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <stat.icon className="w-4 h-4 mx-auto mb-2 text-primary/60" />
-              <div className="text-xl font-bold text-foreground">{stat.value}</div>
-              <div className="text-xs text-muted-foreground">{stat.label}</div>
-            </m.div>
-          ))}
-        </m.div>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground leading-tight">
+              {yearsLabel}
+              <span className="italic font-normal text-muted-foreground">
+                {yearsLabel ? "building" : "Building"}
+              </span>{" "}
+              interfaces people love.
+            </h2>
+          </div>
+
+          <div className="text-left lg:text-right text-sm text-muted-foreground space-y-0.5">
+            <span className="font-serif italic text-lg text-foreground block">
+              {experiences.length} {experiences.length === 1 ? "role" : "roles"}
+            </span>
+            <p className="text-xs text-muted-foreground max-w-xs lg:ml-auto">
+              across {companies.length} {companies.length === 1 ? "company" : "companies"} and teams.
+            </p>
+          </div>
+        </FadeIn>
 
         {/* Experience Cards */}
         <m.div
@@ -160,17 +103,13 @@ const ExperienceList: React.FC<ExperienceListProps> = ({ experiences }) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="relative space-y-6"
+          className="space-y-6"
         >
-          {/* Vertical timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary/30 via-primary/10 to-transparent hidden md:block" />
-
           {experiences.map((exp, index) => (
             <ExperienceCard
               key={exp._id || `${exp.company}-${exp.role}`}
               experience={exp}
               index={index}
-              isLast={index === experiences.length - 1}
             />
           ))}
         </m.div>
