@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 const templateOptions = [
   { value: "default", label: "Default" },
   // { value: "minimal", label: "Minimal" },
+  { value: "luminary", label: "Luminary" },
   { value: "steam", label: "Steam" },
 ];
 
