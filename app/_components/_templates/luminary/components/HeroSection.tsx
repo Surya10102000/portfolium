@@ -1,55 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import {  Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import React, { useEffect } from 'react';
 import { Contact, HeroSectionI } from "@/types/userData";
 import Image from "next/image";
-
+import {
+  motion as m,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  Variants,
+} from "motion/react";
+import ContactLinks from "./ContactLinks";
+import { EASE_OUT } from "../motionTokens";
 
 interface HeroProps {
   hero: HeroSectionI;
   contact: Contact;
 }
 
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const buildItemVariants = (reduceMotion: boolean): Variants => ({
+  hidden: { opacity: 0, y: reduceMotion ? 0 : 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: EASE_OUT },
+  },
+});
+
 const HeroSection = ({ hero, contact }: HeroProps) => {
   const { image, name, description, role } = hero;
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const reduceMotion = useReducedMotion();
+  const itemVariants = buildItemVariants(!!reduceMotion);
 
   // Split name into parts for display
   const nameParts = name.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(' ');
 
-  // Mouse tracking for parallax effect
+  // Subtle parallax on the profile image, driven by motion values so
+  // mouse movement never triggers a React re-render.
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const springX = useSpring(rawX, { stiffness: 150, damping: 20, mass: 0.5 });
+  const springY = useSpring(rawY, { stiffness: 150, damping: 20, mass: 0.5 });
+
   useEffect(() => {
+    if (reduceMotion) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 20;
-      const y = (clientY / window.innerHeight - 0.5) * 20;
-      setMousePosition({ x, y });
+      rawX.set((clientX / window.innerWidth - 0.5) * 16);
+      rawY.set((clientY / window.innerHeight - 0.5) * 16);
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  // Social links with dynamic URLs from hero data
-  const socialLinks = [
-    { key: 'email', icon: Mail, label: 'Email', url: `${contact.email}` },
-    { key: 'github', icon: Github, label: 'GitHub', url: contact.github },
-    { key: 'linkedIn', icon: Linkedin, label: 'LinkedIn', url: contact.linkedIn },
-    { key: 'twitter', icon: Twitter, label: 'Twitter', url: contact.twitter },
-  ].filter(link => link.url);
+  }, [reduceMotion, rawX, rawY]);
 
   // Get status text from hero or default
   const statusText = "Available for new work";
 
   return (
-    <section 
+    <section
       className="relative min-h-screen w-full bg-background text-foreground flex items-center justify-center px-6 py-16 md:py-24 overflow-hidden"
       id="hero"
     >
       {/* Background Dot Pattern Overlay */}
-      <div 
-        className="absolute inset-0 opacity-40 pointer-events-none" 
+      <div
+        className="absolute inset-0 opacity-40 pointer-events-none"
         style={{
           backgroundImage: 'radial-gradient(var(--primary) 1px, transparent 1px)',
           backgroundSize: '24px 24px',
@@ -58,25 +84,36 @@ const HeroSection = ({ hero, contact }: HeroProps) => {
         }}
       />
 
-      <div className="relative z-10 max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <m.div
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="relative z-10 max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+      >
         {/* Left Column: Content */}
         <div className="lg:col-span-7 flex flex-col items-start space-y-6">
-          
+
           {/* Section Subtitle */}
-          <div className="flex items-center gap-3">
+          <m.div variants={itemVariants} className="flex items-center gap-3">
             <span className="w-8 h-[2px] bg-primary inline-block"></span>
             <span className="text-xs md:text-sm font-semibold tracking-widest text-primary uppercase">
               Portfolio & Resume
             </span>
-          </div>
+          </m.div>
 
           {/* Hero Name */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif tracking-tight text-foreground leading-[0.95]">
+          <m.h1
+            variants={itemVariants}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif tracking-tight text-foreground leading-[0.95]"
+          >
             {firstName} <span className="italic font-normal block sm:inline font-serif text-muted-foreground">{lastName}</span>
-          </h1>
+          </m.h1>
 
           {/* Role Pill Badge */}
-          <div className="inline-flex items-center bg-primary text-primary-foreground rounded-full p-1.5 pr-5 shadow-sm text-sm md:text-base font-medium">
+          <m.div
+            variants={itemVariants}
+            className="inline-flex items-center bg-primary text-primary-foreground rounded-full p-1.5 pr-5 shadow-sm text-sm md:text-base font-medium"
+          >
             <span className="flex items-center gap-2 bg-primary/30 px-3.5 py-1.5 rounded-full font-semibold">
               <span className="w-2.5 h-2.5 rounded-full bg-primary-foreground animate-pulse" />
               {role || 'Designer'}
@@ -84,42 +121,29 @@ const HeroSection = ({ hero, contact }: HeroProps) => {
             <span className="ml-3 border-l border-primary-foreground/30 pl-3 italic font-serif text-primary-foreground/90 font-normal">
               {description?.split(' ').slice(-3).join(' ') || 'interaction & motion'}
             </span>
-          </div>
+          </m.div>
 
           {/* Bio Description */}
-          <p className="text-lg md:text-xl text-muted-foreground max-w-lg font-normal leading-relaxed">
+          <m.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground max-w-lg font-normal leading-relaxed">
             {description || 'I design expressive interfaces and craft motion-led web experiences that feel as good as they look.'}
-          </p>
+          </m.p>
 
-          {/* Social Links Grid */}
-          <div className="flex flex-wrap gap-3 pt-2">
-            {socialLinks.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <a
-                  key={i}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/80 transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md"
-                >
-                  <Icon className="w-4 h-4 stroke-[2]" />
-                  <span>{item.label}</span>
-                </a>
-              );
-            })}
-          </div>
+          {/* Social Links */}
+          <m.div variants={itemVariants} className="pt-2">
+            <ContactLinks contact={contact} iconSize={20} />
+          </m.div>
         </div>
 
         {/* Right Column: Hero Image Container */}
-        <div className="lg:col-span-5 flex justify-center lg:justify-end">
-          <div 
+        <m.div variants={itemVariants} className="lg:col-span-5 flex justify-center lg:justify-end">
+          <m.div
             className="relative w-full max-w-md lg:max-w-none aspect-[4/5] rounded-[32px] overflow-hidden bg-muted shadow-2xl shadow-primary/10 border border-white/50"
             style={{
-              transform: `translate(${mousePosition.x * 0.05}px, ${mousePosition.y * 0.05}px)`,
+              x: reduceMotion ? 0 : springX,
+              y: reduceMotion ? 0 : springY,
             }}
           >
-            
+
             {/* Status Pill Badge */}
             <div className="absolute top-4 left-4 z-20 flex items-center gap-2 bg-background/90 backdrop-blur-md px-4 py-2 rounded-full text-xs sm:text-sm font-semibold text-foreground shadow-sm border border-border/60">
               <span className="relative flex h-2.5 w-2.5">
@@ -144,10 +168,10 @@ const HeroSection = ({ hero, contact }: HeroProps) => {
                 <span className="text-4xl font-serif text-muted-foreground">{firstName[0]}{lastName[0]}</span>
               </div>
             )}
-          </div>
-        </div>
+          </m.div>
+        </m.div>
 
-      </div>
+      </m.div>
     </section>
   );
 };

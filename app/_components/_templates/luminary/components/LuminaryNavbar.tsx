@@ -99,11 +99,13 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
   const navItems = getNavItems();
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-center transition-all duration-300 ${
-      scrolled ? 'bg-background/80 backdrop-blur-xl' : ''
-    }`}>
+    <header className="fixed top-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-center">
       {/* --- DESKTOP FLOATING NAVBAR --- */}
-      <nav className="hidden lg:flex items-center justify-between gap-8 px-6 py-3 bg-white/60 backdrop-blur-md rounded-full border border-white/40 shadow-lg shadow-purple-500/5 max-w-6xl w-full">
+      <nav className={`hidden lg:flex items-center justify-between gap-8 px-6 py-3 rounded-full max-w-6xl w-full border transition-[background-color,border-color,box-shadow,transform] duration-300 ease-[var(--ease-drawer)] motion-reduce:transition-[background-color,border-color,box-shadow] motion-reduce:scale-100 ${
+        scrolled
+          ? 'bg-white/70 backdrop-blur-md border-white/40 shadow-lg shadow-purple-500/5 scale-[0.97]'
+          : 'bg-transparent border-transparent shadow-none scale-100'
+      }`}>
         {/* Brand Logo */}
         <a 
           href="#hero" 
@@ -122,10 +124,10 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href.substring(1))}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-[background-color,color,box-shadow] duration-200 ${
                   item.active
                     ? 'bg-purple-100/80 text-purple-700 shadow-sm'
-                    : 'text-gray-600 hover:text-purple-700 hover:bg-purple-50/50'
+                    : 'text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50/50'
                 }`}
               >
                 <Icon className="w-4 h-4 stroke-[1.75]" />
@@ -139,7 +141,7 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
         <a
           href="/cv.pdf"
           download
-          className="flex items-center gap-2 px-5 py-2.5 bg-purple-650 hover:bg-purple-700 bg-[#6C47C8] text-white rounded-full text-sm font-semibold transition-colors shadow-md shadow-purple-500/20"
+          className="flex items-center gap-2 px-5 py-2.5 bg-[#6C47C8] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-700 text-white rounded-full text-sm font-semibold transition-colors shadow-md shadow-purple-500/20"
         >
           <Download className="w-4 h-4" />
           <span>Download CV</span>
@@ -147,7 +149,11 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
       </nav>
 
       {/* --- MOBILE / TABLET HEADER --- */}
-      <div className="lg:hidden w-full flex items-center justify-between px-4 py-3 bg-white/40 backdrop-blur-md rounded-2xl border border-white/30">
+      <div className={`lg:hidden w-full flex items-center justify-between px-4 py-3 rounded-2xl border transition-[background-color,border-color,box-shadow,transform] duration-300 ease-[var(--ease-drawer)] motion-reduce:transition-[background-color,border-color,box-shadow] motion-reduce:scale-100 ${
+        scrolled
+          ? 'bg-white/60 backdrop-blur-md border-white/30 shadow-md scale-[0.98]'
+          : 'bg-transparent border-transparent shadow-none scale-100'
+      }`}>
         <a 
           href="#hero" 
           onClick={(e) => handleScroll(e, "hero")}
@@ -168,7 +174,7 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-purple-800 hover:bg-purple-50 rounded-lg transition-colors"
+            className="p-2 text-purple-800 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50 rounded-lg transition-colors"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -177,28 +183,34 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
       </div>
 
       {/* --- MOBILE MENU DROPDOWN --- */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-20 left-4 right-4 bg-white/95 backdrop-blur-lg rounded-2xl p-4 border border-purple-100 shadow-xl flex flex-col gap-1">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleScroll(e, item.href.substring(1))}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium ${
-                  item.active
-                    ? 'bg-purple-100 text-purple-700'
-                    : 'text-gray-600 hover:bg-purple-50 hover:text-purple-700'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
-        </div>
-      )}
+      <div
+        aria-hidden={!mobileMenuOpen}
+        className={`lg:hidden absolute top-20 left-4 right-4 bg-white/95 backdrop-blur-lg rounded-2xl p-4 border border-purple-100 shadow-xl flex flex-col gap-1 origin-top transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-opacity ${
+          mobileMenuOpen
+            ? 'opacity-100 scale-100 pointer-events-auto'
+            : 'opacity-0 scale-95 motion-reduce:scale-100 pointer-events-none'
+        }`}
+      >
+        {navItems.map((item) => {
+          const Icon = item.icon;
+          return (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={(e) => handleScroll(e, item.href.substring(1))}
+              tabIndex={mobileMenuOpen ? 0 : -1}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-[background-color,color] duration-150 ${
+                item.active
+                  ? 'bg-purple-100 text-purple-700'
+                  : 'text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700'
+              }`}
+            >
+              <Icon className="w-4 h-4" />
+              <span>{item.label}</span>
+            </a>
+          );
+        })}
+      </div>
     </header>
   );
 };
