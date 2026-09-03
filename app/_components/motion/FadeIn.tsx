@@ -1,20 +1,21 @@
 import { ReactNode } from "react";
-import { motion, Variants } from "framer-motion"; // Note: Corrected import from "framer-motion"
+import { motion, useReducedMotion, Variants } from "framer-motion"; // Note: Corrected import from "framer-motion"
 
-const fadeInVariant: Variants = {
+const buildFadeInVariant = (reduceMotion: boolean): Variants => ({
   hidden: {
-    y: 50,
+    y: reduceMotion ? 0 : 50,
     opacity: 0
   },
-  visible: {
-    y: 0, 
+  visible: (delay: number = 0) => ({
+    y: 0,
     opacity: 1,
     transition: {
       duration: 0.6,
-      ease: "easeOut"
+      ease: "easeOut",
+      delay
     }
-  }
-};
+  })
+});
 
 interface FadeInProps {
   children: ReactNode;
@@ -33,12 +34,14 @@ const FadeIn = ({
   once = true,
   margin
 }: FadeInProps) => {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       initial="hidden"
       whileInView="visible"
       viewport={{ once, amount , margin}}
-      variants={fadeInVariant}
+      variants={buildFadeInVariant(!!reduceMotion)}
       custom={delay}
       className={className}
     >
