@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
-import { motion as m, Variants, useScroll, useTransform } from "motion/react";
-import { GraduationCap, Sparkles, BookOpen, Calendar, MapPin } from "lucide-react";
+import { motion as m, useReducedMotion, Variants, useScroll, useTransform } from "motion/react";
+import { GraduationCap, Sparkles, BookOpen, Calendar } from "lucide-react";
 import EducationCard from "./EducationCard";
+import { EASE_OUT } from "../motionTokens";
 
 export interface Education {
   _id?: string;
@@ -29,27 +30,28 @@ const containerVariants: Variants = {
   },
 };
 
-const headerVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
+const buildHeaderVariants = (reduceMotion: boolean): Variants => ({
+  hidden: { opacity: 0, y: reduceMotion ? 0 : -20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
+      ease: EASE_OUT,
     },
   },
-};
+});
 
 const EducationList: React.FC<EducationListProps> = ({ educations }) => {
   const sectionRef = useRef<HTMLElement>(null);
+  const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.4, 1, 0.4]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.4, 1, 0.4]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.95, 1, 0.95]);
 
   // Calculate total duration for timeline
   const totalDuration = educations.reduce((acc, edu) => {
@@ -79,7 +81,7 @@ const EducationList: React.FC<EducationListProps> = ({ educations }) => {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <m.div
-          variants={headerVariants}
+          variants={buildHeaderVariants(!!reduceMotion)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -130,21 +132,19 @@ const EducationList: React.FC<EducationListProps> = ({ educations }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+          className="grid grid-cols-2 gap-4 mb-12"
         >
           {[
             { label: "Institutions", value: educations.length, icon: BookOpen },
             { label: "Years of Study", value: totalDuration || "—", icon: Calendar },
-            { label: "Degree Level", value: "Multiple", icon: GraduationCap },
-            { label: "Location", value: "Global", icon: MapPin },
           ].map((stat, i) => (
             <m.div
               key={i}
               className="relative p-4 rounded-xl bg-card/30 backdrop-blur-sm border border-border/50 text-center"
               whileHover={{
                 y: -4,
-                borderColor: "rgba(107, 82, 161, 0.3)",
-                boxShadow: "0 10px 30px rgba(107, 82, 161, 0.1)",
+                borderColor: "color-mix(in oklch, var(--primary) 30%, transparent)",
+                boxShadow: "0 10px 30px color-mix(in oklch, var(--primary) 10%, transparent)",
               }}
               transition={{ type: "spring", stiffness: 300 }}
             >
