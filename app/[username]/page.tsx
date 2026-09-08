@@ -4,8 +4,9 @@ import { usePathname } from "next/navigation";
 import DefaultHome from "../_components/_templates/default/DefaultHome";
 import MinimalHome from "../_components/_templates/minimal/MinimalHome";
 import SteamHome from "../_components/_templates/steam/SteamHome";
+import LuminaryHome from "../_components/_templates/luminary/LuminaryHome";
 
-type TemplateKey = 'default' | 'minimal' | 'steam'; 
+type TemplateKey = 'default' | 'minimal' | 'steam' | 'luminary'; 
 
 
 const UserPortfolio = () => {
@@ -19,13 +20,13 @@ const UserPortfolio = () => {
     default: DefaultHome,
     minimal: MinimalHome,
     steam : SteamHome,
+    luminary : LuminaryHome,
     // Add other templates here
   };
 
   const templateKey: TemplateKey =
     (data.template as TemplateKey) || "default";
 
-  // const Template = templates[userData.templateId];
   const Template = templates[templateKey];
   if (isLoading) <p>Loading</p>;
 
