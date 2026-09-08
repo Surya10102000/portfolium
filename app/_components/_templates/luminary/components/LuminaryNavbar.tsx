@@ -1,16 +1,17 @@
-import React, { useState, useEffect, MouseEvent } from 'react';
-import { 
-  Home, 
-  Briefcase, 
-  Layers, 
-  Star, 
-  MessageSquare, 
-  HelpCircle, 
-  Mail, 
-  Download, 
-  Menu, 
-  X 
-} from 'lucide-react';
+import React, { useState, useEffect, MouseEvent } from "react";
+import {
+  Home,
+  Briefcase,
+  Star,
+  HelpCircle,
+  Mail,
+  Download,
+  Menu,
+  X,
+  FolderKanban,
+  School,
+  Info,
+} from "lucide-react";
 import { UserData } from "@/types/userData";
 import { getNonEmptySections } from "../../templateUtils";
 
@@ -31,13 +32,13 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
   // Map sections to nav items with icons
   const getNavItems = (): NavItem[] => {
     const iconMap: { [key: string]: React.ElementType } = {
-      'hero': Home,
-      'experience': Briefcase,
-      'work': Layers,
-      'skills': Star,
-      'reviews': MessageSquare,
-      'faq': HelpCircle,
-      'contact': Mail,
+      hero: Home,
+      experience: Briefcase,
+      about: Info,
+      skills: Star,
+      project: FolderKanban,
+      education: School,
+      contact: Mail,
     };
 
     return sections.map((sec) => ({
@@ -48,25 +49,34 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
     }));
   };
 
-  // Handle scroll detection for navbar background
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-      
-      // Update active section based on scroll position
-      const sectionElements = sections.map(id => document.getElementById(id));
-      const scrollPosition = window.scrollY + 100;
-      
-      for (let i = sectionElements.length - 1; i >= 0; i--) {
-        const element = sectionElements[i];
-        if (element && element.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i]);
-          break;
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20);
+          const scrollPosition = window.scrollY + 100;
+          const sectionElements = sections.map((id) =>
+            document.getElementById(id),
+          );
+
+          for (let i = sectionElements.length - 1; i >= 0; i--) {
+            const element = sectionElements[i];
+            if (element && element.offsetTop <= scrollPosition) {
+              setActiveSection(sections[i]);
+              break;
+            }
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
       }
     };
-    
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [sections]);
 
@@ -101,18 +111,23 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 p-4 md:p-6 flex justify-center">
       {/* --- DESKTOP FLOATING NAVBAR --- */}
-      <nav className={`hidden lg:flex items-center justify-between gap-8 px-6 py-3 rounded-full max-w-6xl w-full border transition-[background-color,border-color,box-shadow,transform] duration-300 ease-[var(--ease-drawer)] motion-reduce:transition-[background-color,border-color,box-shadow] motion-reduce:scale-100 ${
-        scrolled
-          ? 'bg-white/70 backdrop-blur-md border-white/40 shadow-lg shadow-purple-500/5 scale-[0.97]'
-          : 'bg-transparent border-transparent shadow-none scale-100'
-      }`}>
+      <nav
+        className={`hidden lg:flex items-center justify-between gap-8 px-6 py-3 rounded-full max-w-6xl w-full border transition-all duration-300 ease-in-out motion-reduce:transition-none ${
+          scrolled
+            ? "bg-white/70 backdrop-blur-md border-white/40 shadow-lg shadow-purple-500/5 scale-98"
+            : "bg-transparent border-transparent shadow-none scale-100"
+        }`}
+      >
         {/* Brand Logo */}
-        <a 
-          href="#hero" 
+        <a
+          href="#hero"
           onClick={(e) => handleScroll(e, "hero")}
           className="text-xl font-serif tracking-tight text-gray-900 pr-2"
         >
-          {name?.split(" ")?.[0] || 'Jonathan'} <span className="italic font-normal text-gray-600">{name?.split(" ")?.[1] || 'Whitfield'}</span>
+          {name?.split(" ")?.[0] || "Jonathan"}{" "}
+          <span className="italic font-normal text-gray-600">
+            {name?.split(" ")?.[1] || "Whitfield"}
+          </span>
         </a>
 
         {/* Navigation Links */}
@@ -126,8 +141,8 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
                 onClick={(e) => handleScroll(e, item.href.substring(1))}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-[background-color,color,box-shadow] duration-200 ${
                   item.active
-                    ? 'bg-purple-100/80 text-purple-700 shadow-sm'
-                    : 'text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50/50'
+                    ? "bg-purple-100/80 text-purple-700 shadow-sm"
+                    : "text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50/50"
                 }`}
               >
                 <Icon className="w-4 h-4 stroke-[1.75]" />
@@ -139,27 +154,31 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
 
         {/* CTA Button */}
         <a
-          href="/cv.pdf"
-          download
+          href="https://portfolium-idqa.vercel.app/"
+          target="_blank"
           className="flex items-center gap-2 px-5 py-2.5 bg-[#6C47C8] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-700 text-white rounded-full text-sm font-semibold transition-colors shadow-md shadow-purple-500/20"
         >
-          <Download className="w-4 h-4" />
-          <span>Download CV</span>
+          <span>Portfolium</span>
         </a>
       </nav>
 
       {/* --- MOBILE / TABLET HEADER --- */}
-      <div className={`lg:hidden w-full flex items-center justify-between px-4 py-3 rounded-2xl border transition-[background-color,border-color,box-shadow,transform] duration-300 ease-[var(--ease-drawer)] motion-reduce:transition-[background-color,border-color,box-shadow] motion-reduce:scale-100 ${
-        scrolled
-          ? 'bg-white/60 backdrop-blur-md border-white/30 shadow-md scale-[0.98]'
-          : 'bg-transparent border-transparent shadow-none scale-100'
-      }`}>
-        <a 
-          href="#hero" 
+      <div
+        className={`lg:hidden w-full flex items-center justify-between px-4 py-3 rounded-2xl border transition-all duration-500 ease-in-out motion-reduce:transition-none ${
+          scrolled
+            ? "bg-white/60 backdrop-blur-md border-white/30 shadow-md scale-95"
+            : "bg-transparent border-transparent shadow-none scale-100"
+        }`}
+      >
+        <a
+          href="#hero"
           onClick={(e) => handleScroll(e, "hero")}
           className="text-lg font-serif text-gray-900"
         >
-          {name?.split(" ")?.[0] || 'Jonathan'} <span className="italic font-normal text-gray-600">{name?.split(" ")?.[1] || 'Whitfield'}</span>
+          {name?.split(" ")?.[0] || "Jonathan"}{" "}
+          <span className="italic font-normal text-gray-600">
+            {name?.split(" ")?.[1] || "Whitfield"}
+          </span>
         </a>
 
         <div className="flex items-center gap-3">
@@ -177,7 +196,11 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
             className="p-2 text-purple-800 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50 rounded-lg transition-colors"
             aria-label="Toggle Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
@@ -187,8 +210,8 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
         aria-hidden={!mobileMenuOpen}
         className={`lg:hidden absolute top-20 left-4 right-4 bg-white/95 backdrop-blur-lg rounded-2xl p-4 border border-purple-100 shadow-xl flex flex-col gap-1 origin-top transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-opacity ${
           mobileMenuOpen
-            ? 'opacity-100 scale-100 pointer-events-auto'
-            : 'opacity-0 scale-95 motion-reduce:scale-100 pointer-events-none'
+            ? "opacity-100 scale-100 pointer-events-auto"
+            : "opacity-0 scale-95 motion-reduce:scale-100 pointer-events-none"
         }`}
       >
         {navItems.map((item) => {
@@ -201,8 +224,8 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
               tabIndex={mobileMenuOpen ? 0 : -1}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-[background-color,color] duration-150 ${
                 item.active
-                  ? 'bg-purple-100 text-purple-700'
-                  : 'text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700'
+                  ? "bg-purple-100 text-purple-700"
+                  : "text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700"
               }`}
             >
               <Icon className="w-4 h-4" />
