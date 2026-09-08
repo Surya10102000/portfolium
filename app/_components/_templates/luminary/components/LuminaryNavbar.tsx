@@ -5,7 +5,6 @@ import {
   Star,
   HelpCircle,
   Mail,
-  Download,
   Menu,
   X,
   FolderKanban,
@@ -183,12 +182,11 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
 
         <div className="flex items-center gap-3">
           <a
-            href="/cv.pdf"
-            download
+            href="https://portfolium-idqa.vercel.app/"
+            target="_blank"
             className="flex items-center gap-1.5 px-4 py-2 bg-[#6C47C8] text-white rounded-full text-xs font-semibold"
           >
-            <Download className="w-3.5 h-3.5" />
-            <span>Download CV</span>
+            <span>Porfolium</span>
           </a>
 
           <button
