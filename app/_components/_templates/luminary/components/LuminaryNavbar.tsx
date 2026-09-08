@@ -113,7 +113,7 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
       <nav
         className={`hidden lg:flex items-center justify-between gap-8 px-6 py-3 rounded-full max-w-6xl w-full border transition-all duration-300 ease-in-out motion-reduce:transition-none ${
           scrolled
-            ? "bg-white/70 backdrop-blur-md border-white/40 shadow-lg shadow-purple-500/5 scale-98"
+            ? "bg-card/70 backdrop-blur-md border-border/50 shadow-lg shadow-primary/5 scale-98"
             : "bg-transparent border-transparent shadow-none scale-100"
         }`}
       >
@@ -121,10 +121,10 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
         <a
           href="#hero"
           onClick={(e) => handleScroll(e, "hero")}
-          className="text-xl font-serif tracking-tight text-gray-900 pr-2"
+          className="text-xl font-serif tracking-tight text-foreground pr-2"
         >
           {name?.split(" ")?.[0] || "Jonathan"}{" "}
-          <span className="italic font-normal text-gray-600">
+          <span className="italic font-normal text-muted-foreground">
             {name?.split(" ")?.[1] || "Whitfield"}
           </span>
         </a>
@@ -140,8 +140,8 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
                 onClick={(e) => handleScroll(e, item.href.substring(1))}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-[background-color,color,box-shadow] duration-200 ${
                   item.active
-                    ? "bg-purple-100/80 text-purple-700 shadow-sm"
-                    : "text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50/50"
+                    ? "bg-accent text-primary shadow-sm"
+                    : "text-muted-foreground [@media(hover:hover)_and_(pointer:fine)]:hover:text-primary [@media(hover:hover)_and_(pointer:fine)]:hover:bg-accent/50"
                 }`}
               >
                 <Icon className="w-4 h-4 stroke-[1.75]" />
@@ -155,7 +155,7 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
         <a
           href="https://portfolium-idqa.vercel.app/"
           target="_blank"
-          className="flex items-center gap-2 px-5 py-2.5 bg-[#6C47C8] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-700 text-white rounded-full text-sm font-semibold transition-colors shadow-md shadow-purple-500/20"
+          className="flex items-center gap-2 px-5 py-2.5 bg-primary [@media(hover:hover)_and_(pointer:fine)]:hover:bg-primary/90 text-primary-foreground rounded-full text-sm font-semibold transition-colors shadow-md shadow-primary/20"
         >
           <span>Portfolium</span>
         </a>
@@ -165,17 +165,17 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
       <div
         className={`lg:hidden w-full flex items-center justify-between px-4 py-3 rounded-2xl border transition-all duration-500 ease-in-out motion-reduce:transition-none ${
           scrolled
-            ? "bg-white/60 backdrop-blur-md border-white/30 shadow-md scale-95"
+            ? "bg-card/60 backdrop-blur-md border-border/50 shadow-md scale-95"
             : "bg-transparent border-transparent shadow-none scale-100"
         }`}
       >
         <a
           href="#hero"
           onClick={(e) => handleScroll(e, "hero")}
-          className="text-lg font-serif text-gray-900"
+          className="text-lg font-serif text-foreground"
         >
           {name?.split(" ")?.[0] || "Jonathan"}{" "}
-          <span className="italic font-normal text-gray-600">
+          <span className="italic font-normal text-muted-foreground">
             {name?.split(" ")?.[1] || "Whitfield"}
           </span>
         </a>
@@ -184,14 +184,14 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
           <a
             href="https://portfolium-idqa.vercel.app/"
             target="_blank"
-            className="flex items-center gap-1.5 px-4 py-2 bg-[#6C47C8] text-white rounded-full text-xs font-semibold"
+            className="flex items-center gap-1.5 px-4 py-2 bg-primary text-primary-foreground rounded-full text-xs font-semibold"
           >
             <span>Porfolium</span>
           </a>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-purple-800 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50 rounded-lg transition-colors"
+            className="p-2 text-primary [@media(hover:hover)_and_(pointer:fine)]:hover:bg-accent rounded-lg transition-colors"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? (
@@ -206,7 +206,7 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
       {/* --- MOBILE MENU DROPDOWN --- */}
       <div
         aria-hidden={!mobileMenuOpen}
-        className={`lg:hidden absolute top-20 left-4 right-4 bg-white/95 backdrop-blur-lg rounded-2xl p-4 border border-purple-100 shadow-xl flex flex-col gap-1 origin-top transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-opacity ${
+        className={`lg:hidden absolute top-20 left-4 right-4 bg-card/95 backdrop-blur-lg rounded-2xl p-4 border border-border shadow-xl flex flex-col gap-1 origin-top transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-opacity ${
           mobileMenuOpen
             ? "opacity-100 scale-100 pointer-events-auto"
             : "opacity-0 scale-95 motion-reduce:scale-100 pointer-events-none"
@@ -222,8 +222,8 @@ const LuminaryNavbar = ({ portfolioData }: { portfolioData: UserData }) => {
               tabIndex={mobileMenuOpen ? 0 : -1}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-[background-color,color] duration-150 ${
                 item.active
-                  ? "bg-purple-100 text-purple-700"
-                  : "text-gray-600 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-purple-50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-purple-700"
+                  ? "bg-accent text-primary"
+                  : "text-muted-foreground [@media(hover:hover)_and_(pointer:fine)]:hover:bg-accent [@media(hover:hover)_and_(pointer:fine)]:hover:text-primary"
               }`}
             >
               <Icon className="w-4 h-4" />
