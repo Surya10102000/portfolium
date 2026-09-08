@@ -93,21 +93,21 @@ export const LuminaryProjectCard = ({
               <div className="absolute -left-6 -bottom-10 w-28 h-28 rounded-full bg-primary/15 blur-2xl" />
             </div>
           )}
+
+          {/* Floating link button, pinned to the image's bottom-right corner */}
+          {primaryLink && (
+            <a
+              href={primaryLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${projectName}`}
+              className="absolute z-10 flex items-center justify-center rounded-full border border-border bg-card text-card-foreground w-11 h-11 lg:w-12 lg:h-12 bottom-4 right-4 transition-[background-color,color,border-color] duration-200 ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-primary [@media(hover:hover)_and_(pointer:fine)]:hover:text-primary-foreground [@media(hover:hover)_and_(pointer:fine)]:hover:border-primary"
+            >
+              <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </a>
+          )}
         </div>
       </div>
-
-      {/* Floating link button */}
-      {primaryLink && (
-        <a
-          href={primaryLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Open ${projectName}`}
-          className="absolute z-10 flex items-center justify-center rounded-full border border-border bg-card text-card-foreground w-11 h-11 bottom-6 right-6 transition-[background-color,color,border-color] duration-200 ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-primary [@media(hover:hover)_and_(pointer:fine)]:hover:text-primary-foreground [@media(hover:hover)_and_(pointer:fine)]:hover:border-primary lg:w-12 lg:h-12 lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2"
-        >
-          <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </a>
-      )}
     </div>
   );
 };
