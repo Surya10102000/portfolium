@@ -17,7 +17,7 @@ const LuminaryLayout = ({ children, userData }: LayoutProps) => {
     <ThemeProvider>
       <ReactLenis options={{ lerp: 0.07, wheelMultiplier: 0.9 }}root/>
       <div className={`mx-auto tracking-tight flex flex-col justify-between`}>
-        <div className="flex-1 px-5 md:px-7 lg:px-9 mx-auto tracking-tight">
+        <div className="flex-1 mx-auto tracking-tight">
           <nav className={`default-navbar`}>
             <LuminaryNavbar portfolioData={userData} /> 
           </nav>

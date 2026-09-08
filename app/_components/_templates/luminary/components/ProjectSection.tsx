@@ -45,7 +45,7 @@ export const ProjectSection = ({ projects }: { projects: Project[] }) => {
             <div
               key={i}
               className="sticky"
-              style={{ top: `${80 + i * 20}px` }}
+              style={{ top: `${120 + i * 20}px` }}
             >
               <FadeIn delay={Math.min(i, 3) * 0.1} amount={0.2}>
                 <LuminaryProjectCard {...project} index={i} />

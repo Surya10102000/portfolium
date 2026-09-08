@@ -1,5 +1,4 @@
-import React, { useRef } from "react";
-import { motion as m, useReducedMotion, Variants, useScroll, useTransform } from "motion/react";
+import React from "react";
 import ExperienceCard from "./ExperienceCard";
 import FadeIn from "@/app/_components/motion/FadeIn";
 
@@ -18,30 +17,7 @@ interface ExperienceListProps {
   experiences: Experience[];
 }
 
-// 80ms stagger keeps a multi-card list from entering all at once
-// without feeling slow (SKILLS.md: 30-80ms for staggered entrances).
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-};
-
 const ExperienceList: React.FC<ExperienceListProps> = ({ experiences }) => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.4, 1, 0.4]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.95, 1, 0.95]);
-
   // Calculate total experience
   const totalYears = experiences.reduce((acc, exp) => {
     const years = exp.duration.match(/\d+/);
@@ -53,23 +29,12 @@ const ExperienceList: React.FC<ExperienceListProps> = ({ experiences }) => {
 
   return (
     <section
-      ref={sectionRef}
-      className="relative py-16 lg:py-24 px-4 sm:px-6 lg:px-12 overflow-hidden"
+      className="relative py-20 px-4 sm:px-6 lg:px-12 bg-background text-foreground"
       id="experience"
     >
-      {/* Background Elements */}
-      <m.div
-        style={{ opacity, scale }}
-        className="absolute inset-0 -z-10"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/2 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-      </m.div>
-
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+      <div className="max-w-6xl mx-auto space-y-16">
+        {/* Header Section */}
+        <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-border pb-8">
           <div className="space-y-3">
             <div className="flex items-center gap-3">
               <span className="w-8 h-[2px] bg-primary inline-block" />
@@ -97,22 +62,20 @@ const ExperienceList: React.FC<ExperienceListProps> = ({ experiences }) => {
           </div>
         </FadeIn>
 
-        {/* Experience Cards */}
-        <m.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="space-y-6"
-        >
+        {/* Sticky Stacking Cards Container */}
+        <div className="space-y-6">
           {experiences.map((exp, index) => (
-            <ExperienceCard
+            <div
               key={exp._id || `${exp.company}-${exp.role}`}
-              experience={exp}
-              index={index}
-            />
+              className="sticky"
+              style={{ top: `${80 + index * 20}px` }}
+            >
+              <FadeIn delay={Math.min(index, 3) * 0.1} amount={0.2}>
+                <ExperienceCard experience={exp} index={index} />
+              </FadeIn>
+            </div>
           ))}
-        </m.div>
+        </div>
       </div>
     </section>
   );

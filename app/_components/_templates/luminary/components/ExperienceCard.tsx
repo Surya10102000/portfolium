@@ -1,5 +1,4 @@
 import React from "react";
-import { motion as m, useReducedMotion, Variants } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface Experience {
@@ -19,27 +18,10 @@ interface ExperienceCardProps {
   className?: string;
 }
 
-const buildCardVariants = (reduceMotion: boolean): Variants => ({
-  hidden: {
-    opacity: 0,
-    y: reduceMotion ? 0 : 16,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 25,
-    },
-  },
-});
-
 const ExperienceCard: React.FC<ExperienceCardProps> = ({
   experience,
   className = "",
 }) => {
-  const reduceMotion = useReducedMotion();
   const { role, company, duration, description, location, achievements } = experience;
 
   // "2022 - Present" -> start "2022", end "Present" (styled as an active status)
@@ -49,11 +31,10 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
   const isCurrent = !!endDate && /present/i.test(endDate);
 
   return (
-    <m.div
-      variants={buildCardVariants(!!reduceMotion)}
+    <div
       className={cn(
-        "group relative w-full bg-card text-card-foreground border border-border/60 rounded-[var(--radius)] p-6 sm:p-8 shadow-sm transition-[box-shadow,border-color] duration-300",
-        "[@media(hover:hover)_and_(pointer:fine)]:hover:shadow-md [@media(hover:hover)_and_(pointer:fine)]:hover:border-primary/30",
+        "group relative w-full bg-card text-card-foreground border border-border rounded-[var(--radius)] p-6 sm:p-8 md:p-10 shadow-sm transition-[box-shadow,border-color] duration-300",
+        "[@media(hover:hover)_and_(pointer:fine)]:hover:shadow-md [@media(hover:hover)_and_(pointer:fine)]:hover:border-primary/40",
         className
       )}
     >
@@ -116,7 +97,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           )}
         </div>
       </div>
-    </m.div>
+    </div>
   );
 };
 

@@ -1,8 +1,6 @@
-import React, { useRef } from "react";
-import { motion as m, useReducedMotion, Variants, useScroll, useTransform } from "motion/react";
-import { GraduationCap, Sparkles, BookOpen, Calendar } from "lucide-react";
+import React from "react";
 import EducationCard from "./EducationCard";
-import { EASE_OUT } from "../motionTokens";
+import FadeIn from "@/app/_components/motion/FadeIn";
 
 export interface Education {
   _id?: string;
@@ -19,167 +17,59 @@ interface EducationListProps {
   educations: Education[];
 }
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3,
-    },
-  },
-};
-
-const buildHeaderVariants = (reduceMotion: boolean): Variants => ({
-  hidden: { opacity: 0, y: reduceMotion ? 0 : -20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: EASE_OUT,
-    },
-  },
-});
-
 const EducationList: React.FC<EducationListProps> = ({ educations }) => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.4, 1, 0.4]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], reduceMotion ? [1, 1, 1] : [0.95, 1, 0.95]);
-
-  // Calculate total duration for timeline
-  const totalDuration = educations.reduce((acc, edu) => {
-    if (edu.duration) {
-      const years = edu.duration.match(/\d+/);
-      return acc + (years ? parseInt(years[0]) : 0);
-    }
-    return acc;
-  }, 0);
-
   return (
     <section
-      ref={sectionRef}
-      className="relative py-16 lg:py-24 px-4 sm:px-6 lg:px-12 overflow-hidden"
+      className="relative py-20 px-4 sm:px-6 lg:px-12 bg-background text-foreground"
       id="education"
     >
-      {/* Background Elements */}
-      <m.div
-        style={{ opacity, scale }}
-        className="absolute inset-0 -z-10"
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/5 rounded-full blur-3xl" />
-      </m.div>
+      <div className="max-w-6xl mx-auto space-y-16">
+        {/* Header Section */}
+        <FadeIn className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-border pb-8">
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-8 h-[2px] bg-primary inline-block" />
+              <span className="text-xs sm:text-sm font-bold tracking-widest text-primary uppercase">
+                Education
+              </span>
+            </div>
 
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <m.div
-          variants={buildHeaderVariants(!!reduceMotion)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="flex items-center gap-4 mb-12"
-        >
-          <m.div
-            initial={{ scaleX: 0, originX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden md:block h-px flex-1 bg-gradient-to-r from-transparent to-primary/30"
-          />
-          
-          <div className="flex items-center gap-3">
-            <m.div
-              initial={{ rotate: -180, opacity: 0 }}
-              whileInView={{ rotate: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200 }}
-            >
-              <GraduationCap className="w-6 h-6 text-primary" />
-            </m.div>
-            <span className="text-2xl font-bold text-foreground">
-              Education Journey
-            </span>
-            <m.span
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, type: "spring" }}
-            >
-              <Sparkles className="w-5 h-5 text-primary" />
-            </m.span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground leading-tight">
+              Trained in design,{" "}
+              <span className="italic font-normal text-muted-foreground">
+                learned
+              </span>{" "}
+              by shipping.
+            </h2>
           </div>
-          
-          <m.div
-            initial={{ scaleX: 0, originX: 1 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="hidden md:block h-px flex-1 bg-gradient-to-l from-transparent to-primary/30"
-          />
-        </m.div>
 
-        {/* Stats Bar */}
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 gap-4 mb-12"
-        >
-          {[
-            { label: "Institutions", value: educations.length, icon: BookOpen },
-            { label: "Years of Study", value: totalDuration || "—", icon: Calendar },
-          ].map((stat, i) => (
-            <m.div
-              key={i}
-              className="relative p-4 rounded-xl bg-card/30 backdrop-blur-sm border border-border/50 text-center"
-              whileHover={{
-                y: -4,
-                borderColor: "color-mix(in oklch, var(--primary) 30%, transparent)",
-                boxShadow: "0 10px 30px color-mix(in oklch, var(--primary) 10%, transparent)",
-              }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <stat.icon className="w-4 h-4 mx-auto mb-2 text-primary/60" />
-              <div className="text-xl font-bold text-foreground">{stat.value}</div>
-              <div className="text-xs text-muted-foreground">{stat.label}</div>
-            </m.div>
-          ))}
-        </m.div>
+          <div className="text-left lg:text-right text-sm text-muted-foreground space-y-0.5">
+            <span className="font-serif italic text-lg text-foreground block">
+              {educations.length} {educations.length === 1 ? "program" : "programs"}
+            </span>
+            <p className="text-xs text-muted-foreground max-w-xs lg:ml-auto">
+              formal study, fellowships, and self-directed learning.
+            </p>
+          </div>
+        </FadeIn>
 
-        {/* Timeline */}
-        <m.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="relative"
-        >
-          {/* Vertical timeline line */}
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-primary/30 via-primary/10 to-transparent" />
-
+        {/* Sticky Stacking Cards Container */}
+        <div className="space-y-6">
           {educations.map((edu, index) => (
-            <EducationCard
+            <div
               key={edu._id || `${edu.universityName}-${edu.courseName}`}
-              education={edu}
-              index={index}
-              isLast={index === educations.length - 1}
-            />
+              className="sticky"
+              style={{ top: `${80 + index * 20}px` }}
+            >
+              <FadeIn delay={Math.min(index, 3) * 0.1} amount={0.2}>
+                <EducationCard education={edu} index={index} />
+              </FadeIn>
+            </div>
           ))}
-        </m.div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default EducationList;
-
-
