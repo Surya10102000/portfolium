@@ -9,7 +9,7 @@ export const AboutSection = ({
   about  : AboutSectionI
 }) => {
   return (
-    <section id="about" className="relative min-h-screen w-full bg-background text-foreground flex items-center justify-center px-6 py-20 overflow-hidden">
+    <section id="about" className="relative w-full bg-background text-foreground flex items-center justify-center px-6 py-20 overflow-hidden">
       {/* Soft Background Radial Gradient & Grid Overlay */}
       <div
         className="absolute inset-0 opacity-30 pointer-events-none"

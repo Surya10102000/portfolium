@@ -70,7 +70,7 @@ const HeroSection = ({ hero, contact }: HeroProps) => {
 
   return (
     <section
-      className="relative min-h-screen w-full bg-background text-foreground flex items-center justify-center px-6 py-16 md:py-24 overflow-hidden"
+      className="relative w-full bg-background text-foreground flex items-center justify-center px-6 pt-32 md:py-44 overflow-hidden"
       id="hero"
     >
       {/* Background Dot Pattern Overlay */}
