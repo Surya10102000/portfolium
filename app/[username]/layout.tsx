@@ -1,13 +1,18 @@
 "use client";
 import React, { ReactNode } from "react";
-import DefaultLayout from "../_components/_templates/default/layout";
-import MinimalLayout from "../_components/_templates/minimal/layout";
-import SteamLayout from "../_components/_templates/steam/layout";
+import dynamic from "next/dynamic";
 import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
 import UserNotFound from "../_components/404page/UserNotFound";
-import LuminaryLayout from "../_components/_templates/luminary/layout";
 
 type TemplateKey = "default" | "minimal" | "steam" | "luminary";
+
+const templates = {
+  default: dynamic(() => import("../_components/_templates/default/layout")),
+  minimal: dynamic(() => import("../_components/_templates/minimal/layout")),
+  steam: dynamic(() => import("../_components/_templates/steam/layout")),
+  luminary: dynamic(() => import("../_components/_templates/luminary/layout")),
+  // Add other templates here
+};
 
 const UserLayout = ({
   params,
@@ -18,13 +23,6 @@ const UserLayout = ({
 }) => {
   const { username } = React.use(params);
   const { data: userData, isLoading } = useGetPortfolioByUsernameQuery(username);
-  const templates = {
-    default: DefaultLayout,
-    minimal: MinimalLayout,
-    steam: SteamLayout,
-    luminary: LuminaryLayout,
-    // Add other templates here
-  };
 
   if (!userData) return isLoading ? null : <UserNotFound />;
 
