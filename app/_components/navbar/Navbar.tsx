@@ -5,8 +5,13 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { DialogTrigger } from "@radix-ui/react-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   Menu,
   Pencil,
@@ -31,6 +36,8 @@ import {
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useGetUsernameQuery } from "@/services/userApi";
+import { useGetPortfolioQuery } from "@/services/portfolioApi";
+import { hasIncompleteSections } from "@/lib/portfolioCompletion";
 import ThemeToggle from "./ThemeToggle";
 import { AnimatedGradientText } from "@/components/AnimatedGradientText";
 
@@ -42,6 +49,8 @@ const EditProfileBox = dynamic(() => import("../profile/EditProfileColumn"), {
 
 const Navbar = () => {
   const { data } = useGetUsernameQuery();
+  const { data: portfolioData } = useGetPortfolioQuery();
+  const hasIncomplete = hasIncompleteSections(portfolioData);
   const router = useRouter();
   const { data: session } = useSession();
   // Memoize the website URL to prevent recalculations
@@ -76,11 +85,24 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         {data && (
           <Dialog>
-            <DialogTrigger asChild className="md:hidden">
-              <Button size="icon" aria-label="Edit profile">
-                <Pencil size={iconSize} />
-              </Button>
-            </DialogTrigger>
+            <div className="relative md:hidden">
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <DialogTrigger asChild>
+                    <Button size="icon" aria-label="Edit profile">
+                      <Pencil size={iconSize} />
+                    </Button>
+                  </DialogTrigger>
+                </TooltipTrigger>
+                <TooltipContent>Edit profile</TooltipContent>
+              </Tooltip>
+              {hasIncomplete && (
+                <span
+                  className="pointer-events-none absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-destructive ring-2 ring-background"
+                  aria-hidden="true"
+                />
+              )}
+            </div>
             <DialogContent className="max-w-[95vw] max-h-[80lvh] sm:max-w-md overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>

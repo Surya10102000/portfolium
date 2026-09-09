@@ -14,11 +14,12 @@ import {
 } from "@/services/portfolioApi";
 import { useEffect, useState } from "react";
 
+// Swatches use each template's own background/accent tokens (see the
+// corresponding *-theme.css) so the preview reflects the real palette.
 const templateOptions = [
-  { value: "default", label: "Default" },
-  // { value: "minimal", label: "Minimal" },
-  { value: "luminary", label: "Luminary" },
-  { value: "steam", label: "Steam" },
+  { value: "default", label: "Default", swatch: { bg: "oklch(1 0 0)", accent: "oklch(0 0 0)" } },
+  { value: "luminary", label: "Luminary", swatch: { bg: "oklch(0.9853 0.0082 301.3594)", accent: "oklch(0.5232 0.1433 292.5053)" } },
+  { value: "steam", label: "Steam", swatch: { bg: "rgb(17, 17, 17)", accent: "#bd5fff" } },
 ];
 
 export function TemplateSelector({
@@ -60,6 +61,16 @@ export function TemplateSelector({
             value={option.value}
             className="flex items-center gap-2"
           >
+            <span
+              className="inline-block h-4 w-6 shrink-0 overflow-hidden rounded-sm border"
+              style={{ background: option.swatch.bg }}
+              aria-hidden="true"
+            >
+              <span
+                className="ml-auto block h-full w-1/2"
+                style={{ background: option.swatch.accent }}
+              />
+            </span>
             <span>{option.label}</span>
           </SelectItem>
         ))}
