@@ -81,11 +81,11 @@ const Navbar = () => {
                 <Pencil size={iconSize} />
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[95vw] max-h-[80lvh] sm:max-w-md">
+            <DialogContent className="max-w-[95vw] max-h-[80lvh] sm:max-w-md overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Edit Profile</DialogTitle>
               </DialogHeader>
-              <EditProfileBox />
+              <EditProfileBox embedded className="max-h-[60lvh]" />
             </DialogContent>
           </Dialog>
         )}
