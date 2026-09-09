@@ -1,13 +1,17 @@
 "use client";
 import { useGetPortfolioByUsernameQuery } from "@/services/portfolioApi";
 import { usePathname } from "next/navigation";
-import DefaultHome from "../_components/_templates/default/DefaultHome";
-import MinimalHome from "../_components/_templates/minimal/MinimalHome";
-import SteamHome from "../_components/_templates/steam/SteamHome";
-import LuminaryHome from "../_components/_templates/luminary/LuminaryHome";
+import dynamic from "next/dynamic";
 
-type TemplateKey = 'default' | 'minimal' | 'steam' | 'luminary'; 
+type TemplateKey = 'default' | 'minimal' | 'steam' | 'luminary';
 
+const templates = {
+  default: dynamic(() => import("../_components/_templates/default/DefaultHome")),
+  minimal: dynamic(() => import("../_components/_templates/minimal/MinimalHome")),
+  steam: dynamic(() => import("../_components/_templates/steam/SteamHome")),
+  luminary: dynamic(() => import("../_components/_templates/luminary/LuminaryHome")),
+  // Add other templates here
+};
 
 const UserPortfolio = () => {
   const username = usePathname().slice(1);
@@ -15,14 +19,6 @@ const UserPortfolio = () => {
 
 
   if (!data) return <div></div>;
-
-  const templates = {
-    default: DefaultHome,
-    minimal: MinimalHome,
-    steam : SteamHome,
-    luminary : LuminaryHome,
-    // Add other templates here
-  };
 
   const templateKey: TemplateKey =
     (data.template as TemplateKey) || "default";

@@ -8,7 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useUpdateTemplateMutation } from "@/services/portfolioApi";
+import {
+  TEMPLATE_UPDATE_CACHE_KEY,
+  useUpdateTemplateMutation,
+} from "@/services/portfolioApi";
 import { useEffect, useState } from "react";
 
 const templateOptions = [
@@ -24,7 +27,9 @@ export function TemplateSelector({
   currentTemplate: string;
 }) {
   const [value, setValue] = useState(currentTemplate);
-  const [updateTemplate] = useUpdateTemplateMutation();
+  const [updateTemplate] = useUpdateTemplateMutation({
+    fixedCacheKey: TEMPLATE_UPDATE_CACHE_KEY,
+  });
 
   // Sync with external currentTemplate changes
   useEffect(() => {
