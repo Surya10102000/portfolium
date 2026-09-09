@@ -8,20 +8,23 @@ import {
 } from "@/types/userData";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// Shared cache key so useUpdateTemplateMutation() calls in different
+// components (TemplateSelector, ResponsiveIframe) read the same mutation state.
+export const TEMPLATE_UPDATE_CACHE_KEY = "template-update";
+
 export const portfolioApi = createApi({
   reducerPath: "portfolioApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api/" }),
   tagTypes: ["Portfolio"],
   endpoints: (builder) => ({
-    updateTemplate: builder.mutation({
+    updateTemplate: builder.mutation<string, string>({
       query: (template) => ({
         url: "/theme/template",
         method: "PUT",
         body: { template },
-        transformResponse: (response: { template: string }) =>
-          response.template,
       }),
-      invalidatesTags : ["Portfolio"]
+      transformResponse: (response: { template: string }) => response.template,
+      invalidatesTags: ["Portfolio"],
     }),
     getPortfolioByUsername: builder.query<UserData, string>({
       query: (username) => `profile/${username}`,
