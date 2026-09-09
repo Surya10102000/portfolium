@@ -5,9 +5,9 @@ import PortfolioView from "./ProfileView";
 import { UrlToggleGroup } from "./UrlToggleGroup";
 import { useGetUsernameQuery } from "@/services/userApi";
 import { ViewModeToggle } from "./ViewModeToggle";
-import LoadingComponent from "../Loader/LoadingComponent";
 import { TemplateSelector } from "./TemplateSelector";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ProfileContainer = () => {
   const { data, isLoading, isError, refetch } = useGetPortfolioQuery();
@@ -19,7 +19,29 @@ const ProfileContainer = () => {
   } = useGetUsernameQuery();
 
   if (isLoading || isUserLoading) {
-    return <LoadingComponent/>
+    return (
+      <div className="flex">
+        {/* left column skeleton */}
+        <div className="max-w-[320px] w-full px-1 py-2 pr-3 hidden md:block md:border-r">
+          <div className="flex flex-col gap-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Skeleton key={i} className="h-[76px] w-full rounded-md" />
+            ))}
+          </div>
+        </div>
+        {/* right column skeleton */}
+        <div className="w-full px-4 py-2">
+          <div className="flex flex-wrap justify-between items-center gap-2">
+            <Skeleton className="h-9 w-[160px]" />
+            <Skeleton className="h-9 flex-1 min-w-[200px]" />
+            <Skeleton className="h-9 w-[110px] hidden md:block" />
+          </div>
+          <div className="py-4">
+            <Skeleton className="h-[80vh] w-full rounded-lg" />
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (isError || isUserError || !data || !userResponse) {
@@ -44,7 +66,7 @@ const ProfileContainer = () => {
   return (
     <div className="flex">
       {/* left column container */}
-      <div className="max-w-[320px] px-1 py-2 hidden md:block">
+      <div className="max-w-[320px] w-full px-1 py-2 pr-3 hidden md:block md:border-r">
         <EditProfileBox/>
       </div>
       {/* right preview container */}

@@ -1,11 +1,13 @@
 import { ArrowRightIcon } from "lucide-react";
 import React from "react";
+import { Badge } from "@/components/ui/badge";
 
 interface SectionsProps {
   title: string;
   description: string;
   icon: React.ReactNode;
   onClick: () => void;
+  isComplete?: boolean;
 }
 
 const Section: React.FC<SectionsProps> = ({
@@ -13,6 +15,7 @@ const Section: React.FC<SectionsProps> = ({
   description,
   icon,
   onClick,
+  isComplete = true,
 }) => {
   return (
     <div
@@ -27,7 +30,14 @@ const Section: React.FC<SectionsProps> = ({
       <div className="text-card-foreground">{icon}</div>
 
       <div className="flex-1">
-        <p className="font-medium ">{title}</p>
+        <div className="flex items-center gap-2">
+          <p className="font-medium ">{title}</p>
+          {!isComplete && (
+            <Badge variant="outline" className="text-[10px] h-4 px-1.5 font-normal text-muted-foreground">
+              Incomplete
+            </Badge>
+          )}
+        </div>
         <p className="text-sm">{description}</p>
       </div>
 

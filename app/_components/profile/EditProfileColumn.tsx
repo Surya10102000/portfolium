@@ -23,6 +23,7 @@ import {
   useUpdateHeroMutation,
 } from "@/services/portfolioApi";
 import ContactForm from "./Forms/ContactForm";
+import { isSectionComplete } from "@/lib/portfolioCompletion";
 
 interface EditProfileBoxProps {
   // When true, the active section's form replaces the list in place instead
@@ -61,32 +62,37 @@ const EditProfileBox = ({ embedded = false, className }: EditProfileBoxProps) =>
       title: "Hero Section",
       description: "Your name, role, description and image",
       icon: <LayoutPanelTop />,
+      isComplete: isSectionComplete("hero", data),
     },
     {
       id: "about",
       title: "About Section",
       description: "Your bio and what you do",
       icon: <SquareUser />,
+      isComplete: isSectionComplete("about", data),
     },
     {
       id: "project",
       title: "Project Section",
       description: "Your projects and their details",
       icon: <FolderGit />,
+      isComplete: isSectionComplete("project", data),
     },
     {
       id: "experience",
       title: "Experience Section",
       description: "Your work experience details",
       icon: <Pickaxe />,
+      isComplete: isSectionComplete("experience", data),
     },
     {
       id: "contact",
       title: "Contact Section",
       description: "Contact Details",
       icon: <LucideMousePointerClick />,
+      isComplete: isSectionComplete("contact", data),
     },
-  ];
+  ] as const;
 
   const activeSection = sections.find((section) => section.id === activeForm);
 
@@ -134,6 +140,7 @@ const EditProfileBox = ({ embedded = false, className }: EditProfileBoxProps) =>
           title={section.title}
           description={section.description}
           icon={section.icon}
+          isComplete={section.isComplete}
           onClick={() => setActiveForm(section.id)}
         />
       ))}

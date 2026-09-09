@@ -11,6 +11,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useUpdateUsernameMutation } from "@/services/userApi";
 import { useForm } from "react-hook-form";
 import { DialogDescription } from "@radix-ui/react-dialog";
@@ -87,11 +92,16 @@ export function UrlToggleGroup({
     <ToggleGroup type="single" variant="outline">
       {/* Change Username Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogTrigger asChild>
-          <ToggleGroupItem value="edit" aria-label="Edit username">
-            <SquarePen />
-          </ToggleGroupItem>
-        </DialogTrigger>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DialogTrigger asChild>
+              <ToggleGroupItem value="edit" aria-label="Edit username">
+                <SquarePen />
+              </ToggleGroupItem>
+            </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent>Edit username</TooltipContent>
+        </Tooltip>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Change your Username</DialogTitle>
@@ -156,13 +166,18 @@ export function UrlToggleGroup({
 
       {/* Open URL */}
       {fullUrl && (
-        <ToggleGroupItem
-          value="open"
-          onClick={() => window.open(fullUrl, "_blank")}
-          aria-label="Open profile in new tab"
-        >
-          <ExternalLink />
-        </ToggleGroupItem>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <ToggleGroupItem
+              value="open"
+              onClick={() => window.open(fullUrl, "_blank")}
+              aria-label="Open profile in new tab"
+            >
+              <ExternalLink />
+            </ToggleGroupItem>
+          </TooltipTrigger>
+          <TooltipContent>Open in new tab</TooltipContent>
+        </Tooltip>
       )}
     </ToggleGroup>
   );
