@@ -1,7 +1,9 @@
 "use client";
-import { FolderGit, LayoutPanelTop, LucideMousePointerClick, Pickaxe, SquareUser } from "lucide-react";
+import { ArrowLeft, FolderGit, LayoutPanelTop, LucideMousePointerClick, Pickaxe, SquareUser } from "lucide-react";
 import Section from "./Section";
 import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -22,7 +24,16 @@ import {
 } from "@/services/portfolioApi";
 import ContactForm from "./Forms/ContactForm";
 
-const EditProfileBox = () => {
+interface EditProfileBoxProps {
+  // When true, the active section's form replaces the list in place instead
+  // of opening in its own Dialog. Use this when the box is already rendered
+  // inside another Dialog (e.g. the mobile Navbar trigger) so we don't stack
+  // a second Dialog (and a second overlay) on top of the first.
+  embedded?: boolean;
+  className?: string;
+}
+
+const EditProfileBox = ({ embedded = false, className }: EditProfileBoxProps) => {
   const [activeForm, setActiveForm] = useState<string | null>(null);
   const { data } = useGetPortfolioQuery();
   const [updateHero] = useUpdateHeroMutation();
@@ -77,8 +88,46 @@ const EditProfileBox = () => {
     },
   ];
 
-  return (
-    <div className="flex flex-col gap-2 overflow-y-scroll scrollable-content h-[88vh]` ">
+  const activeSection = sections.find((section) => section.id === activeForm);
+
+  const activeFormContent = (
+    <>
+      {data?.hero && activeForm === "hero" && (
+        <HeroForm
+          initialData={data.hero}
+          onSubmit={handleSubmitHero}
+          onCancel={() => setActiveForm(null)}
+        />
+      )}
+
+      {data?.about && activeForm === "about" && (
+        <AboutForm
+          initialData={data.about}
+          onSubmit={handleSubmitAbout}
+          onCancel={() => setActiveForm(null)}
+        />
+      )}
+
+      {data?.projects && activeForm === "project" && (
+        <ProjectSectionEditor onCancel={() => setActiveForm(null)} />
+      )}
+
+      {data?.experience && activeForm === "experience" && (
+        <ExperienceSectionEditor onCancel={() => setActiveForm(null)} />
+      )}
+
+      {data?.contact && activeForm === "contact" && (
+        <ContactForm
+          initialData={data.contact}
+          onSubmit={handleSubmitContact}
+          onCancel={() => setActiveForm(null)}
+        />
+      )}
+    </>
+  );
+
+  const sectionList = (
+    <div className="flex flex-col gap-2">
       {sections.map((section) => (
         <Section
           key={section.id}
@@ -88,9 +137,43 @@ const EditProfileBox = () => {
           onClick={() => setActiveForm(section.id)}
         />
       ))}
+    </div>
+  );
+
+  if (embedded) {
+    return (
+      <div className={cn("flex flex-col gap-2 overflow-y-auto scrollable-content", className)}>
+        {activeForm ? (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setActiveForm(null)}
+                aria-label="Back to sections"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+              <div>
+                <p className="font-medium">{activeSection?.title}</p>
+                <p className="text-sm text-muted-foreground">{activeSection?.description}</p>
+              </div>
+            </div>
+            {activeFormContent}
+          </div>
+        ) : (
+          sectionList
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className={cn("flex flex-col gap-2 overflow-y-scroll scrollable-content", className ?? "h-[88vh]")}>
+      {sectionList}
 
       <Dialog open={!!activeForm} onOpenChange={(open) => !open && setActiveForm(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-[calc(100%-2rem)] sm:max-w-2xl">
           <DialogHeader>
             <DialogTitle className="capitalize">
               {activeForm ? `${activeForm} Section` : "Edit Section"}
@@ -103,41 +186,11 @@ const EditProfileBox = () => {
             </DialogDescription>
           </DialogHeader>
 
-          {data?.hero && activeForm === "hero" && (
-            <HeroForm
-              initialData={data.hero}
-              onSubmit={handleSubmitHero}
-              onCancel={() => setActiveForm(null)}
-            />
-          )}
-
-          {data?.about && activeForm === "about" && (
-            <AboutForm
-              initialData={data.about}
-              onSubmit={handleSubmitAbout}
-              onCancel={() => setActiveForm(null)}
-            />
-          )}
-
-          {data?.projects && activeForm === "project" && (
-            <ProjectSectionEditor onCancel={() => setActiveForm(null)} />
-          )}
-
-          {data?.experience && activeForm === "experience" && (
-            <ExperienceSectionEditor onCancel={() => setActiveForm(null)} />
-          )}
-
-          {data?.contact && activeForm === "contact" && (
-            <ContactForm
-              initialData={data.contact}
-              onSubmit={handleSubmitContact}
-              onCancel={() => setActiveForm(null)}
-            />
-          )}
+          {activeFormContent}
         </DialogContent>
       </Dialog>
     </div>
   );
 };
 
-export default EditProfileBox;  
+export default EditProfileBox;
