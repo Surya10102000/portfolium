@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -52,6 +53,7 @@ const Navbar = () => {
   const { data: portfolioData } = useGetPortfolioQuery();
   const hasIncomplete = hasIncompleteSections(portfolioData);
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session } = useSession();
   // Memoize the website URL to prevent recalculations
   const websiteUrl = useMemo(() => {
@@ -83,7 +85,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-2">
-        {data && (
+        {data && pathname !== "/" && (
           <Dialog>
             <div className="relative md:hidden">
               <Tooltip>
