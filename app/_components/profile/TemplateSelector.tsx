@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 // Swatches use each template's own background/accent tokens (see the
 // corresponding *-theme.css) so the preview reflects the real palette.
-const templateOptions = [
+export const templateOptions = [
   { value: "default", label: "Default", swatch: { bg: "oklch(1 0 0)", accent: "oklch(0 0 0)" } },
   { value: "luminary", label: "Luminary", swatch: { bg: "oklch(0.9853 0.0082 301.3594)", accent: "oklch(0.5232 0.1433 292.5053)" } },
   { value: "steam", label: "Steam", swatch: { bg: "rgb(17, 17, 17)", accent: "#bd5fff" } },
